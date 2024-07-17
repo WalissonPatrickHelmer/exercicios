@@ -6,13 +6,13 @@ h2 {
     color: red ;
 }
 
-@media (min-width:400px) and (max-width:500px) {
+@media (min-width:400px) and (max-width:410px) {
     h1 { color: green;}
     h2 { color:green;}
     
 }
 
-@media (min-width:500px) and (max-width:600px) {
+@media (min-width:411px) and (max-width:420px) {
     h1 { color:yellow;}
     h2 { color:yellow;}
     
