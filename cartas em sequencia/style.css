@@ -27,23 +27,28 @@ body{
 }
 
 .container figure#img1 {
-    top: 0;
+    top: 40px;
     left: 50px;
     z-index: 1;
 }
+
 .container figure#img2 {
-    top: 40px;
+    top: 60px;
     left: 100px;
     z-index: 2;
 }
 .container figure#img3 {
-    top: 80px;
+    top: 100px;
     left: 150px;
     z-index: 3;
 }
 
 .container figure#img4 {
-    top: 120px;
+    top: 140px;
     left: 200px;
     z-index: 4;
+}
+
+.container img:hover {
+    scale: 1.2;
 }
