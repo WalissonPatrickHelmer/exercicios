@@ -1,0 +1,49 @@
+body{
+    margin: 0px;
+    padding: 0px;
+    background-color: #f3f3f3;
+    height: 100vh;
+
+    display: flex;
+    justify-content: center;
+}
+
+.container {
+    width: 500px;
+    height: 500px;
+    position: relative;
+}
+
+.container figure {
+    position: absolute;
+}
+
+.container figure img {
+    width: 200px;
+    height: 300px;
+    border: 1px solid rgba(0, 0, 0, 0.623);
+    border-radius:10px ;
+    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.425);
+}
+
+.container figure#img1 {
+    top: 0;
+    left: 50px;
+    z-index: 1;
+}
+.container figure#img2 {
+    top: 40px;
+    left: 100px;
+    z-index: 2;
+}
+.container figure#img3 {
+    top: 80px;
+    left: 150px;
+    z-index: 3;
+}
+
+.container figure#img4 {
+    top: 120px;
+    left: 200px;
+    z-index: 4;
+}
