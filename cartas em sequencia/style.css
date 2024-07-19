@@ -11,6 +11,10 @@ body{
     background-size: cover;
 }
 
+.caixa {
+    margin-top: 50px;
+    
+}
 .container {
     width: 500px;
     height: 600px;
