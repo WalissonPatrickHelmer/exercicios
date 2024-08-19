@@ -1,6 +1,7 @@
 
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Great+Vibes&display=swap');
 
-body{ background-color: rgb(189, 172, 172); 
+body{ background-color: rgb(187, 182, 182); 
     text-align: center;
 }
 
@@ -9,7 +10,14 @@ background-color: aqua;
 
 }
 
-h2 { color:rgb(245, 149, 6);
+h2 { color:rgb(0, 0, 0);
+
+}
+
+h4 {
+    background-color: white;
+    font-size: 20px;
+    
 }
 
 p {color:rgb(8, 8, 8);
@@ -19,12 +27,17 @@ p {color:rgb(8, 8, 8);
 ul{
     background-color: white;
     border-radius: 15px;
+    margin-top: 30px;
     
 }
-li{
+
+h3{
     margin-top: 20px;
+    font-family: "Great Vibes", cursive;
+    font-weight: 400;
+    font-style: normal;
     
-}
+      }   
 
 a {
     text-decoration: none;
@@ -44,6 +57,18 @@ strong {
     background-color: black;
     color: white;
     margin: 5px;
+}
+
+.red {
+    color: red;
+}
+
+.green {
+    color: green;
+}
+
+.blue {
+    color: blue;
 }
 
 
