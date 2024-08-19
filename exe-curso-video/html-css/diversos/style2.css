@@ -1,0 +1,21 @@
+#um  {
+        border:3px solid red;
+        width: 2000;
+        height: 500px;
+        background-image: url(img/360_F_232925587_st4gM8b3TJHtjjddCIUNyVyFJmZqMmn4.jpg);
+        background-repeat: no-repeat;
+    }
+
+
+    #dois  {
+        border:3px solid rgb(17, 16, 16);
+        width: 2000;
+        height: 500px;
+        background-image: url(img/360_F_404404954_WGYZtTwswIrXnJl6qVeEFK5UWPFflVB8.jpg);
+        background-repeat: contain;
+    }
+
+
+
+
+
