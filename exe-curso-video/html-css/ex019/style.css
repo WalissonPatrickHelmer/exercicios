@@ -1,47 +1,41 @@
 @charset "UTF-8";
 
 
-body {
-    background-color: rgba(156, 241, 213, 0.74);
-    
+body {    
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
+
 
 h1 {
-color: rgb(34, 68, 57);
+    color: white;
+    background-color: red;
+    padding-left: 15px;
+    border-radius: 15px;    
 }
 
-h1#principal {
- background-color: green;
- color: white;
- text-align: center;
-}
-
-h2 {
-color: rgb(82, 194, 156);
-
+#principal {
+    background-color: white;
+    padding: 0px;
+    color: rgb(235, 30, 30);
+    text-align: center;
 }
 
 .basico {
-text-align: center;
-background-color: beige;
-color: violet;
-
-
-}
-
+    background-color: rgba(216, 199, 199, 0.274);
+    border-radius: 15px;
+    padding-left: 15px;        
+    color:blue
+    }
 .intermediario {
-    text-align: center;
-    background-color: bisque;
-    color: chocolate;
-}
+    background-color: rgb(216, 199, 199, 0.274);
+    border-radius: 15px;
+    padding-left: 15px;
+    color: blueviolet;
 
-.avancado {
-    text-align: center;
-    background-color: brown;
-    color: black;
 }
-
-.destaque {
-    background-color:rgba(104, 240, 194, 0.842);;
-    color: white;
+.avançado {
+    background-color: rgb(216, 199, 199, 0.274);
+    border-radius: 15px;
+    padding-left: 15px;
+    color:green
 }
