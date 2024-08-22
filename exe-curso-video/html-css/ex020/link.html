@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>link</title>
+
+    <style>
+        body { 
+            font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+            font-size: 30px;
+        }
+
+        a {
+           color: red; 
+           text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        a::before {
+            content: ' ⇒ ';
+        }
+
+        a::after {
+            content: ' [ link ] ';
+            color: rgba(169, 169, 169, 0.425);
+            text-decoration: none;
+        }
+
+    </style>
+</head>
+
+
+<body>
+    
+<ul>
+<li><a href="https://www.youtube.com/" target="_blank">youtube</a></li>
+<li><a href="https://www.facebook.com/" target="_blank">facebook</a></li>
+<li><a href="https://br.pinterest.com/" target="_blank">pinterest</a></li>
+
+</ul>
+
+</body>
+</html>
