@@ -1,5 +1,35 @@
 @charset "UTF-8";
 
-body { 
-    background-color: aquamarine;
+@font-face {
+    font-family:'maiden';
+    src: url('../maiden.ttf') format('truetype');
+    font-weight: normal;    
 }
+
+body { 
+    background-color: rgb(117, 126, 123); 
+    text-align: center;
+      
+    
+}
+ 
+h1{
+    
+    font-family:'maiden';
+    
+}
+
+h2 {
+    color: rgba(255, 0, 0, 0.63);
+    background-color: rgba(0, 0, 0, 0.493);
+    background-size: auto;
+
+    border-radius: 15px;
+    
+}
+
+h3{
+    color: rgb(5, 5, 5);
+    font-family:'maiden';
+}
+
