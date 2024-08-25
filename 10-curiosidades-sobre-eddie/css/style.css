@@ -33,3 +33,15 @@ h3{
     font-family:'maiden';
 }
 
+a {
+    text-decoration: none;
+    color: red;    
+    
+}
+
+
+footer {
+    background-color: black;
+    color: white;
+}
+
