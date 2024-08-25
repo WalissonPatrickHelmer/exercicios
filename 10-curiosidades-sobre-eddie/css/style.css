@@ -6,6 +6,11 @@
     font-weight: normal;    
 }
 
+* {
+    margin: 0px;
+    padding: 0px;
+}
+
 body { 
     background-color: rgb(117, 126, 123); 
     text-align: center;
