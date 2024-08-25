@@ -40,6 +40,11 @@ a {
     
 }
 
+a:hover {
+    background-color: rgb(59, 27, 88);
+    color: white;
+}
+
 
 footer {
     background-color: black;
