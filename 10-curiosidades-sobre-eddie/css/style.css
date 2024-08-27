@@ -20,6 +20,7 @@ body {
 header > p{
     
     color: rgb(238, 75, 75);
+    text-shadow: 1px 1px 0px rgba(255, 255, 255, 0.103);
 }
 
 main {
@@ -63,9 +64,17 @@ p {
     margin-top: 20px;
 }
 
+header {
+    background-color: rgba(0, 0, 0, 0.295);
+    padding: 30px;
+}
+
 nav {
     margin-top: 10px;
     margin-bottom: 10px;
+    background-color: black;
+    padding: 10px;
+    text-shadow: 1px 1px 0px rgba(255, 255, 255, 0.274);
 }
 
 a {
