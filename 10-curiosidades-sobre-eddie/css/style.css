@@ -17,6 +17,11 @@ body {
     background-color: darkgray;
 }
 
+header > p{
+    
+    color: rgb(238, 75, 75);
+}
+
 main {
 
     background-color: rgb(117, 126, 123);    
@@ -41,7 +46,7 @@ h1 {
 }
 
 h2 {
-    color: rgba(255, 0, 0, 0.63);
+    color: color: rgb(238, 75, 75);
     background-color: rgba(0, 0, 0, 0.493);
     background-size: auto;    
     border-radius: 15px;
@@ -53,9 +58,20 @@ h3{
     font-family:'maiden';
 }
 
+p {
+    margin-bottom: 30px;
+    margin-top: 20px;
+}
+
+nav {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
 a {
     text-decoration: none;
-    color: red;    
+    color: red;
+    
     
 }
 
