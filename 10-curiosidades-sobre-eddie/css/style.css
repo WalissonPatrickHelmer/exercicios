@@ -11,8 +11,7 @@
     padding: 0px;
 }
 
-body { 
-    
+body {  
     
     background-color: darkgray;
 }
@@ -20,9 +19,12 @@ body {
 
 header { 
     border-radius: 15px 15px 0px 0px;
+    background-image: linear-gradient(180deg, rgba(10, 10, 10, 0.726) 0%, rgba(187,187,207,1) 100%);
+    padding: 40px;
 }
 
-header > p{
+
+header > p {
     
     color: rgb(238, 75, 75);
     text-shadow: 1px 1px 0px rgba(255, 255, 255, 0.103);
@@ -47,7 +49,8 @@ main img {
 }
  
 h1 {    
-    font-family:'maiden'; 
+    font-family:'maiden';
+    color: rgb(0, 0, 0);       
 
 }
 
@@ -69,9 +72,8 @@ p {
     margin-top: 20px;
 }
 
-header {
-    background-color: rgba(0, 0, 0, 0.295);
-    padding: 30px;
+strong {
+    color: white;
 }
 
 nav {
@@ -83,6 +85,23 @@ nav {
     border-radius: 0px 0px 15px 15px;
 
     
+}
+
+div.video {      
+    margin: 0px -20px 0px -20px;
+    padding-bottom: 20px;
+    position: relative;
+    padding-bottom: 40%;
+}
+
+
+div.video > iframe {
+    position: absolute;
+    top: 5%;
+    left: 5%;
+    width: 90%;
+    height: 90%;
+
 }
 
 
@@ -103,9 +122,25 @@ a:hover {
     transition-duration: 0.5s;
 }
 
+ol {
+    padding-bottom: 20px;
+    padding-top: 10px;
+    background-color: rgba(0, 0, 0, 0.438);
+    border-radius: 15px 15px 0px 0px;
+    margin-bottom: 10px;
+    list-style-position: inside;
+    columns: 2;
+    text-align: left;
+}
+
+li { 
+ padding-left: 6px;
+ margin-left: 5px;
+}
 
 footer {
     background-color: black;
+    padding-top: 10px;
     color: white;
     text-align: center;
 }
