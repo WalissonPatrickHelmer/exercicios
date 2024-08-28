@@ -65,7 +65,10 @@ h2 {
 h3{
     color: rgb(5, 5, 5);
     font-family:'maiden';
+    padding-bottom: 10px;
 }
+
+
 
 p {
     margin-bottom: 30px;
@@ -114,7 +117,7 @@ a {
     
 }
 
-a:hover {
+ a:hover {
     background-color: rgb(59, 27, 88);
     color: white;
     padding: 10px;
@@ -137,6 +140,14 @@ li {
  padding-left: 6px;
  margin-left: 5px;
 }
+
+article>h4 {
+    font-size: 20px;
+    padding-bottom: 12px;
+    color: rgb(254, 254, 255);
+    
+}
+
 
 footer {
     background-color: black;
