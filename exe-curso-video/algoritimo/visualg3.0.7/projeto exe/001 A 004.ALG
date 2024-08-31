@@ -1,4 +1,4 @@
-Algoritmo " 001 a 003"
+Algoritmo " 001 a 004"
 // Disciplina   : Linguagem e Lógica de Programação
 // Professor   : Gustavo Guanabara - frankleyyago
 // Descrição   : Aqui você descreve o que o programa faz! (função)
@@ -8,6 +8,7 @@ Algoritmo " 001 a 003"
 Var
    nome: caractere
    salario : real
+   n1, n2, soma: inteiro
 
 
 Inicio
@@ -20,9 +21,19 @@ Inicio
    leia (nome)
    escreval("olá ", nome, ", seja bem vindo")
 
-   escreval("exercicio 003")
+
    escreval("qual o seu salario atual ?")
    leia (salario)
-   escreva("seu salario ",nome, " sera de R$", salario*3, " em janeiro de 2025 !")
+   escreval("seu salario ",nome, " sera de R$",salario*3,".00")
+   escreval ("em janeiro de 2025 !")
+
+   escreval("exercicio 004")
+   escreval ("digite um numero de 0 a 10")
+   leia (n1)
+   escreval ("digite outro numero de 0 a 10")
+   leia (n2)
+   soma <- n1 + n2
+   escreval ("a soma entre", n1, " e ", n2, " e igual a ",soma )
+   
 
    Fimalgoritmo
