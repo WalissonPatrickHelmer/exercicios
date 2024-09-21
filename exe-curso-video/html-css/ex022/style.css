@@ -1,19 +1,27 @@
 
 
+body {
+    background-color: rgb(219, 215, 215);
+}
+
+
 .container1 {
+    background-color: rgba(255, 228, 196, 0.253);
     display: flex;
     text-align: left;
     align-items: center;
 }
 
 .container2 {
+    background-color: rgba(250, 235, 215, 0.445);
     display: flex;
     text-align: right;
     align-items: center;
 }
 
-h1, h2 {
+h1, h2, p {
     text-align: center;
+    
 }
 img {
     height: 300px;
