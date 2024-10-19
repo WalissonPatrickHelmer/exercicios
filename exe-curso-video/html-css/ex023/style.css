@@ -1,0 +1,36 @@
+table {
+    width: 200px; 
+    margin-bottom: 15px;
+    border-collapse: collapse;
+}
+
+table.dois {
+    background-color:aqua;
+}
+
+table.tres {
+    font-family: 'Courier New', Courier, monospace;
+}
+
+table.quatro {
+    width: 400px;
+    height: 400px;
+    text-align: center;
+    vertical-align: top;
+    color: rebeccapurple;
+    background-color: bisque;
+
+}
+
+tr.linha {
+    background-color: antiquewhite;
+}
+
+td {
+    border: 1px solid black;
+    padding: 8px;
+}
+
+td.dado {
+    background-color: aquamarine;
+}
