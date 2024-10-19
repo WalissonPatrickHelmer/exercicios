@@ -14,7 +14,7 @@ body {
 
 header  {
     padding-bottom:50px ;
-    background-color: black;
+    background-color: rgba(0, 0, 0, 0.788);
     color: white;
     text-align: center;
     
@@ -28,6 +28,7 @@ header > h1 {
 
 a {
     text-decoration: none;
+    color: aqua;
 }
 
 a:hover {
@@ -38,6 +39,7 @@ a:hover {
 
 p {
     font-family: var(--font3);
+    font-size: 25px;
 }
 
 
@@ -48,22 +50,42 @@ section {
     padding-left: 20px;
 }
 
+section > p {
+    margin-bottom: 2em;
+}
+
 section.normal {
     background-color: white;
 }
 
 section.img {
-    color: white;
-    background-color:black ;
+    color: white;    
+    box-shadow: 6px 6px 13px 0px rgba(0, 0, 0, 0.548);
+    background-attachment: fixed;
+
     
 }
 
 section.img > p {
-    background-color:rgba(53, 28, 28, 0.582);
+    background-color:rgba(0,0,0,0.507);
     display: inline-block;
+    text-shadow: 2px 1px 1px black;
+    
+    
 
     
 }
+
+section#img1 {
+    background-image: url(../imagens/background001.jpg) ;
+    background-position: right center ;
+    background-size:cover;
+}
+section#img2 {
+    background-image: url(../imagens/background002.jpg);   
+    background-size:cover;
+}
+
 
 
 footer{
