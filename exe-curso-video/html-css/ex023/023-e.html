@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style2.css">
+    <title>Document</title>
+</head>
+<body>
+    <h2>Uso de Tabela Mesclando Celulas </h2>
+    <p >rowspan = linha</p>
+    <p>colspan = coluna</p>
+
+    <!--  anatomia da parabelas grandes
+      caption -> texto 
+        table 
+            thead -> TD TD TH
+            Tbody -> TD TD TH
+            Tfoot -> TD TD TH 
+    -->
+    
+    <table>
+                
+        <tbody>
+            <tr>                
+                <td>1</td>
+                <td colspan="2">2 &nbsp &nbsp &nbsp &nbsp &nbsp 3</td>
+                               
+            </tr>
+            <tr>                
+                <td>4</td>
+                <td>5</td>
+                <td rowspan="3">6<p>9</p>  12</td>                
+            </tr>
+            <tr>                
+                <td rowspan="2"> 7 <p>10</p></td>
+                <td>8</td>
+                                
+            </tr>
+            <tr>                
+                
+                <td>11</td>
+                               
+            </tr>
+        </tbody>
+
+        
+    </table>
+
+
+</body>
+</html>

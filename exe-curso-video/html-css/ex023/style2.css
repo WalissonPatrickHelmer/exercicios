@@ -1,0 +1,18 @@
+table {
+    width: 400px; 
+    margin-bottom: 15px;
+    border-collapse: collapse;
+    position: relative;
+}
+
+td, th {
+    border: 1px solid black;
+    padding: 8px;
+    text-align: center;
+}
+
+
+
+
+
+
