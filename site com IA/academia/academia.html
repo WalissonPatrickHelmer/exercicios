@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CrossArena - CrossFit Studio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #1a1a1a;
+            color: #ffffff;
+        }
+        .hero-section {
+            /* Imagem de fundo da seção principal, usando a imagem que você enviou. */
+            background-image: url('Como-mensurar-os-resultados-da-academia-de-forma-sensata-1.jpg');
+            background-size: cover;
+            background-position: center;
+        }
+        .btn-primary {
+            @apply px-8 py-3 bg-[#4FC0D7] text-black font-semibold rounded-full shadow-lg hover:bg-[#3498db] transition-colors duration-300;
+        }
+        .program-card-image {
+            background-size: cover;
+            background-position: center;
+        }
+    </style>
+</head>
+<body class="bg-[#1A1A1A]">
+
+    <!-- Header -->
+    <header class="absolute top-0 left-0 w-full z-10 p-4 sm:p-6">
+        <div class="container mx-auto flex justify-between items-center">
+            <a href="#" class="text-2xl font-bold text-white">CROSSARENA</a>
+            <nav class="hidden md:flex space-x-8 text-white font-medium">
+                <a href="#" class="hover:text-[#4FC0D7] transition-colors">HOME</a>
+                <a href="#" class="hover:text-[#4FC0D7] transition-colors">SOBRE</a>
+                <a href="#" class="hover:text-[#4FC0D7] transition-colors">SERVIÇOS</a>
+                <a href="#" class="hover:text-[#4FC0D7] transition-colors">EQUIPE</a>
+                <a href="#" class="hover:text-[#4FC0D7] transition-colors">NOTÍCIAS</a>
+                <a href="#" class="hover:text-[#4FC0D7] transition-colors">CONTATOS</a>
+            </nav>
+            <button class="md:hidden text-white text-2xl">
+                &#9776;
+            </button>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero-section text-center py-24 sm:py-32 md:py-48 flex flex-col justify-center items-center relative">
+        <div class="bg-black bg-opacity-50 absolute inset-0"></div>
+        <div class="relative z-10 p-4">
+            <h1 class="text-6xl sm:text-7xl md:text-8xl font-bold uppercase text-white tracking-wide">CROSSFIT</h1>
+            <button class="btn-primary mt-8">TREINE AGORA!</button>
+        </div>
+    </section>
+
+    <!-- Welcome Section -->
+    <section class="bg-[#1A1A1A] py-16 sm:py-24">
+        <div class="container mx-auto px-4 md:px-8 lg:flex items-center gap-16">
+            <div class="lg:w-1/2">
+                <h2 class="text-3xl sm:text-4xl font-bold uppercase text-white border-b-4 border-[#4FC0D7] pb-2 inline-block">BEM-VINDO À CROSSARENA</h2>
+                <p class="mt-6 text-gray-300 leading-relaxed">DESDE NOSSA INAUGURAÇÃO, NOSSAS AULAS DE ACADEMIA TÊM PROPORCIONADO UMA RECEPÇÃO INSPIRADORA PARA TODOS.</p>
+                <p class="mt-4 text-gray-300 leading-relaxed">Isso faz com que cada participante sinta que faz parte de uma grande e apaixonada comunidade! Com isso em mente, você pode sempre alcançar seu potencial máximo na vida e no esporte.</p>
+                <p class="mt-4 text-gray-300 leading-relaxed">Nosso objetivo final é fazer você se sentir em forma e forte o mais rápido possível. Tudo o que você precisa fazer é vir para a CrossArena e se preparar para treinar!</p>
+                <button class="btn-primary mt-8">LEIA MAIS</button>
+            </div>
+            <div class="lg:w-1/2 mt-12 lg:mt-0 flex justify-center lg:justify-end">
+                <div class="relative w-full max-w-md">
+                    <div class="absolute -top-4 -left-4 w-full h-full border-4 border-[#4FC0D7] rounded-xl"></div>
+                    <img src="instrutor.png" alt="Instrutor" class="relative z-10 w-full h-full object-cover rounded-xl shadow-lg">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Programs Section -->
+    <section class="bg-[#1A1A1A] py-16 sm:py-24">
+        <div class="container mx-auto px-4 md:px-8">
+            <div class="text-center">
+                <h2 class="text-3xl sm:text-4xl font-bold uppercase text-white">NOSSOS PROGRAMAS</h2>
+                <p class="mt-4 text-gray-300 max-w-2xl mx-auto">Na CrossArena, ensinamos movimentos funcionais com ênfase em técnica, progressão e eficiência.</p>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mt-12">
+                <!-- Program Card 1 -->
+                <div class="bg-[#2A2A2A] rounded-xl overflow-hidden shadow-lg">
+                    <img src="maratona2.jpg" alt="Maratona" class="w-full h-48 object-cover">
+                    <div class="p-6 text-center">
+                        <h3 class="font-bold text-lg text-white">MARATONA</h3>
+                        <p class="text-gray-400 text-sm mt-2">Segunda-feira 10h</p>
+                    </div>
+                </div>
+                <!-- Program Card 2 -->
+                <div class="bg-[#2A2A2A] rounded-xl overflow-hidden shadow-lg">
+                    <img src="treino_aberto.jpg" alt="Treino Aberto" class="w-full h-48 object-cover">
+                    <div class="p-6 text-center">
+                        <h3 class="font-bold text-lg text-white">TREINO ABERTO</h3>
+                        <p class="text-gray-400 text-sm mt-2">Terça-feira 11h</p>
+                    </div>
+                </div>
+                <!-- Program Card 3 -->
+                <div class="bg-[#2A2A2A] rounded-xl overflow-hidden shadow-lg">
+                    <img src="maratona.jpg" alt="Maratona" class="w-full h-48 object-cover">
+                    <div class="p-6 text-center">
+                        <h3 class="font-bold text-lg text-white">MARATONA</h3>
+                        <p class="text-gray-400 text-sm mt-2">Quarta-feira 10h</p>
+                    </div>
+                </div>
+                <!-- Program Card 4 -->
+                <div class="bg-[#2A2A2A] rounded-xl overflow-hidden shadow-lg">
+                    <img src="treino_livre.jpg" alt="Treino Livre" class="w-full h-48 object-cover">
+                    <div class="p-6 text-center">
+                        <h3 class="font-bold text-lg text-white">TREINO ABERTO</h3>
+                        <p class="text-gray-400 text-sm mt-2">Quinta-feira 11h</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- WhatsApp Floating Button -->
+    <!-- Altere o número e a mensagem padrão na URL abaixo -->
+    <a href="https://wa.me/5531998652603?text=Ol%C3%A1%2C%20gostaria%20de%20saber%20mais%20sobre%20a%20academia." target="_blank" class="fixed bottom-6 right-6 z-50 bg-[#25D366] text-white p-4 rounded-full shadow-lg hover:scale-110 transition-transform duration-300">
+        <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12.04 2c-5.55 0-10.04 4.49-10.04 10.04 0 1.76.46 3.42 1.25 4.9L2 22l5.06-1.34c1.47.78 3.12 1.22 4.94 1.22 5.55 0 10.04-4.49 10.04-10.04S17.59 2 12.04 2zm2.98 14.18c-.28.18-.74.3-1.07.36-.28.05-.6.08-.95.08-.22 0-.4-.01-.58-.02-.82-.08-1.42-.3-1.87-.8-1.2-1.35-2.22-3.83-2.22-4.52 0-.2.05-.38.12-.5.06-.12.18-.28.26-.43.1-.18.23-.42.36-.5.12-.08.23-.08.3-.08.12 0 .22.01.3.02.08.02.19-.01.27.1.09.11.3.26.4.4.1.14.18.3.26.43.08.12.14.23.14.36 0 .09-.04.18-.08.23-.05.06-.12.1-.2.18-.08.06-.18.12-.26.22-.09.09-.18.22-.18.36 0 .12.02.23.05.3.08.08.17.18.27.27.09.08.2.16.32.22.12.06.27.12.43.2.14.07.28.14.43.2.12.06.22.12.3.18.12.06.2.12.28.12.09-.01.3-.09.36-.17.06-.08.17-.3.26-.43.09-.12.17-.23.26-.3.12-.08.2-.12.3-.12.08 0 .14.01.2.02.06.01.12.03.17.05.08.03.2.14.28.3.1.18.18.32.27.42.08.1.14.2.17.26.05.08.08.17.08.22 0 .09-.01.2-.05.28-.05.08-.14.2-.26.36-.12.18-.26.3-.32.36-.06.06-.12.1-.14.12z"/>
+        </svg>
+    </a>
+
+</body>
+</html>

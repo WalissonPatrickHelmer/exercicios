@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cafeteria Aconchego - Seu Momento de Pausa</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #F7EFE5;
+            color: #4A4A4A;
+        }
+        .bg-coffee {
+            background-image: url('banner.jpg');
+            background-size: cover;
+            background-position: center;
+        }
+        .btn-primary {
+            @apply bg-[#8B5F2A] text-white font-bold py-3 px-6 rounded-full transition-transform transform hover:scale-105;
+        }
+        .section-title {
+            @apply text-4xl sm:text-5xl font-bold text-center text-[#4A4A4A] mb-8;
+        }
+        .card {
+            @apply bg-white p-6 rounded-xl shadow-lg transition-transform transform hover:scale-105;
+        }
+    </style>
+</head>
+<body class="flex flex-col min-h-screen">
+    <!-- Navbar -->
+    <nav class="bg-white bg-opacity-90 backdrop-blur-lg sticky top-0 z-50 shadow-md">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <a href="#" class="text-3xl font-bold text-[#8B5F2A]">Aconchego</a>
+            <div class="hidden md:flex space-x-8">
+                <a href="#hero" class="text-[#4A4A4A] hover:text-[#8B5F2A] transition-colors">Início</a>
+                <a href="#menu" class="text-[#4A4A4A] hover:text-[#8B5F2A] transition-colors">Menu</a>
+                <a href="#sobre" class="text-[#4A4A4A] hover:text-[#8B5F2A] transition-colors">Sobre</a>
+                <a href="#contato" class="text-[#4A4A4A] hover:text-[#8B5F2A] transition-colors">Contato</a>
+            </div>
+            <button id="mobile-menu-btn" class="md:hidden text-[#4A4A4A] focus:outline-none">
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+                </svg>
+            </button>
+        </div>
+        <div id="mobile-menu" class="hidden md:hidden bg-white bg-opacity-90 backdrop-blur-lg px-4 py-2">
+            <a href="#hero" class="block py-2 text-[#4A4A4A] hover:text-[#8B5F2A]">Início</a>
+            <a href="#menu" class="block py-2 text-[#4A4A4A] hover:text-[#8B5F2A]">Menu</a>
+            <a href="#sobre" class="block py-2 text-[#4A4A4A] hover:text-[#8B5F2A]">Sobre</a>
+            <a href="#contato" class="block py-2 text-[#4A4A4A] hover:text-[#8B5F2A]">Contato</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header id="hero" class="bg-coffee flex-grow flex items-center justify-center text-white text-center py-32 min-h-[500px] px-4">
+    </header>
+
+    <!-- Intro Section -->
+    <section class="container mx-auto px-4 py-16 text-center">
+        <div class="max-w-3xl mx-auto">
+            <h1 class="text-5xl md:text-7xl font-bold mb-4">Cafeteria Aconchego</h1>
+            <p class="text-xl md:text-2xl mb-8">Sinta a experiência de um café artesanal. Cada xícara, uma história.</p>
+            <a href="#menu" class="btn-primary">Conheça o Menu</a>
+        </div>
+    </section>
+
+    <main class="container mx-auto px-4 py-16">
+        <!-- Menu Section -->
+        <section id="menu" class="mb-16">
+            <h2 class="section-title">Nosso Menu</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Menu Item 1 -->
+                <div class="card">
+                    <img src="cafe_expresso.jpeg" alt="Café Expresso" class="rounded-lg mb-4 w-full h-48 object-cover">
+                    <h3 class="text-2xl font-bold text-[#8B5F2A] mb-2">Expresso</h3>
+                    <p class="text-[#4A4A4A] mb-2">Um shot puro de café moído na hora. Intenso e encorpado.</p>
+                    <p class="text-xl font-bold text-[#4A4A4A]">R$ 8,00</p>
+                </div>
+                <!-- Menu Item 2 -->
+                <div class="card">
+                    <img src="cappccino.jpg" alt="Cappuccino" class="rounded-lg mb-4 w-full h-48 object-cover">
+                    <h3 class="text-2xl font-bold text-[#8B5F2A] mb-2">Cappuccino</h3>
+                    <p class="text-[#4A4A4A] mb-2">Café cremoso com leite vaporizado e uma camada generosa de espuma.</p>
+                    <p class="text-xl font-bold text-[#4A4A4A]">R$ 12,00</p>
+                </div>
+                <!-- Menu Item 3 -->
+                <div class="card">
+                    <img src="latte.jpg" alt="Latte" class="rounded-lg mb-4 w-full h-48 object-cover">
+                    <h3 class="text-2xl font-bold text-[#8B5F2A] mb-2">Latte</h3>
+                    <p class="text-[#4A4A4A] mb-2">Uma mistura suave de café expresso e leite quente.</p>
+                    <p class="text-xl font-bold text-[#4A4A4A]">R$ 10,00</p>
+                </div>
+                <!-- Menu Item 4 -->
+                <div class="card">
+                    <img src="bolo.jpg" alt="Bolo de Cenoura" class="rounded-lg mb-4 w-full h-48 object-cover">
+                    <h3 class="text-2xl font-bold text-[#8B5F2A] mb-2">Bolo de Cenoura</h3>
+                    <p class="text-[#4A4A4A] mb-2">Tradicional bolo de cenoura com uma deliciosa cobertura de chocolate.</p>
+                    <p class="text-xl font-bold text-[#4A4A4A]">R$ 15,00</p>
+                </div>
+                <!-- Menu Item 5 -->
+                <div class="card">
+                    <img src="pao.jpg" alt="Pão de Queijo" class="rounded-lg mb-4 w-full h-48 object-cover">
+                    <h3 class="text-2xl font-bold text-[#8B5F2A] mb-2">Pão de Queijo</h3>
+                    <p class="text-[#4A4A4A] mb-2">Clássico pão de queijo quentinho e crocante.</p>
+                    <p class="text-xl font-bold text-[#4A4A4A]">R$ 6,00</p>
+                </div>
+                <!-- Menu Item 6 -->
+                <div class="card">
+                    <img src="torta-de-limao.jpg" alt="Torta de Limão" class="rounded-lg mb-4 w-full h-48 object-cover">
+                    <h3 class="text-2xl font-bold text-[#8B5F2A] mb-2">Torta de Limão</h3>
+                    <p class="text-[#4A4A4A] mb-2">Uma torta com recheio de creme de limão e cobertura de merengue.</p>
+                    <p class="text-xl font-bold text-[#4A4A4A]">R$ 18,00</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="sobre" class="mb-16 text-center">
+            <h2 class="section-title">Sobre Nós</h2>
+            <div class="flex flex-col md:flex-row items-center justify-center space-y-8 md:space-y-0 md:space-x-12">
+                <img src="fachada.jpg" alt="Fachada da Cafeteria" class="rounded-xl shadow-lg max-w-full h-auto md:max-w-md">
+                <div class="max-w-prose text-lg text-[#4A4A4A] leading-relaxed">
+                    <p class="mb-4">Na Cafeteria Aconchego, nossa paixão é criar momentos memoráveis para você. Acreditamos que um bom café pode transformar o dia. Por isso, selecionamos os melhores grãos, moemos na hora e preparamos cada bebida com carinho e dedicação.</p>
+                    <p>Nosso ambiente foi pensado para ser um refúgio, um lugar onde você pode relaxar, trabalhar ou simplesmente apreciar a vida. Venha nos visitar e sinta a diferença!</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact & Newsletter Section -->
+        <section id="contato" class="mb-16 text-center">
+            <h2 class="section-title">Fale Conosco</h2>
+            <div class="max-w-2xl mx-auto bg-white p-8 rounded-xl shadow-lg">
+                <p class="text-lg text-[#4A4A4A] mb-4">Estamos sempre prontos para te receber. Nosso endereço e horário de funcionamento:</p>
+                <p class="text-xl font-bold text-[#8B5F2A]">Rua do Café, 123 - Centro, São Paulo</p>
+                <p class="text-xl font-bold text-[#8B5F2A] mb-8">Segunda a Sábado: 8h - 20h</p>
+
+                <h3 class="text-2xl font-bold text-[#4A4A4A] mb-4">Assine Nossa Newsletter</h3>
+                <form id="newsletter-form" class="space-y-4">
+                    <input type="email" id="email" name="email" placeholder="Seu e-mail" required class="w-full p-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#8B5F2A]">
+                    <button type="submit" class="btn-primary w-full">Assinar</button>
+                </form>
+                <div id="message-box" class="mt-4 p-4 rounded-lg hidden"></div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white text-center py-6 mt-auto">
+        <p>&copy; 2024 Cafeteria Aconchego. Todos os direitos reservados.</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+            const mobileMenu = document.getElementById('mobile-menu');
+
+            mobileMenuBtn.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+
+            // Fechar o menu ao clicar em um link
+            mobileMenu.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', () => {
+                    mobileMenu.classList.add('hidden');
+                });
+            });
+
+            // Lidar com o envio do formulário de newsletter
+            const newsletterForm = document.getElementById('newsletter-form');
+            const messageBox = document.getElementById('message-box');
+
+            newsletterForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                
+                const email = document.getElementById('email').value;
+                console.log('Email assinado:', email);
+                
+                // Exibir mensagem de sucesso
+                messageBox.textContent = 'Obrigado por assinar nossa newsletter!';
+                messageBox.className = 'mt-4 p-4 rounded-lg bg-green-200 text-green-800';
+                messageBox.classList.remove('hidden');
+
+                // Limpar o formulário
+                newsletterForm.reset();
+            });
+        });
+    </script>
+</body>
+</html>
