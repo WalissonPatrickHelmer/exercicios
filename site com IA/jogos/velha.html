@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jogo da Velha</title>
+    <!-- Carrega Tailwind CSS para estilização rápida e responsiva -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Define a fonte Inter e fallback */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f7f7f7;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        /* Estilo do tabuleiro 3x3 */
+        .board {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-template-rows: repeat(3, 1fr);
+            width: 100%;
+            max-width: 360px; /* Tamanho máximo para o tabuleiro */
+            aspect-ratio: 1 / 1; /* Garante que é um quadrado */
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Estilo de cada célula */
+        .cell {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 3rem;
+            font-weight: bold;
+            cursor: pointer;
+            background-color: #ffffff;
+            border: 2px solid #333; /* Borda escura para as divisões */
+            transition: background-color 0.2s, transform 0.1s;
+        }
+
+        /* Remove bordas desnecessárias para um visual mais limpo */
+        .cell:nth-child(3n) { border-right: none; }
+        .cell:nth-child(3n + 1) { border-left: none; }
+        .cell:nth-child(n):nth-child(-n+3) { border-top: none; }
+        .cell:nth-child(n+7) { border-bottom: none; }
+
+        /* Estilos dos marcadores */
+        .cell.x { color: #3b82f6; } /* Azul */
+        .cell.o { color: #ef4444; } /* Vermelho */
+
+        /* Efeito de hover */
+        .cell:not(.x):not(.o):hover {
+            background-color: #e0f2fe;
+        }
+
+        /* Estilo para o botão de modo principal selecionado */
+        .mode-selected {
+            border: 3px solid #f97316; /* Laranja vibrante */
+            box-shadow: 0 4px 15px rgba(249, 115, 22, 0.4);
+        }
+
+        /* Estilo para os botões de nível (principal e 1-5) */
+        .level-button-selected {
+            background-color: #10b981 !important; /* Esmeralda 500 */
+            color: white !important;
+            font-weight: bold;
+        }
+    </style>
+    <script>
+        // --- Variáveis de Estado Global ---
+        const PLAYER_X = 'X'; 
+        const PLAYER_O = 'O'; 
+        let board = ['', '', '', '', '', '', '', '', ''];
+        let currentPlayer = PLAYER_X;
+        let gameActive = true;
+        let scores = { [PLAYER_X]: 0, [PLAYER_O]: 0, 'Draw': 0 };
+        let gameMode = null; // 'PVP' (Player vs Player) ou 'PVE' (Player vs Environment/Máquina)
+        let difficultyLevel = 3; // Nível estratégico padrão (3)
+        let isRandomMode = true; // Começa como Aleatório por padrão
+
+        const WINNING_CONDITIONS = [
+            [0, 1, 2], [3, 4, 5], [6, 7, 8], 
+            [0, 3, 6], [1, 4, 7], [2, 5, 8], 
+            [0, 4, 8], [2, 4, 6]             
+        ];
+
+        // --- Referências do DOM ---
+        let cells;
+        let messageDisplay;
+        let scoreXDisplay;
+        let scoreODisplay;
+        let scoreDrawDisplay;
+        let modeSelectionScreen;
+        let gameScreen;
+        let playerXLabel, playerOLabel;
+        let pveOptions;
+        let startButton;
+        let pvpButton, pveButton;
+        let randomButton, levelChoiceButton;
+        let levelButtonsContainer;
+
+
+        // --- Funções de Inicialização e UI ---
+
+        window.onload = () => {
+            // Referências de telas e elementos
+            modeSelectionScreen = document.getElementById('mode-selection-screen');
+            gameScreen = document.getElementById('game-screen');
+            cells = Array.from(document.querySelectorAll('.cell'));
+            messageDisplay = document.getElementById('game-message');
+            scoreXDisplay = document.getElementById('score-x');
+            scoreODisplay = document.getElementById('score-o');
+            scoreDrawDisplay = document.getElementById('score-draw');
+            playerXLabel = document.getElementById('player-x-label');
+            playerOLabel = document.getElementById('player-o-label');
+            pveOptions = document.getElementById('pve-options');
+            startButton = document.getElementById('start-game-button');
+            pvpButton = document.getElementById('pvp-mode-button');
+            pveButton = document.getElementById('pve-mode-button');
+            randomButton = document.getElementById('random-difficulty-button');
+            levelChoiceButton = document.getElementById('level-choice-button');
+            levelButtonsContainer = document.getElementById('level-buttons');
+
+            // Event Listeners para células e botões de controle
+            cells.forEach((cell, index) => {
+                cell.addEventListener('click', () => handleCellClick(index));
+            });
+
+            document.getElementById('reset-button').addEventListener('click', () => restartGame(true));
+            document.getElementById('next-round-button').addEventListener('click', () => resetBoard(`É a sua vez (${PLAYER_X})!`));
+            document.getElementById('back-to-mode-button').addEventListener('click', showModeSelection);
+            startButton.addEventListener('click', () => startGame(gameMode));
+
+            // Event Listeners para seleção de dificuldade (1 a 5)
+            for (let i = 1; i <= 5; i++) {
+                document.getElementById(`level-btn-${i}`).addEventListener('click', () => selectLevel(i));
+            }
+
+            loadScores();
+            showModeSelection();
+        };
+        
+        const loadScores = () => {
+            const savedScores = JSON.parse(localStorage.getItem('ticTacToeScores'));
+            if (savedScores) {
+                scores = savedScores;
+            }
+            updateScoreDisplay();
+        }
+
+        const showScreen = (screenId) => {
+            modeSelectionScreen.classList.add('hidden');
+            gameScreen.classList.add('hidden');
+            document.getElementById(screenId).classList.remove('hidden');
+        };
+
+        const showModeSelection = () => {
+            showScreen('mode-selection-screen');
+            scores = { [PLAYER_X]: 0, [PLAYER_O]: 0, 'Draw': 0 };
+            updateScoreDisplay();
+            
+            // Reseta a interface de seleção
+            gameMode = null;
+            pvpButton.classList.remove('mode-selected');
+            pveButton.classList.remove('mode-selected');
+            pveOptions.classList.add('hidden');
+            startButton.classList.add('hidden');
+
+            // Garante que o modo "Aleatório" seja o padrão visualmente ao retornar
+            selectDifficultyMode('random');
+        }
+
+        // Função para atualizar o rótulo do botão Iniciar
+        const updateStartButtonText = () => {
+             if (gameMode === 'PVP') {
+                startButton.textContent = `Iniciar Jogo (2 Jogadores) 🚀`;
+            } else if (gameMode === 'PVE') {
+                const levelDisplay = isRandomMode ? "Aleatório (Nível 1)" : `Nível ${difficultyLevel} (Tático)`;
+                startButton.textContent = `Iniciar Jogo (Máquina, ${levelDisplay}) 🚀`;
+            } else {
+                startButton.textContent = `Selecione um modo`;
+            }
+        }
+
+        // Função utilitária para destacar os botões de dificuldade principal
+        const highlightMainDifficultyButton = (mode) => {
+            randomButton.classList.remove('level-button-selected');
+            levelChoiceButton.classList.remove('level-button-selected');
+            levelButtonsContainer.classList.add('hidden');
+
+            if (mode === 'random') {
+                randomButton.classList.add('level-button-selected');
+            } else {
+                levelChoiceButton.classList.add('level-button-selected');
+                levelButtonsContainer.classList.remove('hidden');
+            }
+        };
+
+
+        // Função para selecionar o modo principal de dificuldade (Aleatório ou Nível)
+        const selectDifficultyMode = (mode) => {
+            highlightMainDifficultyButton(mode);
+
+            if (mode === 'random') {
+                isRandomMode = true;
+                difficultyLevel = 1; // Nível 1 é sempre o modo aleatório
+            } else { // 'level'
+                isRandomMode = false;
+                // Garante que pelo menos um nível esteja selecionado ao entrar no modo 'level'
+                if (!document.querySelector('#level-buttons button.level-button-selected')) {
+                    selectLevel(difficultyLevel); // Usa o último nível selecionado (padrão é 3)
+                    return; // selectLevel já chama updateStartButtonText
+                }
+            }
+            updateStartButtonText();
+        }
+
+        // Função para selecionar o nível específico (1 a 5)
+        const selectLevel = (level) => {
+            isRandomMode = false;
+            
+            // 1. Garante que o botão principal 'Escolher Nível' esteja destacado e visível
+            highlightMainDifficultyButton('level'); 
+
+            difficultyLevel = level;
+            
+            // 2. Remove destaque de TODOS os botões de nível (1 a 5)
+            // BUG FIX: Garante que apenas um botão de nível (1-5) esteja selecionado
+            document.querySelectorAll('#level-buttons button').forEach(btn => { 
+                btn.classList.remove('level-button-selected');
+            });
+            
+            // 3. Adiciona destaque APENAS ao botão de nível clicado
+            document.getElementById(`level-btn-${level}`).classList.add('level-button-selected'); 
+
+            updateStartButtonText();
+        }
+
+
+        // Função para selecionar o modo de jogo (antes de iniciar)
+        const selectMode = (mode) => {
+            gameMode = mode;
+            
+            pvpButton.classList.remove('mode-selected');
+            pveButton.classList.remove('mode-selected');
+
+            if (mode === 'PVP') {
+                pvpButton.classList.add('mode-selected');
+                pveOptions.classList.add('hidden'); 
+                startButton.classList.remove('hidden');
+            } else {
+                pveButton.classList.add('mode-selected');
+                pveOptions.classList.remove('hidden'); 
+                startButton.classList.remove('hidden');
+                
+                // Redefine a seleção de dificuldade ao entrar no modo PVE
+                selectDifficultyMode(isRandomMode ? 'random' : 'level');
+            }
+            
+            updateStartButtonText();
+        }
+
+
+        // Função para iniciar o jogo (após a seleção)
+        const startGame = (mode) => {
+            if (!mode) return;
+
+            showScreen('game-screen');
+            resetBoard(`Que comece o jogo! É a sua vez (${PLAYER_X})!`);
+
+            if (mode === 'PVP') {
+                playerXLabel.textContent = 'Jogador 1 (X)';
+                playerOLabel.textContent = 'Jogador 2 (O)';
+                document.getElementById('difficulty-info').classList.add('hidden');
+            } else {
+                const levelInfo = isRandomMode 
+                    ? 'Aleatório' 
+                    : `Nível ${difficultyLevel}`;
+                document.getElementById('current-difficulty').textContent = levelInfo;
+                playerXLabel.textContent = 'Você (X)';
+                playerOLabel.textContent = 'Máquina (O)';
+                document.getElementById('difficulty-info').classList.remove('hidden');
+            }
+            
+            scores = { [PLAYER_X]: 0, [PLAYER_O]: 0, 'Draw': 0 };
+            updateScoreDisplay();
+        }
+
+        // --- Funções de Utilitário e UI ---
+
+        const updateMessage = (message) => {
+            messageDisplay.textContent = message;
+        };
+
+        const updateScoreDisplay = () => {
+            scoreXDisplay.textContent = scores[PLAYER_X];
+            scoreODisplay.textContent = scores[PLAYER_O];
+            scoreDrawDisplay.textContent = scores['Draw'];
+            
+            if (gameMode === 'PVE') {
+                localStorage.setItem('ticTacToeScores', JSON.stringify(scores));
+            }
+        };
+
+        const resetBoard = (message) => {
+            board = ['', '', '', '', '', '', '', '', ''];
+            cells.forEach(cell => {
+                cell.textContent = '';
+                cell.className = 'cell rounded-xl'; // Reinicia as classes
+            });
+            gameActive = true;
+            currentPlayer = PLAYER_X;
+            updateMessage(message);
+        };
+
+        const restartGame = (resetScores) => {
+            if (resetScores) {
+                scores = { [PLAYER_X]: 0, [PLAYER_O]: 0, 'Draw': 0 };
+                localStorage.removeItem('ticTacToeScores');
+            }
+            showModeSelection();
+        };
+
+        // --- Lógica do Jogo Principal e Movimentos ---
+
+        const makeMove = (index, player) => {
+            // Verifica se a célula está vazia e o jogo está ativo
+            if (board[index] === '' && gameActive) {
+                board[index] = player;
+                cells[index].textContent = player;
+                cells[index].classList.add(player.toLowerCase());
+                return true;
+            }
+            return false;
+        };
+
+        const checkResult = () => {
+            let roundWon = false;
+            let winningCondition = null;
+
+            // 1. Verificar Condições de Vitória
+            for (let i = 0; i < WINNING_CONDITIONS.length; i++) {
+                const condition = WINNING_CONDITIONS[i];
+                const [a, b, c] = condition;
+                
+                // Verifica se há 3 em linha e se a célula não está vazia
+                if (board[a] !== '' && board[a] === board[b] && board[b] === board[c]) {
+                    roundWon = true;
+                    winningCondition = condition;
+                    break;
+                }
+            }
+
+            if (roundWon) {
+                gameActive = false;
+                scores[currentPlayer]++;
+                updateScoreDisplay();
+                updateMessage(`Parabéns! O jogador ${currentPlayer} venceu! 🎉`);
+                
+                // Visualmente destacar a linha vencedora
+                if (winningCondition) {
+                    winningCondition.forEach(index => {
+                        cells[index].classList.add('bg-yellow-300', 'ring-4', 'ring-yellow-500');
+                    });
+                }
+                return;
+            }
+
+            // 2. Verificar Empate (Todas as células preenchidas e ninguém ganhou)
+            if (!board.includes('')) {
+                gameActive = false;
+                scores['Draw']++;
+                updateScoreDisplay();
+                updateMessage(`Fim de jogo! Deu Empate. 🤝`);
+                return;
+            }
+
+            // 3. Alternar Jogador
+            if (gameActive) {
+                currentPlayer = currentPlayer === PLAYER_X ? PLAYER_O : PLAYER_X;
+                updateMessage(`É a sua vez (${currentPlayer})!`);
+
+                // 4. Se for PVE e for a vez da Máquina (O), acionar o movimento da AI
+                if (gameMode === 'PVE' && currentPlayer === PLAYER_O) {
+                    // Pequeno atraso para o movimento da máquina parecer natural
+                    setTimeout(handleAIMove, 500); 
+                }
+            }
+        };
+
+        const handleCellClick = (index) => {
+            // Garante que o jogo está ativo, a célula está vazia e (se for PVE) que é a vez do Jogador X.
+            if (!gameActive || board[index] !== '' || (gameMode === 'PVE' && currentPlayer !== PLAYER_X)) {
+                return;
+            }
+
+            // Tenta fazer o movimento
+            if (makeMove(index, PLAYER_X)) {
+                // Se o movimento for bem-sucedido, verifica o resultado.
+                checkResult();
+            }
+        };
+
+
+        // --- Lógica da Máquina (AI) ---
+
+        const findWinningMove = (player) => {
+            for (const condition of WINNING_CONDITIONS) {
+                const [a, b, c] = condition;
+                
+                for (const index of condition) {
+                    if (board[index] === '') {
+                        let tempBoard = [...board];
+                        tempBoard[index] = player;
+                        
+                        if (
+                            (tempBoard[a] === tempBoard[b] && tempBoard[b] === tempBoard[c] && tempBoard[a] === player)
+                        ) {
+                            return index; 
+                        }
+                    }
+                }
+            }
+            return -1;
+        };
+
+        const getRandomMove = () => {
+            const availableMoves = board.map((cell, index) => cell === '' ? index : null).filter(val => val !== null);
+            if (availableMoves.length > 0) {
+                return availableMoves[Math.floor(Math.random() * availableMoves.length)];
+            }
+            return -1;
+        }
+
+        const getBestMove = () => {
+            // 1. Tentar Vencer (O)
+            let move = findWinningMove(PLAYER_O);
+            if (move !== -1) return move;
+
+            // 2. Bloquear o Jogador (X)
+            move = findWinningMove(PLAYER_X);
+            if (move !== -1) return move;
+
+            // 3. Tentar o Centro
+            if (board[4] === '') return 4;
+
+            // 4. Tentar Esquinas Opostas (se o jogador estiver em uma esquina)
+            const oppositeCorners = [[0, 8], [2, 6], [6, 2], [8, 0]];
+            for (const [corner1, corner2] of oppositeCorners) {
+                if (board[corner1] === PLAYER_X && board[corner2] === '') {
+                    return corner2;
+                }
+            }
+
+            // 5. Tentar qualquer Esquina
+            const corners = [0, 2, 6, 8].filter(index => board[index] === '');
+            if (corners.length > 0) {
+                return corners[Math.floor(Math.random() * corners.length)];
+            }
+
+            // 6. Tentar qualquer Lateral (último recurso)
+            const sides = [1, 3, 5, 7].filter(index => board[index] === '');
+            if (sides.length > 0) {
+                return sides[Math.floor(Math.random() * sides.length)];
+            }
+
+            return getRandomMove(); 
+        }
+
+
+        const handleAIMove = () => {
+            if (!gameActive || gameMode !== 'PVE') return;
+
+            let finalMove = -1;
+            
+            // Usa 1 se for modo Aleatório, ou o nível selecionado (2-5)
+            const currentLevel = isRandomMode ? 1 : difficultyLevel;
+
+            if (currentLevel === 1) {
+                // Nível 1: 100% Aleatório
+                finalMove = getRandomMove();
+            } else if (currentLevel === 2) {
+                // Nível 2: 70% Aleatório, 30% Tático
+                if (Math.random() < 0.7) { 
+                    finalMove = getRandomMove();
+                } else {
+                    finalMove = findWinningMove(PLAYER_O); 
+                    if (finalMove === -1) {
+                         finalMove = findWinningMove(PLAYER_X); 
+                    }
+                    if (finalMove === -1) {
+                        finalMove = getRandomMove();
+                    }
+                }
+            } else if (currentLevel === 3) {
+                // Nível 3: Tático (Bloqueio e Vitória garantidos + Centro/Esquina)
+                finalMove = findWinningMove(PLAYER_O); 
+                if (finalMove === -1) {
+                    finalMove = findWinningMove(PLAYER_X); 
+                }
+                if (finalMove === -1) {
+                    finalMove = getBestMove(); 
+                }
+            } else if (currentLevel === 4) {
+                // Nível 4: Alto Tático (90% de chance de ser o melhor)
+                if (Math.random() < 0.9) { 
+                    finalMove = getBestMove();
+                } else { // 10% de chance de erro (aleatório)
+                    finalMove = getRandomMove(); 
+                }
+            } else if (currentLevel === 5) {
+                // Nível 5: Impossível (Sempre o Melhor Movimento)
+                finalMove = getBestMove();
+            }
+
+            if (finalMove !== -1) {
+                makeMove(finalMove, PLAYER_O);
+                checkResult();
+            }
+        };
+
+    </script>
+</head>
+<body>
+    <div class="flex flex-col items-center p-4 bg-white rounded-2xl shadow-2xl max-w-lg w-full">
+        <!-- Título Comum -->
+        <h1 class="text-3xl font-extrabold text-gray-800 mb-6 tracking-tight">
+            Jogo da Velha
+        </h1>
+
+        <!-- 1. Tela de Seleção de Modo (Inicialmente Visível) -->
+        <div id="mode-selection-screen" class="w-full flex flex-col items-center p-4">
+            <h2 class="text-xl font-semibold mb-6 text-gray-700">
+                Selecione o Modo de Jogo
+            </h2>
+
+            <!-- Botões de Seleção de Modo -->
+            <div class="w-full flex flex-col sm:flex-row gap-4 mb-6">
+                <!-- Botão P1 vs P2 -->
+                <button id="pvp-mode-button" onclick="selectMode('PVP')" class="w-full px-6 py-4 text-xl font-bold text-white bg-green-600 rounded-xl hover:bg-green-700 transition duration-150 transform hover:scale-[1.01] shadow-lg">
+                    👤 Jogador 1 vs 👤 Jogador 2
+                </button>
+
+                <!-- Botão P1 vs Máquina -->
+                <button id="pve-mode-button" onclick="selectMode('PVE')" class="w-full px-6 py-4 text-xl font-bold text-white bg-indigo-600 rounded-xl hover:bg-indigo-700 transition duration-150 transform hover:scale-[1.01] shadow-lg">
+                    👤 Jogador vs 🤖 Máquina
+                </button>
+            </div>
+            
+            <!-- CONTROLE DE DIFICULDADE (SÓ APARECE AO CLICAR EM "JOGADOR VS MÁQUINA") -->
+            <div id="pve-options" class="hidden w-full flex flex-col items-center mb-6">
+                <p class="text-md font-medium text-gray-700 mb-2">Dificuldade da Máquina:</p>
+                <div class="w-full flex space-x-2 mb-4">
+                    <!-- Botão Aleatório -->
+                    <button id="random-difficulty-button" onclick="selectDifficultyMode('random')" class="w-1/2 px-4 py-3 text-sm font-semibold text-gray-700 bg-gray-200 rounded-lg hover:bg-gray-300 transition duration-150">
+                        🎲 Aleatório (Nível 1)
+                    </button>
+                    <!-- Botão Escolher Nível -->
+                    <button id="level-choice-button" onclick="selectDifficultyMode('level')" class="w-1/2 px-4 py-3 text-sm font-semibold text-gray-700 bg-gray-200 rounded-lg hover:bg-gray-300 transition duration-150">
+                        📈 Escolher Nível
+                    </button>
+                </div>
+
+                <!-- Botões de Nível 1 a 5 (Só aparece se Escolher Nível estiver ativo) -->
+                <div id="level-buttons" class="hidden w-full flex justify-between p-3 bg-gray-50 rounded-xl border border-gray-200">
+                    <button id="level-btn-1" onclick="selectLevel(1)" class="w-1/5 py-2 mx-1 text-sm font-medium text-gray-700 bg-white rounded-lg hover:bg-gray-100 transition duration-100 shadow-sm">1</button>
+                    <button id="level-btn-2" onclick="selectLevel(2)" class="w-1/5 py-2 mx-1 text-sm font-medium text-gray-700 bg-white rounded-lg hover:bg-gray-100 transition duration-100 shadow-sm">2</button>
+                    <button id="level-btn-3" onclick="selectLevel(3)" class="w-1/5 py-2 mx-1 text-sm font-medium text-gray-700 bg-white rounded-lg hover:bg-gray-100 transition duration-100 shadow-sm">3</button>
+                    <button id="level-btn-4" onclick="selectLevel(4)" class="w-1/5 py-2 mx-1 text-sm font-medium text-gray-700 bg-white rounded-lg hover:bg-gray-100 transition duration-100 shadow-sm">4</button>
+                    <button id="level-btn-5" onclick="selectLevel(5)" class="w-1/5 py-2 mx-1 text-sm font-medium text-gray-700 bg-white rounded-lg hover:bg-gray-100 transition duration-100 shadow-sm">5</button>
+                </div>
+                 <p class="mt-2 text-xs text-gray-500 text-center">Níveis 2-5 usam lógica tática. Nível 1 é puramente aleatório.</p>
+            </div>
+
+            <!-- Botão de Iniciar Jogo (SÓ APARECE APÓS SELEÇÃO) -->
+            <button id="start-game-button" class="hidden mt-4 w-full px-6 py-4 text-lg font-bold text-white bg-orange-500 rounded-xl hover:bg-orange-600 transition duration-150 transform hover:scale-[1.01] shadow-xl">
+                Selecione um modo
+            </button>
+        </div>
+
+
+        <!-- 2. Tela de Jogo (Inicialmente Oculta) -->
+        <div id="game-screen" class="hidden w-full flex flex-col items-center">
+            
+            <h2 id="game-message" class="text-xl font-semibold mb-6 h-8 text-center text-gray-700">
+                Que comece o jogo!
+            </h2>
+
+            <!-- Placar (Placas) -->
+            <div class="w-full grid grid-cols-3 gap-2 p-3 mb-6 bg-blue-50 rounded-xl border border-blue-200">
+                <div class="flex flex-col items-center p-2 bg-white rounded-lg shadow-sm">
+                    <span class="text-2xl font-bold text-blue-600" id="score-x">0</span>
+                    <span class="text-sm font-medium text-gray-600" id="player-x-label">Jogador X</span>
+                </div>
+                <div class="flex flex-col items-center p-2 bg-white rounded-lg shadow-sm">
+                    <span class="text-2xl font-bold text-gray-500" id="score-draw">0</span>
+                    <span class="text-sm font-medium text-gray-600">Empates</span>
+                </div>
+                <div class="flex flex-col items-center p-2 bg-white rounded-lg shadow-sm">
+                    <span class="text-2xl font-bold text-red-500" id="score-o">0</span>
+                    <span class="text-sm font-medium text-gray-600" id="player-o-label">Jogador O</span>
+                </div>
+            </div>
+
+            <div id="difficulty-info" class="text-sm font-medium text-gray-500 mb-4">
+                Modo Máquina (<span id="current-difficulty">Aleatório</span>)
+            </div>
+
+            <!-- Tabuleiro -->
+            <div class="board mb-8 rounded-2xl overflow-hidden border-4 border-gray-400">
+                <div class="cell rounded-xl"></div><div class="cell rounded-xl"></div><div class="cell rounded-xl"></div>
+                <div class="cell rounded-xl"></div><div class="cell rounded-xl"></div><div class="cell rounded-xl"></div>
+                <div class="cell rounded-xl"></div><div class="cell rounded-xl"></div><div class="cell rounded-xl"></div>
+            </div>
+
+            <!-- Botões de Ação do Jogo -->
+            <button id="back-to-mode-button" class="w-full max-w-xs px-6 py-3 text-sm font-semibold text-white bg-gray-500 rounded-xl hover:bg-gray-600 transition duration-150 transform hover:scale-[1.02] shadow-md">
+                ⬅️ Voltar para Seleção de Modo
+            </button>
+            <button id="next-round-button" class="mt-2 w-full max-w-xs px-6 py-3 text-sm font-semibold text-indigo-600 bg-white border border-indigo-600 rounded-xl hover:bg-indigo-50 transition duration-150 shadow-md">
+                Próxima Rodada (Manter Placar)
+            </button>
+            <button id="reset-button" class="mt-2 w-full max-w-xs px-6 py-3 text-sm font-semibold text-red-600 bg-red-50 border border-red-600 rounded-xl hover:bg-red-100 transition duration-150 shadow-md">
+                Zerar Placar e Reiniciar Jogo
+            </button>
+        </div>
+    </div>
+</body>
+</html>
