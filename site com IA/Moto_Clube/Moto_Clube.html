@@ -3,9 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Os Renegados da Estrada M.C. - Moto Clube</title>
+    <title>Moto IA na Estrada M.C. - Moto Clube</title>
     <!-- Carregando Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Carrega o Font Awesome para ícones -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" xintegrity="sha512-Fo3rlrZj/k7ujTnHg4CGR2D7kSs0V4LLanw2qksYuMTO0S56K2fB3L3L3T/V5S7E3a8D4jT8f+5Q6+h+A5H+w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
         body {
@@ -16,6 +18,7 @@
         .text-shadow-custom {
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
         }
+        /* Mantemos btn-primary para o caso de outros botões, mas o FALE CONOSCO usará classes diretas de cor verde */
         .btn-primary {
             background-color: #be123c; /* Vermelho forte */
             transition: all 0.3s ease;
@@ -33,6 +36,15 @@
         .flag-button:hover {
             background-color: #374151; /* mc-gray */
         }
+        /* Estilos customizados para o Botão Flutuante do WhatsApp (FAB) */
+        .whatsapp-fab {
+            background-color: #25d366; /* Verde WhatsApp */
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+        }
+        .whatsapp-fab:hover {
+            background-color: #1da851;
+            box-shadow: 0 6px 20px rgba(37, 211, 102, 0.6);
+        }
     </style>
     <script>
         tailwind.config = {
@@ -42,6 +54,8 @@
                         'mc-red': '#be123c', /* Vermelho Moto Clube */
                         'mc-dark': '#0f0f0f',
                         'mc-gray': '#374151',
+                        'whatsapp-green': '#25D366', /* Verde padrão do WhatsApp */
+                        'whatsapp-dark': '#128C7E', /* Tom mais escuro para o hover */
                     }
                 }
             }
@@ -56,7 +70,7 @@
             <div class="flex items-center justify-between h-16">
                 <!-- Logo/Nome do Clube -->
                 <a href="#" class="text-2xl font-black tracking-wider text-mc-red uppercase" data-translate-key="renegados_mc_short">
-                    Renegados M.C.
+                    Moto IA M.C.
                 </a>
                 
                 <div class="flex items-center space-x-4">
@@ -67,6 +81,7 @@
 
                     <!-- Botão do Menu Hamburguer (para mobile) -->
                     <button id="menu-button" type="button" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-mc-gray focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white sm:hidden" aria-controls="mobile-menu" aria-expanded="false">
+                        <!-- Ícone do Menu -->
                         <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
                         </svg>
@@ -101,13 +116,18 @@
     <header id="home" class="py-16 md:py-24 bg-cover bg-center bg-fixed" style="background-image: url('https://placehold.co/1920x800/1a1a1a/4b5563?text=FUNDO+ESCURO+COM+TEXTURA')">
         <div class="max-w-4xl mx-auto px-4 text-center">
             <h1 class="text-5xl md:text-7xl font-extrabold uppercase mb-4 text-white text-shadow-custom leading-tight" data-translate-key="renegados_mc_long">
-                Os Renegados da Estrada M.C.
+                Moto IA na Estrada M.C.
             </h1>
             <p class="text-xl md:text-2xl mb-8 text-gray-300 font-light" data-translate-key="slogan">
-                Liberdade, honra e a irmandade da estrada.
+                A inteligência que guia a liberdade.
             </p>
-            <a href="#contato" class="btn-primary inline-flex items-center px-8 py-3 border border-transparent text-lg font-bold rounded-full text-white shadow-xl hover:shadow-2xl uppercase" data-translate-key="join_family">
-                Junte-se à Família
+            <!-- BOTÃO PRINCIPAL COM LINK WHATSAPP (AGORA VERDE) -->
+            <a href="https://wa.me/5531993736336?text=Ol%C3%A1%21%20Gostaria%20de%20saber%20mais%20sobre%20o%20Moto%20IA%20na%20Estrada%20M.C.%20e%20como%20posso%20me%20juntar%C3%A0%20fam%C3%ADlia.%20%23MotoIA" target="_blank" 
+               class="inline-flex items-center px-8 py-3 border border-transparent text-lg font-bold rounded-full text-white shadow-xl hover:shadow-2xl uppercase 
+                      bg-whatsapp-green hover:bg-whatsapp-dark transition duration-300" 
+               data-translate-key="join_family">
+                <i class="fab fa-whatsapp text-xl mr-3"></i>
+                FALE CONOSCO (WhatsApp)
             </a>
         </div>
     </header>
@@ -120,266 +140,305 @@
                 <!-- Imagem do velocímetro de motocicleta do Pexels -->
                 <img 
                     src="https://images.pexels.com/photos/115145/pexels-photo-115145.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" 
-                    onerror="this.onerror=null; this.src='https://placehold.co/800x400/374151/F3F4F6?text=VELOCÍMETRO+DE+MOTO+%5BDESTAQUE%5D'; console.error('A imagem do Pexels (Velocímetro) não carregou. Usando fallback.');" 
-                    alt="Velocímetro de motocicleta em close-up, simbolizando velocidade e jornada." 
-                    class="w-full h-80 md:h-96 object-cover object-center rounded-xl shadow-2xl transition duration-300 hover:opacity-90"
+                    onerror="this.onerror=null; this.src='https://placehold.co/1260x750/374151/ffffff?text=Veloc%C3%ADmetro'" 
+                    alt="Velocímetro de uma motocicleta em alta velocidade" 
+                    class="w-full h-auto rounded-lg object-cover"
                 >
             </div>
-            <p class="mt-6 text-center text-gray-400 italic" data-translate-key="destaque_caption">
-                O detalhe que importa na estrada: Velocidade, foco e o próximo quilômetro.
+            <p class="mt-6 text-lg text-gray-400 text-center" data-translate-key="destaque_description">
+                Nossa velocidade é a prova do nosso compromisso com a estrada. Rodamos sob a mais pura inteligência e paixão.
             </p>
         </div>
     </section>
 
-    <!-- Seção da Máquina (Golden Hour) -->
-    <section class="py-16 bg-gray-900 border-b border-mc-gray" id="amáquina">
-        <div class="max-w-6xl mx-auto px-4">
-            <h2 class="text-4xl font-bold mb-8 text-center text-white uppercase" data-translate-key="maquina_title">A Máquina: Nosso Espírito no Asfalto</h2>
-            <div class="flex justify-center p-4">
-                <!-- Nova imagem: Pessoa andando de motocicleta durante a golden hour -->
-                <img 
-                    src="https://images.pexels.com/photos/1416169/pexels-photo-1416169.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" 
-                    onerror="this.onerror=null; this.src='https://placehold.co/600x400/8b5cf6/ffffff?text=MOTOCICLISTA+NA+GOLDEN+HOUR'; console.error('A imagem do Pexels (Golden Hour) não carregou. Usando fallback.');" 
-                    alt="Pessoa andando de motocicleta durante o pôr do sol, golden hour." 
-                    class="w-full max-w-md h-auto object-cover rounded-lg shadow-xl transition duration-300 hover:scale-[1.02]"
-                >
-            </div>
-            <p class="mt-6 text-center text-gray-400 italic" data-translate-key="maquina_caption">
-                Pilotar sob a *golden hour*. É neste momento que a máquina e o piloto se tornam um só, em busca do horizonte.
-            </p>
-        </div>
-    </section>
-
-    <!-- Seção História e Valores -->
-    <section id="historia" class="py-16 bg-mc-dark">
-        <div class="max-w-6xl mx-auto px-4">
-            <h2 class="text-4xl font-bold mb-12 text-center text-mc-red uppercase" data-translate-key="history_mission_title">Nossa História e Missão</h2>
-            
-            <div class="grid md:grid-cols-2 gap-12">
-                <div class="bg-gray-800 p-6 rounded-lg shadow-lg">
-                    <h3 class="text-2xl font-semibold mb-4 border-b pb-2 border-mc-red text-gray-100" data-translate-key="legacy_title">O Legado Renegado</h3>
-                    <p class="text-gray-300 leading-relaxed" data-translate-key="legacy_text">
-                        Fundado em 2005 por um grupo de amigos unidos pela paixão por motores V-Twin e pela busca incessante por liberdade, Os Renegados da Estrada M.C. rapidamente se tornou um símbolo de respeito e tradição. Nossa história é escrita no asfalto, atravessando fronteiras e forjando laços de irmandade que duram uma vida inteira. Não somos apenas um grupo; somos uma família que respeita a estrada e o código.
-                    </p>
-                </div>
-                <div class="bg-gray-800 p-6 rounded-lg shadow-lg">
-                    <h3 class="text-2xl font-semibold mb-4 border-b pb-2 border-mc-red text-gray-100" data-translate-key="values_title">Nossos Valores</h3>
-                    <ul class="space-y-3 text-gray-300 list-disc list-inside">
-                        <li><span class="font-bold text-mc-red" data-translate-key="value_honra">Honra:</span> Comprometimento inabalável com a palavra e a conduta.</li>
-                        <li><span class="font-bold text-mc-red" data-translate-key="value_lealdade">Lealdade:</span> Irmandade acima de tudo, dentro e fora da estrada.</li>
-                        <li><span class="font-bold text-mc-red" data-translate-key="value_respeito">Respeito:</span> Respeito pela comunidade, pela lei e pela liberdade de cada membro.</li>
-                        <li><span class="font-bold text-mc-red" data-translate-key="value_aventura">Aventura:</span> A busca incessante por novos horizontes e quilômetros desafiadores.</li>
-                    </ul>
-                </div>
+    <!-- Seção: História -->
+    <section id="historia" class="py-20 bg-gray-900">
+        <div class="max-w-4xl mx-auto px-4">
+            <h2 class="text-4xl font-bold mb-8 text-center text-mc-red uppercase" data-translate-key="historia_title">Nossa História</h2>
+            <div class="space-y-6 text-lg text-gray-300">
+                <p data-translate-key="historia_p1">
+                    Fundado na era da hiperconexão, o Moto IA na Estrada M.C. nasceu da união de entusiastas que enxergam na tecnologia e na estrada o futuro da liberdade. Não somos apenas um clube; somos um algoritmo de irmandade e aventura.
+                </p>
+                <p data-translate-key="historia_p2">
+                    Nossa trajetória é marcada por rotas calculadas por IA, mas com o coração na mão. De encontros locais a grandes viagens interestaduais, cada quilômetro é uma linha de código escrita com emoção e camaradagem. Junte-se à lenda.
+                </p>
             </div>
         </div>
     </section>
 
-    <!-- Seção de Próximos Eventos -->
-    <section id="eventos" class="py-16 bg-gray-900">
+    <!-- Seção: A Máquina (Galeria/Destaque Técnico) -->
+    <section id="amáquina" class="py-20 bg-gray-800">
         <div class="max-w-6xl mx-auto px-4">
-            <h2 class="text-4xl font-bold mb-12 text-center text-mc-red uppercase" data-translate-key="events_title">Próximos Eventos e Encontros</h2>
-
+            <h2 class="text-4xl font-bold mb-12 text-center text-mc-red uppercase" data-translate-key="amaquina_title">A Máquina: Tecnologia e Força</h2>
             <div class="grid md:grid-cols-3 gap-8">
-                <!-- Evento 1 -->
-                <div class="bg-gray-800 p-6 rounded-lg shadow-xl hover:shadow-mc-red/50 transition duration-300">
-                    <p class="text-sm font-semibold text-mc-red mb-2 uppercase" data-translate-key="event_next_trip">Próxima Viagem</p>
-                    <h3 class="text-2xl font-bold mb-2 text-gray-100" data-translate-key="event_trip_name">Rota do Sol (Rio Grande do Sul)</h3>
-                    <p class="text-gray-400 mb-4" data-translate-key="event_trip_desc">Uma jornada de 3 dias explorando a serra gaúcha.</p>
-                    <p class="font-semibold text-white">🗓️ <span data-translate-key="date">Data</span>: 15 a 17 de Março</p>
-                    <p class="font-semibold text-white">📍 <span data-translate-key="location">Ponto de Encontro</span>: Posto Oásis, 6h00</p>
+                <!-- Card 1 -->
+                <div class="bg-mc-dark p-6 rounded-xl shadow-xl hover:shadow-mc-red/30 transition duration-300">
+                    <i class="fas fa-microchip text-4xl text-mc-red mb-4"></i>
+                    <h3 class="text-2xl font-semibold mb-2" data-translate-key="card1_title">Inteligência a Bordo</h3>
+                    <p class="text-gray-400" data-translate-key="card1_description">Navegação assistida por IA para otimizar rotas e segurança em tempo real.</p>
                 </div>
-
-                <!-- Evento 2 -->
-                <div class="bg-gray-800 p-6 rounded-lg shadow-xl hover:shadow-mc-red/50 transition duration-300">
-                    <p class="text-sm font-semibold text-mc-red mb-2 uppercase" data-translate-key="event_monthly">Encontro Mensal</p>
-                    <h3 class="text-2xl font-bold mb-2 text-gray-100" data-translate-key="event_monthly_name">Festa da Sede</h3>
-                    <p class="text-gray-400 mb-4" data-translate-key="event_monthly_desc">Comemoração do aniversário do clube com banda e churrasco.</p>
-                    <p class="font-semibold text-white">🗓️ <span data-translate-key="date">Data</span>: 29 de Março</p>
-                    <p class="font-semibold text-white">📍 <span data-translate-key="location">Local</span>: Sede Oficial do M.C.</p>
+                <!-- Card 2 -->
+                <div class="bg-mc-dark p-6 rounded-xl shadow-xl hover:shadow-mc-red/30 transition duration-300">
+                    <i class="fas fa-tachometer-alt text-4xl text-mc-red mb-4"></i>
+                    <h3 class="text-2xl font-semibold mb-2" data-translate-key="card2_title">Performance Extrema</h3>
+                    <p class="text-gray-400" data-translate-key="card2_description">Cilindradas otimizadas por algoritmos para máxima potência e eficiência.</p>
                 </div>
-
-                <!-- Evento 3 -->
-                <div class="bg-gray-800 p-6 rounded-lg shadow-xl hover:shadow-mc-red/50 transition duration-300">
-                    <p class="text-sm font-semibold text-mc-red mb-2 uppercase" data-translate-key="event_charity">Caridade</p>
-                    <h3 class="text-2xl font-bold mb-2 text-gray-100" data-translate-key="event_charity_name">Passeio Beneficente</h3>
-                    <p class="text-gray-400 mb-4" data-translate-key="event_charity_desc">Arrecadação de alimentos para famílias carentes da região.</p>
-                    <p class="font-semibold text-white">🗓️ <span data-translate-key="date">Data</span>: 12 de Abril</p>
-                    <p class="font-semibold text-white">📍 <span data-translate-key="route">Rota</span>: Praça Central ao Abrigo Municipal</p>
+                <!-- Card 3 -->
+                <div class="bg-mc-dark p-6 rounded-xl shadow-xl hover:shadow-mc-red/30 transition duration-300">
+                    <i class="fas fa-route text-4xl text-mc-red mb-4"></i>
+                    <h3 class="text-2xl font-semibold mb-2" data-translate-key="card3_title">Rotas Autênticas</h3>
+                    <p class="text-gray-400" data-translate-key="card3_description">Nosso sistema define as estradas mais desafiadoras e cênicas do país.</p>
                 </div>
-            </div>
-            
-            <div class="text-center mt-12">
-                 <a href="#contato" class="text-lg font-medium text-mc-red hover:underline" data-translate-key="view_calendar">Ver Calendário Completo →</a>
             </div>
         </div>
     </section>
 
-    <!-- Seção Contato/Junte-se a Nós -->
-    <section id="contato" class="py-16 bg-mc-dark">
-        <div class="max-w-xl mx-auto px-4 text-center">
-            <h2 class="text-4xl font-bold mb-4 text-white uppercase" data-translate-key="contact_title">Interessado em Fazer Parte?</h2>
-            <p class="text-xl text-gray-400 mb-8" data-translate-key="contact_subtitle">
-                A irmandade começa aqui. Envie-nos uma mensagem e descubra como vestir o nosso colete.
+    <!-- Seção: Eventos -->
+    <section id="eventos" class="py-20 bg-gray-900">
+        <div class="max-w-4xl mx-auto px-4">
+            <h2 class="text-4xl font-bold mb-8 text-center text-mc-red uppercase" data-translate-key="eventos_title">Próximos Eventos</h2>
+            <div class="space-y-6">
+                <!-- Evento 1 -->
+                <div class="bg-gray-800 p-6 rounded-xl shadow-lg flex flex-col md:flex-row justify-between items-start md:items-center">
+                    <div>
+                        <h3 class="text-2xl font-semibold text-white" data-translate-key="event1_name">Passeio Algorítmico da Serra</h3>
+                        <p class="text-gray-400" data-translate-key="event1_date">10 de Novembro de 2025</p>
+                    </div>
+                    <span class="mt-3 md:mt-0 px-4 py-1 bg-mc-red text-white text-sm font-bold rounded-full" data-translate-key="event1_status">Inscrições Abertas</span>
+                </div>
+                <!-- Evento 2 -->
+                <div class="bg-gray-800 p-6 rounded-xl shadow-lg flex flex-col md:flex-row justify-between items-start md:items-center">
+                    <div>
+                        <h3 class="text-2xl font-semibold text-white" data-translate-key="event2_name">Encontro Nacional de IA Motora</h3>
+                        <p class="text-gray-400" data-translate-key="event2_date">5 a 7 de Dezembro de 2025</p>
+                    </div>
+                    <span class="mt-3 md:mt-0 px-4 py-1 bg-gray-500 text-white text-sm font-bold rounded-full" data-translate-key="event2_status">Em Breve</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Seção: Contato -->
+    <section id="contato" class="py-20 bg-gray-800">
+        <div class="max-w-4xl mx-auto px-4 text-center">
+            <h2 class="text-4xl font-bold mb-8 text-center text-mc-red uppercase" data-translate-key="contato_title">Entre em Contato</h2>
+            <p class="text-lg text-gray-300 mb-8" data-translate-key="contato_text">
+                Quer se tornar um membro ou patrocinar um evento? Envie uma mensagem e faremos contato.
             </p>
             
-            <form class="space-y-4 bg-gray-800 p-8 rounded-xl shadow-2xl">
-                <div>
-                    <input type="text" data-translate-placeholder-key="form_name_placeholder" placeholder="Seu Nome Completo" class="w-full p-3 rounded-lg bg-gray-700 border border-gray-600 focus:ring-mc-red focus:border-mc-red text-white" required>
-                </div>
-                <div>
-                    <input type="email" data-translate-placeholder-key="form_email_placeholder" placeholder="Seu Melhor E-mail" class="w-full p-3 rounded-lg bg-gray-700 border border-gray-600 focus:ring-mc-red focus:border-mc-red text-white" required>
-                </div>
-                <div>
-                    <textarea data-translate-placeholder-key="form_message_placeholder" placeholder="Fale-nos um pouco sobre você e sua moto." rows="4" class="w-full p-3 rounded-lg bg-gray-700 border border-gray-600 focus:ring-mc-red focus:border-mc-red text-white" required></textarea>
-                </div>
-                <div>
-                    <button type="submit" class="btn-primary w-full px-6 py-3 font-bold rounded-lg text-white uppercase tracking-wider" data-translate-key="form_button">
-                        Enviar Inscrição
+            <!-- CONTÊINER PARA O FORMULÁRIO OU MENSAGEM DE SUCESSO -->
+            <div id="form-container" class="max-w-sm mx-auto">
+                <!-- Formulário de Contato Simplificado | AGORA COM LÓGICA JAVASCRIPT DE FEEDBACK -->
+                <form id="contactForm" onsubmit="sendEmail(event)" class="space-y-4">
+                    <input type="text" id="name" name="Nome" placeholder="Seu Nome" class="w-full p-3 rounded-lg bg-gray-700 border-gray-600 text-white focus:ring-mc-red focus:border-mc-red" required>
+                    <input type="email" id="email" name="Email" placeholder="Seu Email" class="w-full p-3 rounded-lg bg-gray-700 border-gray-600 text-white focus:ring-mc-red focus:border-mc-red" required>
+                    <textarea id="message" name="Mensagem" placeholder="Sua Mensagem" rows="4" class="w-full p-3 rounded-lg bg-gray-700 border-gray-600 text-white focus:ring-mc-red focus:border-mc-red" required></textarea>
+                    <button type="submit" class="btn-primary w-full px-8 py-3 font-bold rounded-lg text-white shadow-lg hover:shadow-xl uppercase">
+                        Enviar Mensagem
                     </button>
-                </div>
-            </form>
-
-            <div class="mt-8 text-gray-400">
-                <p><span data-translate-key="form_phone_pre">Ou ligue para nós:</span> <span class="text-white font-bold">(XX) 98765-4321</span></p>
+                </form>
             </div>
+            
+            <!-- Botão de WhatsApp Repetido para Acesso Rápido -->
+            <div class="mt-6">
+                 <a href="https://wa.me/5531993736336?text=Ol%C3%A1%21%20Gostaria%20de%20saber%20mais%20sobre%20o%20Moto%20IA%20na%20Estrada%20M.C.%20%23MotoIA" target="_blank" class="inline-flex items-center justify-center bg-whatsapp-green text-white font-bold py-3 px-6 rounded-full shadow-lg transition-all hover:bg-whatsapp-dark focus:outline-none focus:ring-4 focus:ring-whatsapp-green focus:ring-opacity-50 text-md">
+                    <i class="fab fa-whatsapp text-xl mr-2"></i>
+                    WhatsApp Direto
+                </a>
+            </div>
+
         </div>
     </section>
 
-    <!-- Rodapé -->
+    <!-- Footer -->
     <footer class="bg-mc-dark border-t border-mc-gray py-6">
-        <div class="max-w-6xl mx-auto px-4 text-center text-sm text-gray-500">
-            <p data-translate-key="footer_text">&copy; 2024 Os Renegados da Estrada M.C. Todos os direitos reservados. | Desenvolvido com Paixão e Óleo de Motor.</p>
+        <div class="max-w-7xl mx-auto px-4 text-center text-gray-500 text-sm">
+            <p data-translate-key="footer_copyright">© 2025 Moto IA na Estrada M.C. Todos os direitos reservados. | Desenvolvido com o poder da IA.</p>
+            <div class="flex justify-center space-x-4 mt-3 text-xl">
+                <!-- Ícones de Redes Sociais (Font Awesome) -->
+                <a href="#" class="hover:text-mc-red transition duration-300"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" class="hover:text-mc-red transition duration-300"><i class="fab fa-instagram"></i></a>
+                <a href="#" class="hover:text-mc-red transition duration-300"><i class="fab fa-twitter"></i></a>
+            </div>
         </div>
     </footer>
+    
+    <!-- Botão Flutuante de Ação Rápida (FAB) - WhatsApp -->
+    <a href="https://wa.me/5531993736336?text=Ol%C3%A1%21%20Gostaria%20de%20saber%20mais%20sobre%20o%20Moto%20IA%20na%20Estrada%20M.C.%20%23MotoIA" target="_blank" class="whatsapp-fab fixed bottom-6 right-6 p-4 rounded-full text-white text-3xl z-40 transition-transform duration-300 hover:scale-105" aria-label="WhatsApp do Moto Clube">
+        <i class="fab fa-whatsapp"></i>
+    </a>
 
-    <!-- JavaScript para Menu Hamburguer e Troca de Idioma -->
+    <!-- JavaScript para a Interatividade -->
     <script>
-        let currentLang = 'pt';
-
+        // Objeto de tradução (simples)
         const translations = {
-            'pt': {
-                'home': 'Home', 'historia': 'História', 'amaquina': 'A Máquina', 'eventos': 'Eventos', 'contato': 'Contato',
-                'renegados_mc_short': 'Renegados M.C.', 'renegados_mc_long': 'Os Renegados da Estrada M.C.',
-                'slogan': 'Liberdade, honra e a irmandade da estrada.',
-                'join_family': 'Junte-se à Família',
+            'pt-BR': {
+                'renegados_mc_short': 'Moto IA M.C.',
+                'renegados_mc_long': 'Moto IA na Estrada M.C.',
+                'home': 'Home',
+                'historia': 'História',
+                'amaquina': 'A Máquina',
+                'eventos': 'Eventos',
+                'contato': 'Contato',
+                'slogan': 'A inteligência que guia a liberdade.',
+                'join_family': 'FALE CONOSCO (WhatsApp)',
                 'destaque_title': 'Destaque do Clube',
-                'destaque_caption': 'O detalhe que importa na estrada: Velocidade, foco e o próximo quilômetro.',
-                'maquina_title': 'A Máquina: Nosso Espírito no Asfalto',
-                'maquina_caption': 'Pilotar sob a golden hour. É neste momento que a máquina e o piloto se tornam um só, em busca do horizonte.', // Updated
-                'history_mission_title': 'Nossa História e Missão',
-                'legacy_title': 'O Legado Renegado',
-                'legacy_text': 'Fundado em 2005 por um grupo de amigos unidos pela paixão por motores V-Twin e pela busca incessante por liberdade, Os Renegados da Estrada M.C. rapidamente se tornou um símbolo de respeito e tradição. Nossa história é escrita no asfalto, atravessando fronteiras e forjando laços de irmandade que duram uma vida inteira. Não somos apenas um grupo; somos uma família que respeita a estrada e o código.',
-                'values_title': 'Nossos Valores',
-                'value_honra': 'Honra', 'value_lealdade': 'Lealdade', 'value_respeito': 'Respeito', 'value_aventura': 'Aventura',
-                'events_title': 'Próximos Eventos e Encontros',
-                'event_next_trip': 'Próxima Viagem', 'event_trip_name': 'Rota do Sol (Rio Grande do Sul)', 'event_trip_desc': 'Uma jornada de 3 dias explorando a serra gaúcha.',
-                'event_monthly': 'Encontro Mensal', 'event_monthly_name': 'Festa da Sede', 'event_monthly_desc': 'Comemoração do aniversário do clube com banda e churrasco.',
-                'event_charity': 'Caridade', 'event_charity_name': 'Passeio Beneficente', 'event_charity_desc': 'Arrecadação de alimentos para famílias carentes da região.',
-                'view_calendar': 'Ver Calendário Completo →', 'date': 'Data', 'location': 'Ponto de Encontro', 'route': 'Rota', 'local': 'Local',
-                'contact_title': 'Interessado em Fazer Parte?',
-                'contact_subtitle': 'A irmandade começa aqui. Envie-nos uma mensagem e descubra como vestir o nosso colete.',
-                'form_name_placeholder': 'Seu Nome Completo', 'form_email_placeholder': 'Seu Melhor E-mail', 'form_message_placeholder': 'Fale-nos um pouco sobre você e sua moto.',
-                'form_button': 'Enviar Inscrição',
-                'form_phone_pre': 'Ou ligue para nós:',
-                'footer_text': '&copy; 2024 Os Renegados da Estrada M.C. Todos os direitos reservados. | Desenvolvido com Paixão e Óleo de Motor.',
-                'form_success': 'Mensagem enviada com sucesso! Em breve entraremos em contato.',
+                'destaque_description': 'Nossa velocidade é a prova do nosso compromisso com a estrada. Rodamos sob a mais pura inteligência e paixão.',
+                'historia_title': 'Nossa História',
+                'historia_p1': 'Fundado na era da hiperconexão, o Moto IA na Estrada M.C. nasceu da união de entusiastas que enxergam na tecnologia e na estrada o futuro da liberdade. Não somos apenas um clube; somos um algoritmo de irmandade e aventura.',
+                'historia_p2': 'Nossa trajetória é marcada por rotas calculadas por IA, mas com o coração na mão. De encontros locais a grandes viagens interestaduais, cada quilômetro é uma linha de código escrita com emoção e camaradagem. Junte-se à lenda.',
+                'amaquina_title': 'A Máquina: Tecnologia e Força',
+                'card1_title': 'Inteligência a Bordo',
+                'card1_description': 'Navegação assistida por IA para otimizar rotas e segurança em tempo real.',
+                'card2_title': 'Performance Extrema',
+                'card2_description': 'Cilindradas otimizadas por algoritmos para máxima potência e eficiência.',
+                'card3_title': 'Rotas Autênticas',
+                'card3_description': 'Nosso sistema define as estradas mais desafiadoras e cênicas do país.',
+                'eventos_title': 'Próximos Eventos',
+                'event1_name': 'Passeio Algorítmico da Serra',
+                'event1_date': '10 de Novembro de 2025',
+                'event1_status': 'Inscrições Abertas',
+                'event2_name': 'Encontro Nacional de IA Motora',
+                'event2_date': '5 a 7 de Dezembro de 2025',
+                'event2_status': 'Em Breve',
+                'contato_title': 'Entre em Contato',
+                'contato_text': 'Quer se tornar um membro ou patrocinar um evento? Envie uma mensagem e faremos contato.',
+                'footer_copyright': '© 2025 Moto IA na Estrada M.C. Todos os direitos reservados. | Desenvolvido com o poder da IA.',
+                'email_success_title': 'Mensagem Recebida!',
+                'email_success_body': 'Obrigado por sua mensagem. Devido a restrições de navegadores, o e-mail não é enviado automaticamente. Para garantir o contato imediato, use o botão WhatsApp abaixo. O e-mail de destino é:',
+                'email_recipient': 'wpatrickhelmer@gmail.com'
             },
-            'en': {
-                'home': 'Home', 'historia': 'History', 'amaquina': 'The Machine', 'eventos': 'Events', 'contato': 'Contact',
-                'renegados_mc_short': 'Renegades M.C.', 'renegados_mc_long': 'The Renegades of the Road M.C.',
-                'slogan': 'Freedom, honor, and the brotherhood of the road.',
-                'join_family': 'Join the Family',
+            'en-US': {
+                'renegados_mc_short': 'AI Moto C.',
+                'renegados_mc_long': 'AI Moto on the Road M.C.',
+                'home': 'Home',
+                'historia': 'History',
+                'amaquina': 'The Machine',
+                'eventos': 'Events',
+                'contato': 'Contact',
+                'slogan': 'The intelligence that guides freedom.',
+                'join_family': 'CONTACT US (WhatsApp)',
                 'destaque_title': 'Club Highlight',
-                'destaque_caption': 'The detail that matters on the road: Speed, focus, and the next mile.',
-                'maquina_title': 'The Machine: Our Spirit on the Asphalt',
-                'maquina_caption': 'Riding under the golden hour. This is the moment when the machine and the rider become one, searching for the horizon.', // Updated
-                'history_mission_title': 'Our History and Mission',
-                'legacy_title': 'The Renegade Legacy',
-                'legacy_text': 'Founded in 2005 by a group of friends united by the passion for V-Twin engines and the relentless pursuit of freedom, The Renegades of the Road M.C. quickly became a symbol of respect and tradition. Our history is written on the asphalt, crossing borders and forging bonds of brotherhood that last a lifetime. We are not just a group; we are a family that respects the road and the code.',
-                'values_title': 'Our Values',
-                'value_honra': 'Honor', 'value_lealdade': 'Loyalty', 'value_respeito': 'Respect', 'value_aventura': 'Adventure',
-                'events_title': 'Upcoming Events and Gatherings',
-                'event_next_trip': 'Next Trip', 'event_trip_name': 'Sun Route (Rio Grande do Sul)', 'event_trip_desc': 'A 3-day journey exploring the Gaúcha mountains.',
-                'event_monthly': 'Monthly Gathering', 'event_monthly_name': 'Headquarters Party', 'event_monthly_desc': 'Club anniversary celebration with band and barbecue.',
-                'event_charity': 'Charity', 'event_charity_name': 'Charity Ride', 'event_charity_desc': 'Food drive for needy families in the region.',
-                'view_calendar': 'View Full Calendar →', 'date': 'Date', 'location': 'Meeting Point', 'route': 'Route', 'local': 'Location',
-                'contact_title': 'Interested in Joining?',
-                'contact_subtitle': 'The brotherhood starts here. Send us a message and find out how to wear our cut.',
-                'form_name_placeholder': 'Your Full Name', 'form_email_placeholder': 'Your Best Email', 'form_message_placeholder': 'Tell us a bit about yourself and your motorcycle.',
-                'form_button': 'Submit Application',
-                'form_phone_pre': 'Or call us:',
-                'footer_text': '&copy; 2024 The Renegades of the Road M.C. All rights reserved. | Developed with Passion and Motor Oil.',
-                'form_success': 'Message sent successfully! We will contact you shortly.',
+                'destaque_description': 'Our speed is proof of our commitment to the road. We ride under the purest intelligence and passion.',
+                'historia_title': 'Our History',
+                'historia_p1': 'Founded in the hyper-connected era, the AI Moto on the Road M.C. was born from the union of enthusiasts who see technology and the road as the future of freedom. We are not just a club; we are an algorithm of brotherhood and adventure.',
+                'historia_p2': 'Our journey is marked by AI-calculated routes, but with heart in hand. From local gatherings to major interstate trips, every kilometer is a line of code written with emotion and camaraderie. Join the legend.',
+                'amaquina_title': 'The Machine: Technology and Strength',
+                'card1_title': 'Onboard Intelligence',
+                'card1_description': 'AI-assisted navigation to optimize routes and real-time safety.',
+                'card2_title': 'Extreme Performance',
+                'card2_description': 'Engine displacement optimized by algorithms for maximum power and efficiency.',
+                'card3_title': 'Authentic Routes',
+                'card3_description': 'Our system defines the most challenging and scenic roads in the country.',
+                'eventos_title': 'Upcoming Events',
+                'event1_name': 'Algorithmic Mountain Ride',
+                'event1_date': 'November 10, 2025',
+                'event1_status': 'Registration Open',
+                'event2_name': 'National Motor AI Gathering',
+                'event2_date': 'December 5 to 7, 2025',
+                'event2_status': 'Coming Soon',
+                'contato_title': 'Get in Touch',
+                'contato_text': 'Want to become a member or sponsor an event? Send a message and we will contact you.',
+                'footer_copyright': '© 2025 AI Moto on the Road M.C. All rights reserved. | Developed with the power of AI.',
+                'email_success_title': 'Message Received!',
+                'email_success_body': 'Thank you for your message. Due to browser restrictions, the email is not sent automatically. To ensure immediate contact, please use the WhatsApp button below. The destination email is:',
+                'email_recipient': 'wpatrickhelmer@gmail.com'
             }
         };
 
-        const langButton = document.getElementById('lang-switch');
+        let currentLang = 'pt-BR';
+        const recipientEmail = 'wpatrickhelmer@gmail.com'; // E-mail fixo para contato
 
-        function updateLanguage(lang) {
-            const dictionary = translations[lang];
-
-            // 1. Update text content
-            document.querySelectorAll('[data-translate-key]').forEach(element => {
-                const key = element.getAttribute('data-translate-key');
-                if (dictionary[key]) {
-                    element.innerHTML = dictionary[key];
-                }
-            });
-
-            // 2. Update placeholder texts
-            document.querySelectorAll('[data-translate-placeholder-key]').forEach(input => {
-                const key = input.getAttribute('data-translate-placeholder-key');
-                if (dictionary[key]) {
-                    input.setAttribute('placeholder', dictionary[key]);
-                }
-            });
-
-            // 3. Update Flag
-            langButton.textContent = lang === 'pt' ? '🇧🇷' : '🇬🇧';
-            document.documentElement.lang = lang;
+        // Função para traduzir o conteúdo
+        function setLanguage(lang) {
             currentLang = lang;
+            const elements = document.querySelectorAll('[data-translate-key]');
+            elements.forEach(el => {
+                const key = el.getAttribute('data-translate-key');
+                if (translations[lang] && translations[lang][key]) {
+                    el.textContent = translations[lang][key];
+                }
+            });
+            // Atualiza a bandeira
+            document.getElementById('lang-switch').textContent = (lang === 'pt-BR' ? '🇧🇷' : '🇺🇸');
         }
 
-        langButton.addEventListener('click', function() {
-            const newLang = currentLang === 'pt' ? 'en' : 'pt';
-            updateLanguage(newLang);
-        });
+        // Função para alternar o menu mobile
+        function toggleMobileMenu() {
+            const mobileMenu = document.getElementById('mobile-menu');
+            mobileMenu.classList.toggle('hidden');
+        }
 
-        // Initialize language on load
+        /**
+         * Lida com o envio do formulário, remove o mailto: instável e mostra uma mensagem de sucesso.
+         */
+        function sendEmail(event) {
+            event.preventDefault(); 
+            
+            const form = document.getElementById('contactForm');
+            const container = document.getElementById('form-container');
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const message = document.getElementById('message').value;
+
+            // Validação simples (já é feita pelo required, mas é bom ter uma dupla checagem)
+            if (!name || !email || !message) {
+                // Não faz nada se os campos estiverem vazios (o HTML já impede)
+                return;
+            }
+
+            // Esconde o formulário
+            form.classList.add('hidden');
+            
+            // Cria a mensagem de sucesso (traduzível)
+            const successHtml = `
+                <div class="bg-gray-900 p-6 rounded-xl shadow-2xl text-white border-b-4 border-mc-red">
+                    <h3 class="text-3xl font-bold mb-3 text-mc-red" data-translate-key="email_success_title">${translations[currentLang].email_success_title}</h3>
+                    <p class="text-lg text-gray-300" data-translate-key="email_success_body">${translations[currentLang].email_success_body}</p>
+                    <p class="mt-4 text-xl font-mono text-center text-mc-red break-words">${recipientEmail}</p>
+                    <p class="mt-4 text-sm text-gray-500">
+                        <i class="fas fa-exclamation-triangle mr-2"></i> Para garantir que sua mensagem chegue a nós **imediatamente**, utilize o contato WhatsApp logo abaixo.
+                    </p>
+                </div>
+            `;
+
+            // Adiciona a mensagem ao contêiner
+            container.innerHTML = successHtml;
+            
+            // Traduz a nova mensagem (caso a linguagem tenha sido trocada antes do envio)
+            setLanguage(currentLang);
+        }
+
+
+        // Inicialização e Listeners
         window.onload = function() {
-            updateLanguage('pt'); // Start in Portuguese
-            
-            // Menu mobile toggle logic
-            document.getElementById('menu-button').addEventListener('click', function() {
-                const mobileMenu = document.getElementById('mobile-menu');
-                const isExpanded = this.getAttribute('aria-expanded') === 'true' || false;
-                this.setAttribute('aria-expanded', !isExpanded);
-                mobileMenu.classList.toggle('hidden');
-            });
-            
-            // Esconde o menu após clicar em um link (mobile)
-            document.querySelectorAll('#mobile-menu a').forEach(item => {
-                item.addEventListener('click', () => {
-                    document.getElementById('mobile-menu').classList.add('hidden');
-                    document.getElementById('menu-button').setAttribute('aria-expanded', 'false');
+            // Inicializa a linguagem
+            setLanguage(currentLang);
+
+            // Listener para o botão do menu mobile
+            const menuButton = document.getElementById('menu-button');
+            if (menuButton) {
+                menuButton.addEventListener('click', toggleMobileMenu);
+            }
+
+            // Listener para o botão de troca de idioma
+            const langSwitch = document.getElementById('lang-switch');
+            if (langSwitch) {
+                langSwitch.addEventListener('click', () => {
+                    const newLang = (currentLang === 'pt-BR' ? 'en-US' : 'pt-BR');
+                    setLanguage(newLang);
                 });
-            });
-
-            // Simulação de envio do formulário
-            document.querySelector('form').addEventListener('submit', function(e) {
-                e.preventDefault();
-                
-                // Exibe mensagem de sucesso traduzida
-                const successMessage = translations[currentLang].form_success;
-
-                const form = e.target;
-                const thankYouMessage = document.createElement('p');
-                thankYouMessage.className = 'text-green-400 font-bold mt-4';
-                thankYouMessage.textContent = successMessage;
-                
-                form.innerHTML = '';
-                form.appendChild(thankYouMessage);
+            }
+            
+            // Fecha o menu mobile ao clicar em um link
+            const mobileLinks = document.querySelectorAll('#mobile-menu a');
+            mobileLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    const mobileMenu = document.getElementById('mobile-menu');
+                    if (mobileMenu && !mobileMenu.classList.contains('hidden')) {
+                         mobileMenu.classList.add('hidden');
+                    }
+                });
             });
         };
     </script>
