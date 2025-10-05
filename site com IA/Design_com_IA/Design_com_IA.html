@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your AI-Powered Design Assistant</title>
+    <!-- Carrega o Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Configuração de Estilos e Fontes -->
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+        /* Estilo base para um fundo escuro e tipografia Inter */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0c0a09; /* Preto muito escuro */
+        }
+        /* Cor de destaque roxa para neon/brilho */
+        .text-purple-neon {
+            color: #a855f7; /* Violeta-500 */
+        }
+        .bg-purple-neon {
+            background-color: #a855f7;
+        }
+        /* Fundo dos cartões e elementos */
+        .card-bg {
+            background-color: #1a1a1a; /* Cinza escuro para contraste */
+        }
+        .dark-section-bg {
+            background-color: #131313; /* Fundo de seção levemente mais claro que o body */
+        }
+        /* Gradiente customizado para a seção Hero (simula o efeito da imagem) */
+        .hero-background {
+            background: linear-gradient(180deg, #131313 0%, #0c0a09 100%);
+        }
+        /* Gradiente customizado para a CTA final */
+        .cta-background {
+            background: linear-gradient(0deg, #131313 0%, #0c0a09 100%);
+        }
+    </style>
+</head>
+<body class="text-white antialiased">
+    <!-- Cabeçalho/Navegação -->
+    <header class="py-4 px-6 md:px-12 dark-section-bg shadow-lg sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <div class="text-2xl font-extrabold text-white">AI.<span class="text-purple-neon">Design</span></div>
+            <nav class="hidden md:flex space-x-6 text-sm items-center">
+                <a href="#how-it-works" class="hover:text-purple-neon transition duration-150" data-i18n="nav_works">Como Funciona</a>
+                <a href="#pricing" class="hover:text-purple-neon transition duration-150" data-i18n="nav_pricing">Preços</a>
+                <a href="#blog" class="hover:text-purple-neon transition duration-150" data-i18n="nav_blog">Blog</a>
+            </nav>
+            <div class="flex items-center space-x-4">
+                <!-- Botão de Alternância de Idioma (Novo) -->
+                <button id="lang-toggle-button" onclick="toggleLanguage()" 
+                        class="py-2 px-3 rounded-lg border border-gray-600 text-xs sm:text-sm 
+                               hover:border-purple-neon hover:bg-gray-800 transition duration-150">
+                    English
+                </button>
+                <a href="#" class="py-2 px-4 rounded-lg border border-white text-sm hover:border-purple-neon transition duration-150 hidden sm:block" data-i18n="nav_login">Login</a>
+                <button class="md:hidden text-2xl text-white">&#9776;</button>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- Sessão 1 – Hero (Chamada principal) -->
+        <section class="hero-background py-20 md:py-32 relative overflow-hidden">
+            <div class="max-w-7xl mx-auto px-6 md:px-12 flex flex-col lg:flex-row items-center">
+                <div class="lg:w-1/2 text-center lg:text-left z-10">
+                    <h1 class="text-5xl md:text-7xl font-extrabold leading-tight mb-4">
+                        <span data-i18n="hero_title_p1">Seu</span> <span class="text-purple-neon" data-i18n="hero_title_p2">Assistente de Design com IA</span>
+                    </h1>
+                    <p class="text-xl text-gray-400 mb-8 max-w-lg mx-auto lg:mx-0" data-i18n="hero_subtitle">
+                        Libere seu potencial criativo. Gere, personalize e aperfeiçoe seus designs de forma contínua com tecnologia de IA de ponta.
+                    </p>
+                    <div class="flex flex-col sm:flex-row justify-center lg:justify-start space-y-4 sm:space-y-0 sm:space-x-4">
+                        <button class="py-3 px-8 bg-purple-neon text-white font-semibold rounded-xl shadow-lg hover:bg-violet-600 transition duration-300 transform hover:scale-[1.02] border border-violet-600" data-i18n="btn_start">
+                            Começar Agora
+                        </button>
+                        <button class="py-3 px-8 text-white font-semibold rounded-xl border border-gray-600 hover:border-purple-neon hover:bg-gray-800 transition duration-300 transform hover:scale-[1.02]" data-i18n="btn_templates">
+                            Mais Modelos
+                        </button>
+                    </div>
+                </div>
+                <!-- Imagem Principal (Placeholder) -->
+                <div class="lg:w-1/2 mt-12 lg:mt-0 relative flex justify-center lg:justify-end z-10">
+                    <img src="https://placehold.co/500x500/1e0a3b/a855f7/png?text=Abstract+AI+Design" alt="Abstract AI design render in purple" class="w-64 h-64 md:w-[28rem] md:h-[28rem] object-cover rounded-3xl shadow-2xl shadow-purple-neon/50 border border-violet-800" onerror="this.onerror=null;this.src='https://placehold.co/448x448/1e0a3b/a855f7/png?text=AI+Design'">
+                </div>
+            </div>
+            <!-- Efeitos de fundo (blobs de cor) -->
+            <div class="absolute inset-0 opacity-20 pointer-events-none">
+                <div class="w-96 h-96 bg-purple-neon rounded-full absolute -top-10 -left-10 blur-[150px]"></div>
+                <div class="w-80 h-80 bg-pink-500 rounded-full absolute bottom-0 right-0 blur-[150px]"></div>
+            </div>
+        </section>
+
+        <!-- Sessão 2 – Logos de confiança (Prova social) -->
+        <section class="py-12 dark-section-bg border-t border-b border-gray-800">
+            <div class="max-w-7xl mx-auto px-6 md:px-12">
+                <p class="text-center text-gray-500 uppercase tracking-widest text-sm mb-6" data-i18n="trusted_by">Confiado por grandes nomes</p>
+                <div class="flex flex-wrap justify-center items-center gap-8 md:gap-16">
+                    <!-- Logotipos Fictícios -->
+                    <span class="text-3xl font-bold text-gray-700 hover:text-gray-400 transition duration-300">Logoipsum</span>
+                    <span class="text-3xl font-bold text-gray-700 hover:text-gray-400 transition duration-300">Logoipsum</span>
+                    <span class="text-3xl font-bold text-gray-700 hover:text-gray-400 transition duration-300">Logoipsum</span>
+                    <span class="text-3xl font-bold text-gray-700 hover:text-gray-400 transition duration-300 hidden sm:inline">Logoipsum</span>
+                    <span class="text-3xl font-bold text-gray-700 hover:text-gray-400 transition duration-300 hidden md:inline">Logoipsum</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sessão 3 – Como funciona (Passos com ÍCONES) -->
+        <section id="how-it-works" class="py-20 md:py-28 dark-section-bg">
+            <div class="max-w-7xl mx-auto px-6 md:px-12">
+                <div class="text-center mb-16">
+                    <h2 class="text-4xl md:text-5xl font-extrabold mb-4">
+                        <span data-i18n="how_title_p1">Liberte</span> <span class="text-purple-neon" data-i18n="how_title_p2">Sua Criatividade</span>
+                    </h2>
+                    <p class="text-lg text-gray-400 max-w-3xl mx-auto" data-i18n="how_subtitle">
+                        Descubra como nosso Assistente de Design com IA transforma suas ideias em designs incríveis sem esforço. Siga estes passos simples para tornar sua visão realidade.
+                    </p>
+                </div>
+
+                <!-- Steps Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <!-- Passo 1: Upload Brief (ÍCONE: Documento) -->
+                    <div class="card-bg p-8 rounded-2xl shadow-xl border border-gray-800 hover:border-purple-neon transition duration-300 group">
+                        <div class="w-10 h-10 flex items-center justify-center bg-purple-neon rounded-full mb-6 text-lg font-bold">
+                            <!-- Icone FileText (Documento) -->
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-file-text text-white"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/></svg>
+                        </div>
+                        <h3 class="text-2xl font-semibold mb-3" data-i18n="step1_title">Carregar Briefing</h3>
+                        <p class="text-gray-400" data-i18n="step1_desc">Compartilhe os detalhes do seu projeto e deixe nossa IA entender sua visão.</p>
+                    </div>
+
+                    <!-- Passo 2: Generate Designs (ÍCONE: Faísca/Geração) -->
+                    <div class="card-bg p-8 rounded-2xl shadow-xl border border-gray-800 hover:border-purple-neon transition duration-300 group">
+                        <div class="w-10 h-10 flex items-center justify-center bg-purple-neon rounded-full mb-6 text-lg font-bold">
+                            <!-- Icone Sparkles (Faísca) -->
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-sparkles text-white"><path d="M9.9 10.9L10 12l.1 1.1"/><path d="M12 9.9l1.1.1 1.1-.1"/><path d="m16 2.5 1.5-1.5 1.5 1.5"/><path d="M19.5 9 21 7.5 19.5 6"/><path d="m4.5 16 1.5 1.5-1.5 1.5"/><path d="M2.5 11 4 9.5 2.5 8"/><path d="M22 22 18.5 18.5 22 22z"/><path d="M10 20.5 8.5 19 7 20.5"/><path d="M3.5 14 2 12.5 3.5 11"/></svg>
+                        </div>
+                        <h3 class="text-2xl font-semibold mb-3" data-i18n="step2_title">Gerar Designs</h3>
+                        <p class="text-gray-400" data-i18n="step2_desc">Veja nossa IA criar ideias de design exclusivas e personalizadas para você.</p>
+                    </div>
+
+                    <!-- Passo 3: Refine Creation (ÍCONE: Caneta/Edição) -->
+                    <div class="card-bg p-8 rounded-2xl shadow-xl border border-gray-800 hover:border-purple-neon transition duration-300 group">
+                        <div class="w-10 h-10 flex items-center justify-center bg-purple-neon rounded-full mb-6 text-lg font-bold">
+                            <!-- Icone Feather (Caneta) -->
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-feather text-white"><path d="M20.24 12.24L12 20.24l-7.76-7.76a2 2 0 0 1 2.83-2.83L12 14.83l4.9-4.9a2 2 0 0 1 2.83 2.83z"/><path d="M12 20.24 16.9 15.34l-2.83-2.83L12 17.41z"/></svg>
+                        </div>
+                        <h3 class="text-2xl font-semibold mb-3" data-i18n="step3_title">Refinar Criação</h3>
+                        <p class="text-gray-400" data-i18n="step3_desc">Aperfeiçoe o conceito escolhido com ferramentas de IA fáceis de usar.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sessão 4 – Planos e preços (Textos estáticos por simplicidade no exemplo) -->
+        <section id="pricing" class="py-20 md:py-28 dark-section-bg border-t border-gray-800">
+            <div class="max-w-7xl mx-auto px-6 md:px-12">
+                <div class="text-center mb-16">
+                    <h2 class="text-4xl md:text-5xl font-extrabold mb-4">
+                        <span data-i18n="pricing_title_p1">Planos Acessíveis para</span> <span class="text-purple-neon" data-i18n="pricing_title_p2">Todas as Necessidades</span>
+                    </h2>
+                    <p class="text-lg text-gray-400 max-w-3xl mx-auto" data-i18n="pricing_subtitle">
+                        Escolha o plano perfeito para seus projetos de design, de startups a empresas. Nossos níveis de preços são projetados para oferecer flexibilidade e valor.
+                    </p>
+                </div>
+
+                <!-- Toggle de Preços (Estático) -->
+                <div class="flex justify-center mb-10">
+                    <div class="inline-flex card-bg p-1 rounded-full border border-gray-700">
+                        <button class="py-2 px-6 rounded-full text-white font-semibold bg-gray-700">Mensal</button>
+                        <button class="py-2 px-6 rounded-full text-gray-400 hover:text-white transition duration-200">Anual (Economize 20%)</button>
+                    </div>
+                </div>
+
+                <!-- Grid de Preços (Os títulos dos planos Free/Basic/Pro não são traduzidos) -->
+                <div class="grid grid-cols-1 gap-8 lg:grid-cols-3 lg:gap-8">
+                    <!-- Plano: Free -->
+                    <div class="card-bg p-8 rounded-2xl shadow-2xl border border-gray-700 hover:border-gray-500 transition duration-300">
+                        <h3 class="text-3xl font-bold mb-2">Free</h3>
+                        <p class="text-gray-400 mb-6">Comece sua jornada criativa</p>
+                        <p class="text-5xl font-extrabold mb-2">$0<span class="text-xl font-medium text-gray-400">/m</span></p>
+
+                        <div class="h-px bg-gray-700 my-6"></div>
+
+                        <ul class="space-y-4 text-gray-300">
+                            <li class="flex items-start"><svg class="w-5 h-5 text-green-400 mr-2 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Basic AI-generated designs</li>
+                            <li class="flex items-start"><svg class="w-5 h-5 text-green-400 mr-2 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Access to customization tools</li>
+                            <li class="flex items-start"><svg class="w-5 h-5 text-green-400 mr-2 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Standard templates library</li>
+                            <li class="flex items-start"><svg class="w-5 h-5 text-green-400 mr-2 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>5 projects per month</li>
+                        </ul>
+
+                        <button class="mt-8 w-full py-3 bg-gray-800 text-white font-semibold rounded-xl hover:bg-gray-700 transition duration-300 border border-gray-700">
+                            Get Started
+                        </button>
+                    </div>
+
+                    <!-- Plano: Basic (DESTAQUE) -->
+                    <div class="card-bg p-8 rounded-2xl shadow-2xl border-2 border-purple-neon transform lg:scale-105 hover:scale-[1.07] transition duration-300 relative">
+                        <div class="absolute -top-4 left-1/2 transform -translate-x-1/2 bg-purple-neon text-white text-xs font-bold py-1 px-4 rounded-full uppercase tracking-wider shadow-xl">
+                            Mais Popular
+                        </div>
+                        <h3 class="text-3xl font-bold mb-2">Basic</h3>
+                        <p class="text-gray-400 mb-6">Billed Monthly</p>
+                        <p class="text-5xl font-extrabold mb-2">$14.99<span class="text-xl font-medium text-gray-400">/m</span></p>
+
+                        <div class="h-px bg-gray-700 my-6"></div>
+
+                        <ul class="space-y-4 text-gray-300">
+                            <li class="flex items-start"><svg class="w-5 h-5 text-green-400 mr-2 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Advanced AI-generated designs</li>
+                            <li class="flex items-start"><svg class="w-5 h-5 text-green-400 mr-2 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Full access to customization tools</li>
+                            <li class="flex items-start"><svg class="w-5 h-5 text-green-400 mr-2 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Premium templates library</li>
+                            <li class="flex items-start"><svg class="w-5 h-5 text-green-400 mr-2 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Unlimited projects</li>
+                            <li class="flex items-start"><svg class="w-5 h-5 text-green-400 mr-2 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Real-time collaboration</li>
+                            <li class="flex items-start"><svg class="w-5 h-5 text-green-400 mr-2 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Priority email support</li>
+                        </ul>
+
+                        <button class="mt-8 w-full py-3 bg-purple-neon text-white font-bold rounded-xl shadow-lg shadow-violet-800/50 hover:bg-violet-600 transition duration-300 transform hover:scale-[1.02]">
+                            Start Trial
+                        </button>
+                    </div>
+
+                    <!-- Plano: Pro -->
+                    <div class="card-bg p-8 rounded-2xl shadow-2xl border border-gray-700 hover:border-gray-500 transition duration-300">
+                        <h3 class="text-3xl font-bold mb-2">Pro</h3>
+                        <p class="text-gray-400 mb-6">Billed Monthly</p>
+                        <p class="text-5xl font-extrabold mb-2">$29.99<span class="text-xl font-medium text-gray-400">/m</span></p>
+
+                        <div class="h-px bg-gray-700 my-6"></div>
+
+                        <ul class="space-y-4 text-gray-300">
+                            <li class="flex items-start"><svg class="w-5 h-5 text-green-400 mr-2 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>All features included in Basic Plan</li>
+                            <li class="flex items-start"><svg class="w-5 h-5 text-green-400 mr-2 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Dedicated account manager</li>
+                            <li class="flex items-start"><svg class="w-5 h-5 text-green-400 mr-2 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Custom AI solutions and designs</li>
+                            <li class="flex items-start"><svg class="w-5 h-5 text-green-400 mr-2 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>24/7 priority support</li>
+                            <li class="flex items-start"><svg class="w-5 h-5 text-green-400 mr-2 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Advanced analytics and reporting</li>
+                            <li class="flex items-start"><svg class="w-5 h-5 text-green-400 mr-2 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Secure cloud storage</li>
+                        </ul>
+
+                        <button class="mt-8 w-full py-3 bg-gray-800 text-white font-semibold rounded-xl hover:bg-purple-neon hover:text-white transition duration-300 border border-gray-700 hover:border-purple-neon">
+                            Contact Sales
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sessão 5 – Blog / Insights -->
+        <section id="blog" class="py-20 md:py-28 dark-section-bg border-t border-gray-800">
+            <div class="max-w-7xl mx-auto px-6 md:px-12">
+                <div class="text-center mb-16">
+                    <h2 class="text-4xl md:text-5xl font-extrabold mb-4">
+                        <span data-i18n="blog_title_p1">Mantenha-se Inspirado com Nossos Últimos</span> <span class="text-purple-neon" data-i18n="blog_title_p2">Insights</span>
+                    </h2>
+                    <p class="text-lg text-gray-400 max-w-3xl mx-auto" data-i18n="blog_subtitle">
+                        Mergulhe em nosso blog para as últimas tendências, dicas e insights no mundo do design e tecnologia de IA.
+                    </p>
+                </div>
+
+                <!-- Blog Posts Grid (Placeholders de imagem) -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <!-- Post 1: Starting and Growing a Career in Web Design -->
+                    <a href="#" class="card-bg rounded-2xl overflow-hidden shadow-xl border border-gray-800 hover:border-purple-neon transition duration-300 group">
+                        <div class="h-40 bg-gray-800 flex items-center justify-center relative overflow-hidden">
+                            <img src="https://placehold.co/600x400/3730a3/e5e7eb/png?text=Web+Design+Career" alt="Web Design Career article thumbnail" class="w-full h-full object-cover absolute opacity-30 group-hover:opacity-40 transition duration-300">
+                            <span class="text-sm font-medium text-purple-neon z-10 p-2 bg-gray-900 rounded-lg">Web Design</span>
+                        </div>
+                        <div class="p-6">
+                            <p class="text-sm text-gray-500 mb-2">Apr 8, 2022 · 6 min read</p>
+                            <h3 class="text-xl font-semibold text-white group-hover:text-purple-neon transition duration-300">Starting and Growing a Career in Web Design</h3>
+                        </div>
+                    </a>
+
+                    <!-- Post 2: Create a Landing Page That Performs Great -->
+                    <a href="#" class="card-bg rounded-2xl overflow-hidden shadow-xl border border-gray-800 hover:border-purple-neon transition duration-300 group">
+                        <div class="h-40 bg-gray-800 flex items-center justify-center relative overflow-hidden">
+                            <img src="https://placehold.co/600x400/166534/e5e7eb/png?text=High+Converting+LP" alt="Landing Page article thumbnail" class="w-full h-full object-cover absolute opacity-30 group-hover:opacity-40 transition duration-300">
+                            <span class="text-sm font-medium text-purple-neon z-10 p-2 bg-gray-900 rounded-lg">Marketing</span>
+                        </div>
+                        <div class="p-6">
+                            <p class="text-sm text-gray-500 mb-2">Mar 15, 2022 · 5 min read</p>
+                            <h3 class="text-xl font-semibold text-white group-hover:text-purple-neon transition duration-300">Create a Landing Page That Performs Great</h3>
+                        </div>
+                    </a>
+
+                    <!-- Post 3: How Can Designers Prepare for the Future? -->
+                    <a href="#" class="card-bg rounded-2xl overflow-hidden shadow-xl border border-gray-800 hover:border-purple-neon transition duration-300 group">
+                        <div class="h-40 bg-gray-800 flex items-center justify-center relative overflow-hidden">
+                            <img src="https://placehold.co/600x400/4c0519/fecaca/png?text=Future+of+Design" alt="Future of Design article thumbnail" class="w-full h-full object-cover absolute opacity-30 group-hover:opacity-40 transition duration-300">
+                            <span class="text-sm font-medium text-purple-neon z-10 p-2 bg-gray-900 rounded-lg">AI & Future</span>
+                        </div>
+                        <div class="p-6">
+                            <p class="text-sm text-gray-500 mb-2">Feb 28, 2022 · 7 min read</p>
+                            <h3 class="text-xl font-semibold text-white group-hover:text-purple-neon transition duration-300">How Can Designers Prepare for the Future?</h3>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sessão 6 – CTA final -->
+        <section class="cta-background py-20 md:py-32 relative overflow-hidden border-t border-gray-800">
+            <div class="max-w-4xl mx-auto px-6 md:px-12 text-center relative z-10">
+                <h2 class="text-4xl md:text-6xl font-extrabold mb-4">
+                    <span data-i18n="cta_title_p1">Comece Sua Jornada de Design</span> <span class="text-purple-neon" data-i18n="cta_title_p2">Hoje</span>
+                </h2>
+                <p class="text-xl text-gray-400 mb-8 max-w-3xl mx-auto" data-i18n="cta_subtitle">
+                    Inscreva-se agora e experimente o poder do design impulsionado por IA sem compromisso.
+                </p>
+                <button class="py-4 px-12 bg-purple-neon text-white font-bold rounded-xl text-lg shadow-2xl shadow-violet-800/70 hover:bg-violet-600 transition duration-300 transform hover:scale-105" data-i18n="btn_start_cta">
+                    Começar Agora
+                </button>
+            </div>
+            <!-- Efeitos de fundo (blob de cor) -->
+            <div class="absolute inset-0 opacity-20 pointer-events-none">
+                <div class="w-96 h-96 bg-purple-neon rounded-full absolute top-10 right-10 blur-[150px]"></div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Rodapé -->
+    <footer class="py-8 dark-section-bg border-t border-gray-800">
+        <div class="max-w-7xl mx-auto px-6 md:px-12 text-center text-gray-500 text-sm">
+            <p>&copy; 2025 AI.Design Assistant. All rights reserved.</p>
+            <div class="mt-2 space-x-4">
+                <a href="#" class="hover:text-purple-neon" data-i18n="footer_privacy">Privacidade</a>
+                <span class="text-gray-700">|</span>
+                <a href="#" class="hover:text-purple-neon" data-i18n="footer_terms">Termos</a>
+            </div>
+        </div>
+    </footer>
+    
+    <!-- Botão Flutuante do WhatsApp (REVISADO com JS para melhor compatibilidade) -->
+    <a href="#" 
+        onclick="openWhatsApp(event)"
+        data-number="5531993736336"
+        data-text="Olá, gostaria de saber mais sobre o Assistente de Design com IA."
+        class="fixed bottom-6 right-6 z-50 p-4 bg-green-500 rounded-full shadow-lg hover:bg-green-600 transition duration-300 transform hover:scale-110"
+        title="Fale Conosco pelo WhatsApp (55 31 99373-6336)">
+        <!-- Icone de Chat (simulando WhatsApp) - Usando Lucide Message Circle -->
+        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-message-circle text-white">
+            <path d="M7.9 20A10 10 0 1 0 4 16.1L2 22Z"/>
+        </svg>
+    </a>
+
+    <!-- Script de Alternância de Idioma e Novo Script do WhatsApp -->
+    <script>
+        // Função JS para tentar abrir o WhatsApp e contornar restrições de sandbox
+        function openWhatsApp(event) {
+            event.preventDefault(); // Impede o comportamento padrão do link
+
+            const linkElement = event.currentTarget;
+            const number = linkElement.getAttribute('data-number');
+            const text = linkElement.getAttribute('data-text');
+            
+            // Codifica o texto para ser seguro na URL
+            const encodedText = encodeURIComponent(text);
+            
+            // Constrói o URL completo
+            const waUrl = `https://wa.me/${number}?text=${encodedText}`;
+            
+            // Tenta abrir em uma nova janela/aba
+            try {
+                window.open(waUrl, '_blank');
+                console.log(`Tentativa de abrir WhatsApp para: ${waUrl}`);
+            } catch (e) {
+                // Caso a restrição de pop-up ou sandbox impeça a abertura
+                console.error("Não foi possível abrir a janela do WhatsApp. Possível bloqueio de sandbox/pop-up.", e);
+                // Informa o usuário no console
+                console.warn(`Se o botão do WhatsApp não funcionar, copie o link e cole no seu navegador: ${waUrl}`);
+            }
+        }
+
+        // Mapeamento de traduções (Português 'pt' e Inglês 'en')
+        const translations = {
+            'pt': {
+                'toggle_button_text': 'English',
+                'nav_works': 'Como Funciona',
+                'nav_pricing': 'Preços',
+                'nav_blog': 'Blog',
+                'nav_login': 'Login',
+                'hero_title_p1': 'Seu',
+                'hero_title_p2': 'Assistente de Design com IA',
+                'hero_subtitle': 'Libere seu potencial criativo. Gere, personalize e aperfeiçoe seus designs de forma contínua com tecnologia de IA de ponta.',
+                'btn_start': 'Começar Agora',
+                'btn_templates': 'Mais Modelos',
+                'trusted_by': 'Confiado por grandes nomes',
+                'how_title_p1': 'Liberte',
+                'how_title_p2': 'Sua Criatividade',
+                'how_subtitle': 'Descubra como nosso Assistente de Design com IA transforma suas ideias em designs incríveis sem esforço. Siga estes passos simples para tornar sua visão realidade.',
+                'step1_title': 'Carregar Briefing',
+                'step1_desc': 'Compartilhe os detalhes do seu projeto e deixe nossa IA entender sua visão.',
+                'step2_title': 'Gerar Designs',
+                'step2_desc': 'Veja nossa IA criar ideias de design exclusivas e personalizadas para você.',
+                'step3_title': 'Refinar Criação',
+                'step3_desc': 'Aperfeiçoe o conceito escolhido com ferramentas de IA fáceis de usar.',
+                'pricing_title_p1': 'Planos Acessíveis para',
+                'pricing_title_p2': 'Todas as Necessidades',
+                'pricing_subtitle': 'Escolha o plano perfeito para seus projetos de design, de startups a empresas. Nossos níveis de preços são projetados para oferecer flexibilidade e valor.',
+                'blog_title_p1': 'Mantenha-se Inspirado com Nossos Últimos',
+                'blog_title_p2': 'Insights',
+                'blog_subtitle': 'Mergulhe em nosso blog para as últimas tendências, dicas e insights no mundo do design e tecnologia de IA.',
+                'cta_title_p1': 'Comece Sua Jornada de Design',
+                'cta_title_p2': 'Hoje',
+                'cta_subtitle': 'Inscreva-se agora e experimente o poder do design impulsionado por IA sem compromisso.',
+                'btn_start_cta': 'Começar Agora',
+                'footer_privacy': 'Privacidade',
+                'footer_terms': 'Termos'
+            },
+            'en': {
+                'toggle_button_text': 'Português',
+                'nav_works': 'How it Works',
+                'nav_pricing': 'Pricing',
+                'nav_blog': 'Blog',
+                'nav_login': 'Login',
+                'hero_title_p1': 'Your',
+                'hero_title_p2': 'AI-Powered Design Assistant',
+                'hero_subtitle': 'Unlock your creative potential. Seamlessly generate, customize, and perfect your designs with cutting-edge AI technology.',
+                'btn_start': 'Get Started',
+                'btn_templates': 'More Templates',
+                'trusted_by': 'Trusted by great names',
+                'how_title_p1': 'Unleash',
+                'how_title_p2': 'Your Creativity',
+                'how_subtitle': 'Discover how our AI-Powered Design Assistant transforms your ideas into stunning designs effortlessly. Follow these simple steps to turn your vision into reality.',
+                'step1_title': 'Upload Brief',
+                'step1_desc': 'Share your project details and let our AI grasp your vision.',
+                'step2_title': 'Generate Designs',
+                'step2_desc': 'Watch as our AI crafts unique design ideas tailored to you.',
+                'step3_title': 'Refine Creation',
+                'step3_desc': 'Perfect your chosen concept with easy-to-use AI tools.',
+                'pricing_title_p1': 'Affordable Plans for',
+                'pricing_title_p2': 'Every Need',
+                'pricing_subtitle': 'Choose the perfect plan for your design projects, from startups to enterprises. Our pricing tiers are designed to offer flexibility and value.',
+                'blog_title_p1': 'Stay Inspired with Our Latest',
+                'blog_title_p2': 'Insights',
+                'blog_subtitle': 'Dive into our blog for the latest trends, tips, and insights in the world of design and AI technology.',
+                'cta_title_p1': 'Start Your Design Journey',
+                'cta_title_p2': 'Today',
+                'cta_subtitle': 'Sign up now and experience the power of AI-driven design without any commitment.',
+                'btn_start_cta': 'Get Started',
+                'footer_privacy': 'Privacy',
+                'footer_terms': 'Terms'
+            }
+        };
+
+        let currentLanguage = 'pt'; // Inicia em Português
+
+        /**
+         * Aplica as traduções com base no idioma atual.
+         */
+        function updateText() {
+            const elements = document.querySelectorAll('[data-i18n]');
+            const langData = translations[currentLanguage];
+            
+            elements.forEach(element => {
+                const key = element.getAttribute('data-i18n');
+                if (langData[key]) {
+                    element.textContent = langData[key];
+                }
+            });
+
+            // Atualiza o texto do botão de alternância
+            const toggleButton = document.getElementById('lang-toggle-button');
+            if (toggleButton) {
+                // Se o idioma atual é PT, o botão deve mostrar EN (para o próximo clique)
+                toggleButton.textContent = currentLanguage === 'pt' ? translations.pt.toggle_button_text : translations.en.toggle_button_text;
+            }
+        }
+
+        // Chama a função ao carregar para garantir que o estado inicial esteja correto (Português)
+        document.addEventListener('DOMContentLoaded', updateText);
+    </script>
+</body>
+</html>
