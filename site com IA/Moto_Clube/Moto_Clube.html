@@ -7,7 +7,7 @@
     <!-- Carregando Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Carrega o Font Awesome para ícones -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" xintegrity="sha512-Fo3rlrZj/k7ujTnHg4CGR2D7kSs0V4LLanw2qksYuMTO0S56K2fB3L3L3T/V5S7E3a8D4jT8f+5Q6+h+A5H+w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" xintegrity="sha512-Fo3rlrZj/k7ujTnHg4CGR2D7kSs0V4LLanw2qksYuMTO0S56K2fB3L3T/V5S7E3a8D4jT8f+5Q6+h+A5H+w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
         body {
@@ -236,12 +236,12 @@
             
             <!-- CONTÊINER PARA O FORMULÁRIO OU MENSAGEM DE SUCESSO -->
             <div id="form-container" class="max-w-sm mx-auto">
-                <!-- Formulário de Contato Simplificado | AGORA COM LÓGICA JAVASCRIPT DE FEEDBACK -->
+                <!-- Formulário de Contato Simplificado | AGORA COM LÓGICA JAVASCRIPT DE MAILTO -->
                 <form id="contactForm" onsubmit="sendEmail(event)" class="space-y-4">
                     <input type="text" id="name" name="Nome" placeholder="Seu Nome" class="w-full p-3 rounded-lg bg-gray-700 border-gray-600 text-white focus:ring-mc-red focus:border-mc-red" required>
                     <input type="email" id="email" name="Email" placeholder="Seu Email" class="w-full p-3 rounded-lg bg-gray-700 border-gray-600 text-white focus:ring-mc-red focus:border-mc-red" required>
                     <textarea id="message" name="Mensagem" placeholder="Sua Mensagem" rows="4" class="w-full p-3 rounded-lg bg-gray-700 border-gray-600 text-white focus:ring-mc-red focus:border-mc-red" required></textarea>
-                    <button type="submit" class="btn-primary w-full px-8 py-3 font-bold rounded-lg text-white shadow-lg hover:shadow-xl uppercase">
+                    <button type="submit" class="btn-primary w-full px-8 py-3 font-bold rounded-lg text-white shadow-lg hover:shadow-xl uppercase" data-translate-key="send_message_button">
                         Enviar Mensagem
                     </button>
                 </form>
@@ -322,8 +322,9 @@
                 'event2_status': 'Em Breve',
                 'contato_title': 'Entre em Contato',
                 'contato_text': 'Quer se tornar um membro ou patrocinar um evento? Envie uma mensagem e faremos contato.',
-                'email_success_title': 'Mensagem Enviada com Sucesso!',
-                'email_success_body': 'Sua mensagem foi entregue com sucesso à nossa equipe. Responderemos o mais breve possível.'
+                'send_message_button': 'Enviar Mensagem',
+                'email_success_title': 'E-mail Praticamente Enviado!',
+                'email_success_body': 'O seu cliente de e-mail padrão foi aberto com sua mensagem preenchida. Por favor, **clique em Enviar** no seu programa de e-mail para que a mensagem chegue até nós.'
             },
             'en-US': {
                 'renegados_mc_short': 'AI Moto C.',
@@ -356,8 +357,9 @@
                 'event2_status': 'Coming Soon',
                 'contato_title': 'Get in Touch',
                 'contato_text': 'Want to become a member or sponsor an event? Send a message and we will contact you.',
-                'email_success_title': 'Message Sent Successfully!',
-                'email_success_body': 'Your message has been successfully delivered to our team. We will respond as soon as possible.'
+                'send_message_button': 'Send Message',
+                'email_success_title': 'Email Almost Sent!',
+                'email_success_body': 'Your default email client has been opened with your message pre-filled. Please **click Send** in your email program to ensure the message reaches us.'
             },
             'es-ES': {
                 'renegados_mc_short': 'Moto IA M.C.',
@@ -390,8 +392,9 @@
                 'event2_status': 'Próximamente',
                 'contato_title': 'Ponte en Contacto',
                 'contato_text': '¿Quieres ser miembro o patrocinar un evento? Envíanos un mensaje y te contactaremos.',
-                'email_success_title': '¡Mensaje Enviado con Éxito!',
-                'email_success_body': 'Tu mensaje ha sido entregado con éxito a nuestro equipo. Te responderemos lo antes posible.'
+                'send_message_button': 'Enviar Mensaje',
+                'email_success_title': '¡Correo Casi Enviado!',
+                'email_success_body': 'Tu cliente de correo electrónico predeterminado se ha abierto con tu mensaje precargado. Por favor, **haz clic en Enviar** en tu programa de correo para asegurar que el mensaje nos llegue.'
             },
             'de-DE': {
                 'renegados_mc_short': 'Moto IA M.C.',
@@ -424,8 +427,9 @@
                 'event2_status': 'Demnächst',
                 'contato_title': 'Kontaktieren Sie Uns',
                 'contato_text': 'Möchten Sie Mitglied werden oder ein Event sponsern? Senden Sie uns eine Nachricht und wir werden uns bei Ihnen melden.',
-                'email_success_title': 'Nachricht Erfolgreich Gesendet!',
-                'email_success_body': 'Ihre Nachricht wurde erfolgreich an unser Team übermittelt. Wir werden so schnell wie möglich antworten.'
+                'send_message_button': 'Nachricht Senden',
+                'email_success_title': 'E-Mail Fast Gesendet!',
+                'email_success_body': 'Ihr Standard-E-Mail-Client wurde mit Ihrer Nachricht vorab ausgefüllt geöffnet. Bitte **klicken Sie auf Senden** in Ihrem E-Mail-Programm, damit die Nachricht uns erreicht.'
             },
             'fr-FR': {
                 'renegados_mc_short': 'Moto IA M.C.',
@@ -458,8 +462,9 @@
                 'event2_status': 'Bientôt',
                 'contato_title': 'Entrer en Contact',
                 'contato_text': 'Vous voulez devenir membre ou parrainer un événement? Envoyez-nous un message et nous vous contacterons.',
-                'email_success_title': 'Message Envoyé avec Succès!',
-                'email_success_body': 'Votre message a été transmis avec succès à notre équipe. Nous vous répondrons dans les plus brefs délais.'
+                'send_message_button': 'Envoyer Message',
+                'email_success_title': 'E-mail Presque Envoyé!',
+                'email_success_body': "Votre client de messagerie par défaut a été ouvert avec votre message pré-rempli. Veuillez **cliquer sur Envoyer** dans votre programme de messagerie pour que le message nous parvienne."
             }
         };
 
@@ -474,7 +479,12 @@
             elements.forEach(el => {
                 const key = el.getAttribute('data-translate-key');
                 if (translations[lang] && translations[lang][key]) {
-                    el.textContent = translations[lang][key];
+                    // Atualiza o texto, mas usa innerHTML para renderizar negrito no texto de sucesso
+                    if (el.getAttribute('data-translate-key').includes('success_body')) {
+                        el.innerHTML = translations[lang][key];
+                    } else {
+                        el.textContent = translations[lang][key];
+                    }
                 }
             });
 
@@ -498,8 +508,7 @@
         }
 
         /**
-         * Lida com o envio do formulário, removendo a necessidade de um serviço de e-mail e 
-         * mostrando uma mensagem de sucesso, conforme solicitado pelo usuário.
+         * Lida com o envio do formulário, usando mailto: para abrir o cliente de e-mail.
          */
         function sendEmail(event) {
             event.preventDefault(); 
@@ -510,28 +519,35 @@
             const email = document.getElementById('email').value;
             const message = document.getElementById('message').value;
 
-            // Validação simples (já é feita pelo required, mas é bom ter uma dupla checagem)
-            if (!name || !email || !message) {
-                // Não faz nada se os campos estiverem vazios (o HTML já impede)
-                return;
-            }
+            // Constrói o link mailto
+            const subject = encodeURIComponent(`Contato de ${name} via Moto IA M.C. Website`);
+            const body = encodeURIComponent(`De: ${name}\nE-mail: ${email}\n\nMensagem:\n${message}\n\n---\nEnviado via formulário de contato do site.`);
+
+            const mailtoLink = `mailto:${recipientEmail}?subject=${subject}&body=${body}`;
+
+            // Abre o cliente de e-mail padrão do usuário
+            window.open(mailtoLink, '_self'); // Abre na mesma janela, que é mais compatível em iFrames
 
             // Esconde o formulário
             form.classList.add('hidden');
             
-            // Cria a mensagem de SUCESSO (positiva e com cor verde)
+            // Cria a mensagem de SUCESSO / INSTRUÇÃO
+            const successTitle = translations[currentLang]['email_success_title'];
+            const successBody = translations[currentLang]['email_success_body'];
+
             const successHtml = `
                 <div class="bg-gray-900 p-6 rounded-xl shadow-2xl text-white border-b-4 border-whatsapp-green">
-                    <h3 class="text-3xl font-bold mb-3 text-whatsapp-green" data-translate-key="email_success_title">${translations[currentLang].email_success_title}</h3>
-                    <p class="text-lg text-gray-300" data-translate-key="email_success_body">${translations[currentLang].email_success_body}</p>
-                    <p class="mt-4 text-sm text-gray-400">E-mail de Referência: <span class="text-whatsapp-green">${recipientEmail}</span></p>
+                    <h3 class="text-3xl font-bold mb-3 text-whatsapp-green" data-translate-key="email_success_title">${successTitle}</h3>
+                    <p class="text-lg text-gray-300" data-translate-key="email_success_body">${successBody}</p>
+                    <p class="mt-4 text-sm text-gray-400">E-mail de Destino: <span class="text-whatsapp-green">${recipientEmail}</span></p>
+                    <p class="mt-2 text-sm text-gray-400">Se o e-mail não abriu, use o link: <a href="${mailtoLink}" target="_blank" class="text-mc-red hover:underline break-all">Abrir E-mail Manualmente</a></p>
                 </div>
             `;
 
             // Adiciona a mensagem ao contêiner
             container.innerHTML = successHtml;
             
-            // Traduz a nova mensagem (apenas por garantia)
+            // Traduz a nova mensagem (apenas por garantia para o uso do innerHTML)
             setLanguage(currentLang);
         }
 
