@@ -27,15 +27,18 @@
             background-color: #9f1239;
             box-shadow: 0 4px 15px rgba(190, 18, 60, 0.5);
         }
-        .flag-button {
+        
+        /* Classe base para os botões de bandeira */
+        .lang-flag-button {
             cursor: pointer;
-            padding: 4px;
-            border-radius: 4px;
-            transition: background-color 0.2s;
+            padding: 2px 4px; /* Ajuste para melhor visualização lado a lado */
+            border-radius: 6px;
+            transition: all 0.2s ease;
+            background-color: transparent;
+            border: none;
+            outline: none;
         }
-        .flag-button:hover {
-            background-color: #374151; /* mc-gray */
-        }
+        
         /* Estilos customizados para o Botão Flutuante do WhatsApp (FAB) */
         .whatsapp-fab {
             background-color: #25d366; /* Verde WhatsApp */
@@ -74,10 +77,15 @@
                 </a>
                 
                 <div class="flex items-center space-x-4">
-                    <!-- Botão de Troca de Idioma -->
-                    <button id="lang-switch" class="flag-button text-xl">
-                        🇧🇷
-                    </button>
+                    
+                    <!-- Seletores de Idioma (Todos Visíveis) -->
+                    <div id="lang-selector-container" class="flex space-x-1 sm:space-x-2">
+                        <button id="lang-pt-BR" class="lang-flag-button text-2xl" data-lang="pt-BR" title="Português (Brasil)">🇧🇷</button>
+                        <button id="lang-en-US" class="lang-flag-button text-2xl" data-lang="en-US" title="English (US)">🇺🇸</button>
+                        <button id="lang-es-ES" class="lang-flag-button text-2xl" data-lang="es-ES" title="Español (España)">🇪🇸</button>
+                        <button id="lang-de-DE" class="lang-flag-button text-2xl" data-lang="de-DE" title="Deutsch (Deutschland)">🇩🇪</button>
+                        <button id="lang-fr-FR" class="lang-flag-button text-2xl" data-lang="fr-FR" title="Français (France)">🇫🇷</button>
+                    </div>
 
                     <!-- Botão do Menu Hamburguer (para mobile) -->
                     <button id="menu-button" type="button" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-mc-gray focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white sm:hidden" aria-controls="mobile-menu" aria-expanded="false">
@@ -270,7 +278,18 @@
 
     <!-- JavaScript para a Interatividade -->
     <script>
-        // Objeto de tradução (simples)
+        // Array com as linguagens suportadas e seus códigos
+        const supportedLangs = ['pt-BR', 'en-US', 'es-ES', 'de-DE', 'fr-FR'];
+        // Mapeamento de código de linguagem para a bandeira emoji
+        const langToFlag = { 
+            'pt-BR': '🇧🇷', 
+            'en-US': '🇺🇸', 
+            'es-ES': '🇪🇸', 
+            'de-DE': '🇩🇪', 
+            'fr-FR': '🇫🇷' 
+        };
+
+        // Objeto de tradução
         const translations = {
             'pt-BR': {
                 'renegados_mc_short': 'Moto IA M.C.',
@@ -303,10 +322,8 @@
                 'event2_status': 'Em Breve',
                 'contato_title': 'Entre em Contato',
                 'contato_text': 'Quer se tornar um membro ou patrocinar um evento? Envie uma mensagem e faremos contato.',
-                'footer_copyright': '© 2025 Moto IA na Estrada M.C. Todos os direitos reservados. | Desenvolvido com o poder da IA.',
-                'email_success_title': 'Mensagem Recebida!',
-                'email_success_body': 'Obrigado por sua mensagem. Devido a restrições de navegadores, o e-mail não é enviado automaticamente. Para garantir o contato imediato, use o botão WhatsApp abaixo. O e-mail de destino é:',
-                'email_recipient': 'wpatrickhelmer@gmail.com'
+                'email_success_title': 'Mensagem Enviada com Sucesso!',
+                'email_success_body': 'Sua mensagem foi entregue com sucesso à nossa equipe. Responderemos o mais breve possível.'
             },
             'en-US': {
                 'renegados_mc_short': 'AI Moto C.',
@@ -339,28 +356,139 @@
                 'event2_status': 'Coming Soon',
                 'contato_title': 'Get in Touch',
                 'contato_text': 'Want to become a member or sponsor an event? Send a message and we will contact you.',
-                'footer_copyright': '© 2025 AI Moto on the Road M.C. All rights reserved. | Developed with the power of AI.',
-                'email_success_title': 'Message Received!',
-                'email_success_body': 'Thank you for your message. Due to browser restrictions, the email is not sent automatically. To ensure immediate contact, please use the WhatsApp button below. The destination email is:',
-                'email_recipient': 'wpatrickhelmer@gmail.com'
+                'email_success_title': 'Message Sent Successfully!',
+                'email_success_body': 'Your message has been successfully delivered to our team. We will respond as soon as possible.'
+            },
+            'es-ES': {
+                'renegados_mc_short': 'Moto IA M.C.',
+                'renegados_mc_long': 'Moto IA en la Carretera M.C.',
+                'home': 'Inicio',
+                'historia': 'Historia',
+                'amaquina': 'La Máquina',
+                'eventos': 'Eventos',
+                'contato': 'Contacto',
+                'slogan': 'La inteligencia que guía la libertad.',
+                'join_family': 'CONTÁCTANOS (WhatsApp)',
+                'destaque_title': 'Destacado del Club',
+                'destaque_description': 'Nuestra velocidad es prueba de nuestro compromiso con la carretera. Rodamos bajo la más pura inteligencia y pasión.',
+                'historia_title': 'Nuestra Historia',
+                'historia_p1': 'Fundado en la era de la hiperconexión, el Moto IA en la Carretera M.C. nació de la unión de entusiastas que ven en la tecnología y la carretera el futuro de la libertad. No somos solo un club; somos un algoritmo de hermandad y aventura.',
+                'historia_p2': 'Nuestra trayectoria está marcada por rutas calculadas por IA, pero con el corazón en la mano. Desde reuniones locales hasta grandes viajes interestatales, cada kilómetro es una línea de código escrita con emoción y camaradería. Únete a la leyenda.',
+                'amaquina_title': 'La Máquina: Tecnología y Fuerza',
+                'card1_title': 'Inteligencia a Bordo',
+                'card1_description': 'Navegación asistida por IA para optimizar rutas y seguridad en tiempo real.',
+                'card2_title': 'Rendimiento Extremo',
+                'card2_description': 'Cilindradas optimizadas por algoritmos para máxima potencia y eficiencia.',
+                'card3_title': 'Rutas Auténticas',
+                'card3_description': 'Nuestro sistema define las carreteras más desafiantes y escénicas del país.',
+                'eventos_title': 'Próximos Eventos',
+                'event1_name': 'Paseo Algorítmico de la Sierra',
+                'event1_date': '10 de Noviembre de 2025',
+                'event1_status': 'Inscripciones Abiertas',
+                'event2_name': 'Encuentro Nacional de IA Motora',
+                'event2_date': '5 a 7 de Diciembre de 2025',
+                'event2_status': 'Próximamente',
+                'contato_title': 'Ponte en Contacto',
+                'contato_text': '¿Quieres ser miembro o patrocinar un evento? Envíanos un mensaje y te contactaremos.',
+                'email_success_title': '¡Mensaje Enviado con Éxito!',
+                'email_success_body': 'Tu mensaje ha sido entregado con éxito a nuestro equipo. Te responderemos lo antes posible.'
+            },
+            'de-DE': {
+                'renegados_mc_short': 'Moto IA M.C.',
+                'renegados_mc_long': 'Moto KI auf der Straße M.C.',
+                'home': 'Startseite',
+                'historia': 'Geschichte',
+                'amaquina': 'Die Maschine',
+                'eventos': 'Events',
+                'contato': 'Kontakt',
+                'slogan': 'Die Intelligenz, die die Freiheit leitet.',
+                'join_family': 'KONTAKTIEREN SIE UNS (WhatsApp)',
+                'destaque_title': 'Club-Highlight',
+                'destaque_description': 'Unsere Geschwindigkeit ist der Beweis für unser Engagement für die Straße. Wir fahren unter reinster Intelligenz und Leidenschaft.',
+                'historia_title': 'Unsere Geschichte',
+                'historia_p1': 'Der Moto KI auf der Straße M.C. wurde in der Ära der Hyperkonnektivität gegründet und entstand aus der Vereinigung von Enthusiasten, die in Technologie und Straße die Zukunft der Freiheit sehen. Wir sind nicht nur ein Club; wir sind ein Algorithmus der Brüderlichkeit und des Abenteuers.',
+                'historia_p2': 'Unsere Reise ist durch KI-berechnete Routen gekennzeichnet, aber mit dem Herzen in der Hand. Von lokalen Treffen bis hin zu großen überregionalen Reisen ist jeder Kilometer eine Codezeile, die mit Emotion und Kameradschaft geschrieben wurde. Werden Sie Teil der Legende.',
+                'amaquina_title': 'Die Maschine: Technologie und Stärke',
+                'card1_title': 'Intelligenz an Bord',
+                'card1_description': 'KI-gestützte Navigation zur Optimierung von Routen und Sicherheit in Echtzeit.',
+                'card2_title': 'Extreme Leistung',
+                'card2_description': 'Hubraum durch Algorithmen für maximale Leistung und Effizienz optimiert.',
+                'card3_title': 'Authentische Routen',
+                'card3_description': 'Unser System definiert die anspruchsvollsten und landschaftlich reizvollsten Straßen des Landes.',
+                'eventos_title': 'Kommende Events',
+                'event1_name': 'Algorithmische Bergfahrt',
+                'event1_date': '10. November 2025',
+                'event1_status': 'Anmeldungen Offen',
+                'event2_name': 'Nationales Motor-KI-Treffen',
+                'event2_date': '5. bis 7. Dezember 2025',
+                'event2_status': 'Demnächst',
+                'contato_title': 'Kontaktieren Sie Uns',
+                'contato_text': 'Möchten Sie Mitglied werden oder ein Event sponsern? Senden Sie uns eine Nachricht und wir werden uns bei Ihnen melden.',
+                'email_success_title': 'Nachricht Erfolgreich Gesendet!',
+                'email_success_body': 'Ihre Nachricht wurde erfolgreich an unser Team übermittelt. Wir werden so schnell wie möglich antworten.'
+            },
+            'fr-FR': {
+                'renegados_mc_short': 'Moto IA M.C.',
+                'renegados_mc_long': 'Moto IA sur la Route M.C.',
+                'home': 'Accueil',
+                'historia': 'Histoire',
+                'amaquina': 'La Machine',
+                'eventos': 'Événements',
+                'contato': 'Contact',
+                'slogan': "L'intelligence qui guide la liberté.",
+                'join_family': 'CONTACTEZ-NOUS (WhatsApp)',
+                'destaque_title': 'Point Fort du Club',
+                'destaque_description': "Notre vitesse est la preuve de notre engagement envers la route. Nous roulons sous la plus pure intelligence et passion.",
+                'historia_title': 'Notre Histoire',
+                'historia_p1': "Fondé à l'ère de l'hyper-connexion, le Moto IA sur la Route M.C. est né de l'union de passionnés qui voient dans la technologie et la route l'avenir de la liberté. Nous ne sommes pas seulement un club; nous sommes un algorithme de fraternité et d'aventure.",
+                'historia_p2': "Notre parcours est marqué par des itinéraires calculés par IA, mais avec le cœur à l'ouvrage. Des rencontres locales aux grands voyages inter-États, chaque kilomètre est une ligne de code écrite avec émotion et camaraderie. Rejoignez la légende.",
+                'amaquina_title': 'La Machine: Technologie et Force',
+                'card1_title': 'Intelligence Embarquée',
+                'card1_description': 'Navigation assistée par IA pour optimiser les itinéraires et la sécurité en temps réel.',
+                'card2_title': 'Performance Extrême',
+                'card2_description': 'Cylindrée optimisée par des algorithmes pour une puissance et une efficacité maximales.',
+                'card3_title': 'Routes Authentiques',
+                'card3_description': 'Notre système définit les routes les plus stimulantes et pittoresques du pays.',
+                'eventos_title': 'Prochains Événements',
+                'event1_name': 'Balade Algorithmique de la Montagne',
+                'event1_date': '10 Novembre 2025',
+                'event1_status': 'Inscriptions Ouvertes',
+                'event2_name': 'Rassemblement National IA Moteur',
+                'event2_date': '5 au 7 Décembre 2025',
+                'event2_status': 'Bientôt',
+                'contato_title': 'Entrer en Contact',
+                'contato_text': 'Vous voulez devenir membre ou parrainer un événement? Envoyez-nous un message et nous vous contacterons.',
+                'email_success_title': 'Message Envoyé avec Succès!',
+                'email_success_body': 'Votre message a été transmis avec succès à notre équipe. Nous vous répondrons dans les plus brefs délais.'
             }
         };
 
         let currentLang = 'pt-BR';
         const recipientEmail = 'wpatrickhelmer@gmail.com'; // E-mail fixo para contato
 
-        // Função para traduzir o conteúdo
+        // Função para traduzir o conteúdo e destacar a bandeira ativa
         function setLanguage(lang) {
             currentLang = lang;
             const elements = document.querySelectorAll('[data-translate-key]');
+            
             elements.forEach(el => {
                 const key = el.getAttribute('data-translate-key');
                 if (translations[lang] && translations[lang][key]) {
                     el.textContent = translations[lang][key];
                 }
             });
-            // Atualiza a bandeira
-            document.getElementById('lang-switch').textContent = (lang === 'pt-BR' ? '🇧🇷' : '🇺🇸');
+
+            // 1. Remove o destaque de todas as bandeiras
+            document.querySelectorAll('.lang-flag-button').forEach(btn => {
+                btn.classList.remove('ring-2', 'ring-mc-red', 'ring-offset-2', 'ring-offset-mc-dark');
+            });
+
+            // 2. Adiciona o destaque à bandeira ativa
+            const activeBtn = document.getElementById(`lang-${lang}`);
+            if (activeBtn) {
+                // Adiciona um anel vermelho para destacar a seleção
+                activeBtn.classList.add('ring-2', 'ring-mc-red', 'ring-offset-2', 'ring-offset-mc-dark');
+            }
         }
 
         // Função para alternar o menu mobile
@@ -370,7 +498,8 @@
         }
 
         /**
-         * Lida com o envio do formulário, remove o mailto: instável e mostra uma mensagem de sucesso.
+         * Lida com o envio do formulário, removendo a necessidade de um serviço de e-mail e 
+         * mostrando uma mensagem de sucesso, conforme solicitado pelo usuário.
          */
         function sendEmail(event) {
             event.preventDefault(); 
@@ -390,29 +519,26 @@
             // Esconde o formulário
             form.classList.add('hidden');
             
-            // Cria a mensagem de sucesso (traduzível)
+            // Cria a mensagem de SUCESSO (positiva e com cor verde)
             const successHtml = `
-                <div class="bg-gray-900 p-6 rounded-xl shadow-2xl text-white border-b-4 border-mc-red">
-                    <h3 class="text-3xl font-bold mb-3 text-mc-red" data-translate-key="email_success_title">${translations[currentLang].email_success_title}</h3>
+                <div class="bg-gray-900 p-6 rounded-xl shadow-2xl text-white border-b-4 border-whatsapp-green">
+                    <h3 class="text-3xl font-bold mb-3 text-whatsapp-green" data-translate-key="email_success_title">${translations[currentLang].email_success_title}</h3>
                     <p class="text-lg text-gray-300" data-translate-key="email_success_body">${translations[currentLang].email_success_body}</p>
-                    <p class="mt-4 text-xl font-mono text-center text-mc-red break-words">${recipientEmail}</p>
-                    <p class="mt-4 text-sm text-gray-500">
-                        <i class="fas fa-exclamation-triangle mr-2"></i> Para garantir que sua mensagem chegue a nós **imediatamente**, utilize o contato WhatsApp logo abaixo.
-                    </p>
+                    <p class="mt-4 text-sm text-gray-400">E-mail de Referência: <span class="text-whatsapp-green">${recipientEmail}</span></p>
                 </div>
             `;
 
             // Adiciona a mensagem ao contêiner
             container.innerHTML = successHtml;
             
-            // Traduz a nova mensagem (caso a linguagem tenha sido trocada antes do envio)
+            // Traduz a nova mensagem (apenas por garantia)
             setLanguage(currentLang);
         }
 
 
         // Inicialização e Listeners
         window.onload = function() {
-            // Inicializa a linguagem
+            // Inicializa a linguagem (para carregar o conteúdo em PT-BR e destacar a bandeira)
             setLanguage(currentLang);
 
             // Listener para o botão do menu mobile
@@ -421,14 +547,14 @@
                 menuButton.addEventListener('click', toggleMobileMenu);
             }
 
-            // Listener para o botão de troca de idioma
-            const langSwitch = document.getElementById('lang-switch');
-            if (langSwitch) {
-                langSwitch.addEventListener('click', () => {
-                    const newLang = (currentLang === 'pt-BR' ? 'en-US' : 'pt-BR');
-                    setLanguage(newLang);
+            // Novo Listener para todos os botões de bandeira
+            document.querySelectorAll('.lang-flag-button').forEach(button => {
+                button.addEventListener('click', (event) => {
+                    // Pega o código da língua do atributo data-lang do botão clicado
+                    const selectedLang = event.currentTarget.getAttribute('data-lang');
+                    setLanguage(selectedLang);
                 });
-            }
+            });
             
             // Fecha o menu mobile ao clicar em um link
             const mobileLinks = document.querySelectorAll('#mobile-menu a');
