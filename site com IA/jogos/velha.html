@@ -393,13 +393,14 @@
         };
 
         const handleCellClick = (index) => {
-            // Garante que o jogo está ativo, a célula está vazia e (se for PVE) que é a vez do Jogador X.
+            // Garante que o jogo está ativo, a célula está vazia.
+            // Se for modo PVE, garante que é a vez do Jogador X (o jogador humano).
             if (!gameActive || board[index] !== '' || (gameMode === 'PVE' && currentPlayer !== PLAYER_X)) {
                 return;
             }
 
-            // Tenta fazer o movimento
-            if (makeMove(index, PLAYER_X)) {
+            // Tenta fazer o movimento usando o jogador atual (currentPlayer).
+            if (makeMove(index, currentPlayer)) { // <-- CORREÇÃO AQUI
                 // Se o movimento for bem-sucedido, verifica o resultado.
                 checkResult();
             }
