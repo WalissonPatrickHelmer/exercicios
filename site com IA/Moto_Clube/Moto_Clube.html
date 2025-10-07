@@ -526,7 +526,7 @@
             const mailtoLink = `mailto:${recipientEmail}?subject=${subject}&body=${body}`;
 
             // Abre o cliente de e-mail padrão do usuário
-            window.open(mailtoLink, '_self'); // Abre na mesma janela, que é mais compatível em iFrames
+            window.open(mailtoLink, '_blank'); // Abre na mesma janela, que é mais compatível em iFrames
 
             // Esconde o formulário
             form.classList.add('hidden');
