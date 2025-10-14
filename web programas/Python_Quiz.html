@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Gamificado de Python</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #1a202c; /* Fundo preto/escuro */
+        }
+        .code-block {
+            background-color: #2d3748; /* Tom mais escuro para o bloco de código */
+            color: #e2e8f0;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            white-space: pre-wrap;
+            margin-top: 1rem;
+            overflow-x: auto;
+            font-size: 0.875rem; /* text-sm */
+        }
+        .option-button:disabled {
+            cursor: default;
+            opacity: 0.7;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex items-center justify-center p-4">
+
+    <div id="quiz-container" class="bg-gray-800 rounded-xl shadow-lg p-6 max-w-2xl w-full">
+        <h1 class="text-3xl font-bold mb-6 text-center text-blue-400">🐍 Python Quiz - O Desafio das Vidas</h1>
+        <div id="quiz-content"></div>
+        <div id="feedback-container" class="mt-4 p-4 rounded-lg text-white font-medium text-center hidden"></div>
+    </div>
+
+    <script>
+        const MAX_LIVES = 3;
+        let LIVES = MAX_LIVES;
+        let currentLevel = 1;
+        let totalQuestions = 10;
+        let currentQuestions = [];
+        let currentQuestionIndex = 0;
+        let score = 0;
+        let quizState = 'setup'; // 'setup', 'active', 'review', 'results', 'gameover'
+        let isHintUsed = false;
+        let isAnswerUsed = false;
+
+        const quizContent = document.getElementById('quiz-content');
+        const feedbackContainer = document.getElementById('feedback-container');
+
+        // --- Dados do Quiz ---
+        const ALL_QUIZ_DATA = {
+            1: [
+                {"question": "Qual é a saída do seguinte código, considerando a concatenação de strings?\n\n`x = \"5\"`\n`y = 2`\n`print(x * y)`", "options": ["7", "10", "55", "Erro de tipo"], "answer": "55", "rationale": "A multiplicação de uma string por um número inteiro resulta na repetição da string. "},
+                {"question": "Qual será o valor de `resultado` após a execução deste código?\n\n`a = 10`\n`b = 3`\n`resultado = a % b`", "options": ["3.33", "3", "1", "0"], "answer": "1", "rationale": "O operador de módulo (%) retorna o resto da divisão. $10 \\div 3 = 3$ com resto $1$. "},
+                {"question": "O que será impresso pelo código a seguir?\n\n`texto = \"Python\"`\n`print(len(texto))`", "options": ["5", "6", "Python", "Erro"], "answer": "6", "rationale": "A função `len()` retorna o número de caracteres (comprimento) da string, que é 6."},
+                {"question": "Qual será a saída do seguinte código, considerando a indexação de listas?\n\n`minha_lista = [\"maçã\", \"banana\", \"laranja\"]`\n`print(minha_lista[1])`", "options": ["maçã", "banana", "laranja", "Erro"], "answer": "banana", "rationale": "A indexação de listas em Python começa em 0. O índice 1 corresponde ao segundo elemento."},
+                {"question": "O que o seguinte código irá imprimir?\n\n`if 5 > 3:`\n`  print(\"Sim\")`\n`else:`\n`  print(\"Não\")`", "options": ["Sim", "Não", "Erro", "5"], "answer": "Sim", "rationale": "A condição $5 > 3$ é verdadeira, então o bloco de código dentro do `if` é executado."},
+                {"question": "Qual método é usado para adicionar um item ao final de uma lista em Python?", "options": ["insert()", "add()", "append()", "extend()"], "answer": "append()", "rationale": "O método `append()` é o método padrão para adicionar um único item ao final de uma lista."},
+                {"question": "Qual é a saída do seguinte código, considerando a precedência de operadores?\n\n`print(4 + 2 * 3)`", "options": ["18", "10", "14", "24"], "answer": "10", "rationale": "A multiplicação tem precedência sobre a adição. Primeiro calcula-se $2 \\times 3 = 6$, depois $4 + 6 = 10$. "},
+                {"question": "O que o seguinte código irá imprimir?\n\n`for i in range(3):`\n`  print(i)`", "options": ["1\n2\n3", "0\n1\n2", "0\n1\n2\n3", "3"], "answer": "0\n1\n2", "rationale": "A função `range(3)` gera números de $0$ até $3$, excluindo o $3$. "},
+                {"question": "O que o seguinte código irá imprimir?\n\n`minha_tupla = (1, 2, 3)`\n`print(minha_tupla[0])`", "options": ["(1, 2, 3)", "1", "2", "Erro de tipo"], "answer": "1", "rationale": "Tuplas, assim como listas, usam indexação baseada em $0$ para acessar elementos."},
+                {"question": "Qual será o valor de `x` após a execução deste código?\n\n`x = 10`\n`x += 5`", "options": ["10", "5", "15", "Erro"], "answer": "15", "rationale": "O operador `+=` é um atalho para $x = x + 5$. "}
+            ],
+            2: [
+                {"question": "O que será impresso pelo código a seguir?\n\n`print(f\"O valor é: {2 * 5}\")`", "options": ["O valor é: {2 * 5}", "O valor é: 2 * 5", "O valor é: 10", "Erro"], "answer": "O valor é: 10", "rationale": "As f-strings (strings formatadas) em Python avaliam expressões dentro das chaves `{}` e substituem o resultado na string, gerando 'O valor é: 10'."},
+                {"question": "O que o seguinte código irá imprimir?\n\n`s = \"Python\"`\n`print(s[2:5])`", "options": ["thon", "tho", "Pytho", "Python"], "answer": "tho", "rationale": "Em Python, o fatiamento de strings `[início:fim]` inclui o índice inicial e vai até, mas não inclui, o índice final. Portanto, `s[2:5]` pega os caracteres nos índices 2, 3 e 4, que são 't', 'h' e 'o'."},
+                {"question": "Qual é a saída do seguinte código?\n\n`x = 5`\n`y = 10`\n`z = 15`\n`print(x < y and y > z)`", "options": ["True", "False", "Erro", "10"], "answer": "False", "rationale": "A primeira condição (`x < y`) é verdadeira. No entanto, a segunda (`y > z`) é falsa. Como o operador `and` exige que ambas as condições sejam verdadeiras, o resultado da expressão é `False`."},
+                {"question": "O que será impresso pelo código a seguir?\n\n`lista_aninhada = [[1, 2], [3, 4]]`\n`print(lista_aninhada[1][0])`", "options": ["1", "2", "3", "[3, 4]"], "answer": "3", "rationale": "A notação `[1]` seleciona o segundo item da lista principal, que é a lista `[3, 4]`. Em seguida, a notação `[0]` seleciona o primeiro item dessa lista, que é `3`."},
+                {"question": "O que o seguinte código irá imprimir?\n\n`for i in range(5):`\n`  if i == 3:`\n`    break`\n`  print(i)`", "options": ["0\n1\n2\n3", "0\n1\n2", "0\n1\n2\n3\n4", "3"], "answer": "0\n1\n2", "rationale": "O loop começa em 0 e imprime 0, 1 e 2. Quando `i` se torna 3, a instrução `if i == 3` é verdadeira e o `break` é executado, terminando o loop imediatamente."},
+                {"question": "O que o seguinte código irá imprimir?\n\n`meu_dicionario = {'a': 1, 'b': 2}`\n`print('c' in meu_dicionario)`", "options": ["True", "False", "Erro", "1"], "answer": "False", "rationale": "O operador `in` verifica se uma chave específica existe em um dicionário. Como `'c'` não é uma chave em `meu_dicionario`, a expressão retorna `False`."},
+                {"question": "Qual é a saída do seguinte código, considerando o escopo de variáveis?\n\n`x = 10`\n`def minha_funcao():`\n`  x = 5`\n`minha_funcao()`\n`print(x)`", "options": ["5", "10", "Erro", "None"], "answer": "10", "rationale": "A variável `x` dentro de `minha_funcao` é local ao escopo da função e não afeta a variável global `x`. A função é chamada, mas a variável global `x` mantém seu valor original de 10."},
+                {"question": "Qual é a saída do seguinte código?\n\n`lista = [1, 2, 3]`\n`[elemento * 2 for elemento in lista]`\n`print(lista)`", "options": ["[2, 4, 6]", "[1, 2, 3]", "Erro", "Nenhum valor"], "answer": "[1, 2, 3]", "rationale": "A compreensão de lista cria uma nova lista, mas o resultado não é armazenado em uma variável. A lista original `lista` não é modificada."},
+                {"question": "O que será impresso pelo código a seguir?\n\n`try:`\n`  resultado = 10 / 0`\n`except ZeroDivisionError:`\n`  print(\"Erro!\")`\n`finally:`\n`  print(\"Finalizado\")`", "options": ["Erro!", "Finalizado", "Erro!\nFinalizado", "Erro de divisão por zero"], "answer": "Erro!\nFinalizado", "rationale": "O bloco `try` falha, o `except` é acionado e imprime 'Erro!', e o `finally` é sempre executado, imprimindo 'Finalizado'."},
+                {"question": "Qual dos seguintes métodos remove um item pelo seu *valor* em uma lista?", "options": ["pop()", "remove()", "del()", "clear()"], "answer": "remove()", "rationale": "O método `remove()` recebe o valor do item como argumento e remove a primeira ocorrência desse valor. O `pop()` remove pelo índice."}
+            ],
+            3: [
+                {"question": "Qual é a saída do código a seguir?\n\n`def outer(a):\n  def inner(b):\n    return a + b\n  return inner\n\nf = outer(10)\nprint(f(5))`", "options": ["15", "10", "5", "Erro"], "answer": "15", "rationale": "Este é um exemplo de *closure*. `outer(10)` retorna a função `inner`, que 'lembra' do valor de `a=10`. Depois, `f(5)` executa `inner(5)`, retornando $10 + 5 = 15$. "},
+                {"question": "O que será impresso pelo código a seguir?\n\n`lista = [1, 2, 3]`\n`lista_copy = lista[:]\nlista_copy[0] = 99\nprint(lista[0])`", "options": ["99", "1", "Erro", "None"], "answer": "1", "rationale": "O fatiamento `[:]` cria uma cópia superficial da lista. Modificar `lista_copy` não afeta a `lista` original."},
+                {"question": "Qual será a saída do seguinte código?\n\n`def dobro(x): return x * 2`\n`numeros = [1, 2, 3]`\n`resultado = list(map(dobro, numeros))`\n`print(resultado)`", "options": ["<map object>", "[1, 4, 9]", "[2, 4, 6]", "Erro"], "answer": "[2, 4, 6]", "rationale": "A função `map()` aplica a função `dobro` a cada elemento da lista `numeros`, e `list()` converte o resultado em uma lista: $[1 \\times 2, 2 \\times 2, 3 \\times 2]$. "},
+                {"question": "O que acontece se você tentar modificar uma tupla?\n\n`t = (1, 2, 3)`\n`t[0] = 4`", "options": ["O valor de $t$ muda para $(4, 2, 3)$", "Ocorre um `TypeError` (Erro de Tipo)", "O valor de $t$ muda para $[4, 2, 3]$", "Nenhuma mudança"], "answer": "Ocorre um `TypeError` (Erro de Tipo)", "rationale": "Tuplas são **imutáveis**. Qualquer tentativa de modificar um de seus elementos resultará em um `TypeError`."},
+                {"question": "O que será impresso pelo código a seguir?\n\n`x = 10`\n`del x`\n`print(x)`", "options": ["10", "None", "Erro de Nome (`NameError`)", "0"], "answer": "Erro de Nome (`NameError`)", "rationale": "A instrução `del` remove a referência da variável `x`. Tentar imprimir `x` depois disso resulta em um `NameError`."},
+                {"question": "Qual é a saída do código?\n\n`def saudacao(nome, saud='Olá'):`\n`  print(f'{saud}, {nome}')`\n`saudacao('João', saud='Oi')`", "options": ["Olá, João", "Oi, João", "Erro", "Olá, Oi"], "answer": "Oi, João", "rationale": "O argumento de palavra-chave `saud='Oi'` sobrescreve o valor padrão definido na função, resultando em 'Oi, João'."},
+                {"question": "O que o seguinte código irá imprimir?\n\n`d = {'a': 1, 'b': 2}`\n`d.update({'b': 5, 'c': 3})`\n`print(d['b'])`", "options": ["2", "5", "3", "Erro"], "answer": "5", "rationale": "O método `update()` é usado para mesclar dicionários. Se uma chave já existir ('b'), seu valor é sobrescrito."},
+                {"question": "O que será impresso?\n\n`for i in range(1, 4):`\n`  if i == 2: continue`\n`  print(i)`", "options": ["1\n2\n3", "1\n3", "2\n3", "1\n2"], "answer": "1\n3", "rationale": "O `continue` ignora o restante do código dentro do loop na iteração atual, voltando para a próxima. Quando $i=2$, o `print(i)` é ignorado."},
+                {"question": "Qual é a saída do código?\n\n`lista = [1, 2, 3, 4, 5]`\n`print(lista[::-1])`", "options": ["[5, 4, 3, 2, 1]", "[1, 2, 3, 4, 5]", "Erro", "[5]"], "answer": "[5, 4, 3, 2, 1]", "rationale": "O fatiamento `[::-1]` usa um passo de $-1$, que é um atalho comum para reverter a ordem dos elementos da lista."},
+                {"question": "Qual é a função do decorador `@staticmethod` em Python?", "options": ["Permite que o método acesse a instância (`self`)", "Define um método que pertence à classe, mas não recebe nem a instância nem a classe como primeiro argumento", "Define um método que pode ser chamado apenas fora da classe", "Define um método que só pode ser acessado por subclasses"], "answer": "Define um método que pertence à classe, mas não recebe nem a instância nem a classe como primeiro argumento", "rationale": "Métodos estáticos não operam na instância (não usam `self`) ou na classe (não usam `cls`), funcionando como funções comuns agrupadas dentro da classe."},
+                // Novas perguntas para o Nível 3 (Adicionadas para evitar repetição)
+                {"question": "Qual é o principal objetivo da instrução `yield` em uma função Python?", "options": ["Retornar um valor e sair da função permanentemente", "Pausar a execução da função e retornar um valor, retomando de onde parou na próxima chamada", "Lançar uma exceção de forma controlada", "Definir uma função assíncrona"], "answer": "Pausar a execução da função e retornar um valor, retomando de onde parou na próxima chamada", "rationale": "O `yield` define um gerador, que é um tipo de iterador que pausa e retoma o estado da função."},
+                {"question": "Qual é a forma correta de usar uma *list comprehension* para obter apenas números pares de uma lista?\n\n`numeros = [1, 2, 3, 4, 5, 6]`", "options": ["[x for x in numeros if x % 2 == 0]", "[x for x in numeros if x % 2]", "[x if x % 2 == 0 else None for x in numeros]", "[x for x in numeros where x % 2 == 0]"], "answer": "[x for x in numeros if x % 2 == 0]", "rationale": "A condição (`if x % 2 == 0`) deve vir após o loop `for` em uma list comprehension de filtragem."},
+                {"question": "O que o código a seguir fará?\n\n`with open('arquivo.txt', 'w') as f:`\n`  f.write('Teste')`", "options": ["Abrir para leitura ('r')", "Abrir para escrita ('w') e garantir que o arquivo seja fechado automaticamente", "Abrir para escrita ('w') e manter o arquivo aberto", "Lançar um erro de permissão"], "answer": "Abrir para escrita ('w') e garantir que o arquivo seja fechado automaticamente", "rationale": "O comando `with` usa um gerenciador de contexto que garante que o arquivo seja fechado corretamente, mesmo que ocorram erros."},
+                {"question": "Qual é a saída do seguinte código?\n\n`x = lambda a, b: a * b`\n`print(x(4, 5))`", "options": ["lambda a, b: a * b", "9", "20", "Erro"], "answer": "20", "rationale": "As funções lambda são funções anônimas de uma única expressão. O código executa $4 \\times 5 = 20$. "},
+                {"question": "O que significa o acrônimo **MRO** (Method Resolution Order) em Python, especialmente em herança múltipla?", "options": ["Modelo de Requisição de Objetos", "Módulo de Recursos Organizados", "Ordem de Resolução de Métodos", "Modelo de Registro de Operações"], "answer": "Ordem de Resolução de Métodos", "rationale": "O MRO determina a ordem em que as classes base são pesquisadas quando um método é chamado, seguindo o algoritmo C3."},
+                {"question": "Qual é o nome do método especial usado para definir o que acontece quando você usa a função `str()` ou `print()` em um objeto?", "options": ["__new__", "__repr__", "__call__", "__str__"], "answer": "__str__", "rationale": "O método `__str__` retorna uma representação 'informal' e legível por humanos de um objeto, usada por `print()`."},
+                {"question": "O que o seguinte código irá imprimir?\n\n`set1 = {1, 2, 3}`\n`set2 = {3, 4, 5}`\n`print(set1.difference(set2))`", "options": ["{3}", "{1, 2, 3, 4, 5}", "{1, 2}", "{4, 5}"], "answer": "{1, 2}", "rationale": "O método `difference()` retorna os elementos que estão em `set1` mas *não* estão em `set2`. O elemento '3' é comum e é excluído."},
+                {"question": "Qual instrução deve ser usada dentro de uma função para modificar uma variável que foi definida no escopo global?", "options": ["local", "return", "global", "pass"], "answer": "global", "rationale": "A palavra-chave `global` informa ao Python que a variável sendo modificada deve ser procurada e alterada no escopo global."},
+                {"question": "Qual é a saída do seguinte código?\n\n`def f(x, y=[]):\n  y.append(x)\n  return y\n\nprint(f(1))\nprint(f(2))`", "options": ["[1]\n[2]", "[1]\n[1, 2]", "[1, 2]\n[1, 2]", "Erro"], "answer": "[1]\n[1, 2]", "rationale": "Listas são argumentos padrão mutáveis. A lista `y` é criada apenas uma vez (na definição da função), então chamadas subsequentes modificam a mesma lista. A primeira chamada retorna `[1]`, a segunda adiciona 2 a essa mesma lista, retornando `[1, 2]`."}
+            ]
+        };
+
+        // --- Utilidades ---
+        function shuffle(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+            return array;
+        }
+
+        function renderLives() {
+            // Usa ícones Unicode para representar as vidas, incluindo meia vida
+            let hearts = '';
+            const fullHearts = Math.floor(LIVES);
+            const hasHalfHeart = LIVES % 1 !== 0;
+
+            for (let i = 0; i < fullHearts; i++) {
+                hearts += '❤️ '; // Coração Cheio
+            }
+            if (hasHalfHeart) {
+                hearts += '💔 '; // Representa Meia Vida (Coração Quebrado)
+            }
+            // Adiciona corações vazios para mostrar o máximo
+            for (let i = 0; i < MAX_LIVES - Math.ceil(LIVES); i++) {
+                 hearts += '🤍 '; // Coração Vazio
+            }
+            return `<span class="text-2xl">${hearts}</span>`;
+        }
+
+
+        // --- Renderização Inicial (Setup) ---
+        function displaySetup() {
+            quizState = 'setup';
+            LIVES = MAX_LIVES; // Reseta as vidas no início
+            score = 0;
+            currentQuestionIndex = 0;
+
+            const availableLevels = Object.keys(ALL_QUIZ_DATA).length;
+            const levelNames = { 1: 'Básico (Iniciante)', 2: 'Intermediário (Estruturas)', 3: 'Avançado (Funções/Classes)' };
+
+            quizContent.innerHTML = `
+                <div class="text-gray-100 text-center space-y-6 p-4">
+                    <p class="text-xl font-semibold text-blue-300">Personalize seu Desafio</p>
+                    <p class="text-sm text-yellow-400">🚨 Você tem ${MAX_LIVES} vidas. Errou, perde 1. Zerou, Reinicia!</p>
+                    
+                    <div class="space-y-3 text-left">
+                        <label for="level-select" class="block text-md font-medium text-gray-300">Escolha o Nível:</label>
+                        <select id="level-select" class="w-full p-3 rounded-lg bg-gray-700 text-white border border-gray-600 focus:ring-blue-500 focus:border-blue-500 transition-colors">
+                            ${Array.from({ length: availableLevels }, (_, i) => i + 1).map(level => `
+                                <option value="${level}" ${level === currentLevel ? 'selected' : ''}>Nível ${level} - ${levelNames[level] || ''}</option>
+                            `).join('')}
+                        </select>
+                    </div>
+
+                    <div class="space-y-3 text-left">
+                        <label for="quantity-select" class="block text-md font-medium text-gray-300">Número de Perguntas (Máx. ${ALL_QUIZ_DATA[currentLevel].length}):</label>
+                        <select id="quantity-select" class="w-full p-3 rounded-lg bg-gray-700 text-white border border-gray-600 focus:ring-blue-500 focus:border-blue-500 transition-colors">
+                            <option value="5">5 Perguntas</option>
+                            <option value="10" selected>10 Perguntas</option>
+                            <option value="15">15 Perguntas</option>
+                        </select>
+                    </div>
+
+                    <button id="start-button" class="w-full mt-8 px-6 py-3 bg-green-600 text-white font-semibold rounded-full shadow-md hover:bg-green-700 transition-colors duration-300 transform hover:scale-[1.02]">
+                        Iniciar Desafio
+                    </button>
+                </div>
+            `;
+            document.getElementById('start-button').addEventListener('click', startQuiz);
+            document.getElementById('level-select').addEventListener('change', updateMaxQuestions);
+            feedbackContainer.classList.add('hidden');
+        }
+
+        // Função para atualizar o número máximo de perguntas na tela de setup
+        function updateMaxQuestions() {
+            const level = parseInt(document.getElementById('level-select').value);
+            const max = ALL_QUIZ_DATA[level]?.length || 0;
+            const quantitySelect = document.getElementById('quantity-select');
+            
+            // Atualiza o label
+            document.querySelector('label[for="quantity-select"]').textContent = `Número de Perguntas (Máx. ${max}):`;
+
+            // Garante que o valor selecionado não exceda o máximo
+            if (parseInt(quantitySelect.value) > max) {
+                quantitySelect.value = max;
+            }
+        }
+
+        // --- Início do Quiz ---
+        function startQuiz() {
+            currentLevel = parseInt(document.getElementById('level-select').value);
+            let requestedQuestions = parseInt(document.getElementById('quantity-select').value);
+            
+            const rawQuestions = ALL_QUIZ_DATA[currentLevel] || [];
+            
+            // Garante que não pedimos mais perguntas do que existem (Corrigindo o bug de repetição)
+            totalQuestions = Math.min(requestedQuestions, rawQuestions.length);
+
+            // Embaralha e limita a quantidade, garantindo perguntas únicas
+            currentQuestions = shuffle([...rawQuestions]).slice(0, totalQuestions);
+
+            if (currentQuestions.length === 0) {
+                alert("Nenhuma pergunta disponível para a seleção. Por favor, tente outra.");
+                return;
+            }
+
+            // Reseta o estado do jogo
+            LIVES = MAX_LIVES;
+            currentQuestionIndex = 0;
+            score = 0;
+            quizState = 'active';
+            displayQuestion();
+        }
+
+        // --- Renderização da Pergunta ---
+        function displayQuestion() {
+            if (currentQuestionIndex >= currentQuestions.length) {
+                displayResults();
+                return;
+            }
+            
+            const q = currentQuestions[currentQuestionIndex];
+            isHintUsed = false;
+            isAnswerUsed = false;
+
+            const parts = q.question.split('\n\n');
+            const preQuestion = parts[0];
+            const codeSnippetLines = parts.slice(1).join('\n');
+            
+            quizContent.innerHTML = `
+                <div class="mb-4 flex justify-between items-center text-gray-400">
+                    <span class="text-lg font-semibold">Nível ${currentLevel}</span>
+                    <span class="text-lg font-semibold">Pergunta ${currentQuestionIndex + 1}/${currentQuestions.length}</span>
+                </div>
+                
+                <div id="lives-display" class="mb-4 text-center text-xl font-bold text-red-500">${renderLives()}</div>
+                
+                <p class="text-xl font-bold mb-4 text-gray-100">${preQuestion}</p>
+                
+                ${codeSnippetLines ? `<pre class="code-block">${codeSnippetLines}</pre>` : ''}
+                
+                <div id="options-container" class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
+                    ${shuffle([...q.options]).map(option => `
+                        <button class="option-button w-full text-left p-4 bg-gray-700 text-gray-100 rounded-lg font-medium hover:bg-gray-600 transition-colors duration-200 shadow-md" data-answer="${option}">
+                            ${option}
+                        </button>
+                    `).join('')}
+                </div>
+                
+                <div id="help-buttons" class="mt-6 space-y-3">
+                    <button id="hint-button" class="w-full px-6 py-3 bg-yellow-600 text-white font-semibold rounded-full shadow-md hover:bg-yellow-700 transition-colors duration-300">
+                        Dica (Revela a explicação)
+                    </button>
+                    <button id="reveal-answer-button" class="hidden w-full px-6 py-3 bg-red-800 text-white font-semibold rounded-full shadow-md hover:bg-red-900 transition-colors duration-300">
+                        Revelar Resposta Certa
+                    </button>
+                </div>
+
+                <div id="next-button-wrapper" class="mt-4"></div>
+            `;
+            
+            document.querySelectorAll('.option-button').forEach(button => {
+                button.addEventListener('click', handleAnswer);
+            });
+            document.getElementById('hint-button').addEventListener('click', handleHint);
+            document.getElementById('reveal-answer-button').addEventListener('click', handleAnswerReveal);
+            
+            feedbackContainer.classList.add('hidden');
+        }
+
+        // --- Lógica de Dica ---
+        function handleHint() {
+            const q = currentQuestions[currentQuestionIndex];
+            feedbackContainer.classList.remove('hidden', 'bg-red-600', 'bg-green-600');
+            feedbackContainer.classList.add('bg-yellow-600');
+            feedbackContainer.innerHTML = `<strong>Dica:</strong> ${q.rationale}`;
+            
+            isHintUsed = true;
+            document.getElementById('hint-button').disabled = true;
+            document.getElementById('reveal-answer-button').classList.remove('hidden');
+        }
+
+        // --- Lógica de Revelar Resposta Certa (Pular) ---
+        function handleAnswerReveal() {
+            const q = currentQuestions[currentQuestionIndex];
+            
+            isAnswerUsed = true; // Marca que a resposta foi revelada
+
+            // Marca visualmente a resposta correta (em vermelho para indicar que não houve acerto)
+            document.querySelectorAll('.option-button').forEach(button => {
+                button.disabled = true;
+                if (button.dataset.answer === q.answer) {
+                    button.classList.add('border-4', 'border-red-500', 'bg-red-700');
+                }
+            });
+
+            // Feedback: Não pontua nem recupera vida
+            feedbackContainer.classList.remove('hidden', 'bg-green-600', 'bg-yellow-600');
+            feedbackContainer.classList.add('bg-red-600');
+            feedbackContainer.innerHTML = `<strong>Resposta Revelada:</strong> ${q.answer}<br>Você usou a ajuda máxima. **Não houve pontuação nem recuperação de vida**.`;
+            
+            // Desabilita botões de ajuda
+            document.getElementById('hint-button').disabled = true;
+            document.getElementById('reveal-answer-button').disabled = true;
+
+            // Adiciona botão Próxima Pergunta
+            const nextButton = document.createElement('button');
+            nextButton.textContent = 'Próxima Pergunta';
+            nextButton.className = 'w-full px-6 py-3 bg-blue-600 text-white font-semibold rounded-full shadow-md hover:bg-blue-700 transition-colors duration-300';
+            nextButton.addEventListener('click', () => {
+                currentQuestionIndex++;
+                quizState = 'active';
+                displayQuestion();
+            });
+            document.getElementById('next-button-wrapper').appendChild(nextButton);
+            
+            // Garante que o estado não mude com clique subsequente
+            document.querySelectorAll('.option-button').forEach(button => button.removeEventListener('click', handleAnswer));
+        }
+
+        // --- Lógica de Resposta (Principal) ---
+        function handleAnswer(event) {
+            if (quizState !== 'active') return;
+            quizState = 'review'; 
+            
+            // Desabilita botões de ajuda
+            document.getElementById('hint-button').disabled = true;
+            document.getElementById('reveal-answer-button').disabled = true;
+
+            const selectedAnswer = event.target.dataset.answer;
+            const q = currentQuestions[currentQuestionIndex];
+            const isCorrect = (selectedAnswer === q.answer);
+            
+            let lifeChange = 0;
+            let scoreChange = 0;
+            let feedbackText = '';
+
+            if (isCorrect) {
+                scoreChange = 1;
+                event.target.classList.replace('bg-gray-700', 'bg-green-700');
+                event.target.classList.replace('hover:bg-gray-600', 'hover:bg-green-700');
+
+                if (isAnswerUsed) {
+                    // Se a resposta foi revelada, não deve entrar aqui, mas por segurança.
+                    lifeChange = 0;
+                    feedbackText = `<strong>Acerto forçado.</strong> Sem recuperação de vida.`;
+                } else if (isHintUsed) {
+                    // Acerto com dica: +0.5 vida
+                    lifeChange = 0.5;
+                    feedbackText = `<strong>Correto! (+0.5 Vida)</strong><br>${q.rationale}`;
+                } else {
+                    // Acerto sem dica: +1 vida
+                    lifeChange = 1;
+                    feedbackText = `<strong>Correto! (+1 Vida)</strong><br>${q.rationale}`;
+                }
+
+                feedbackContainer.classList.remove('bg-red-600');
+                feedbackContainer.classList.add('bg-green-600');
+                
+            } else {
+                // Erro: -1 vida
+                lifeChange = -1;
+                feedbackText = `<strong>Incorreto! (-1 Vida)</strong> A resposta correta é "${q.answer}".<br>${q.rationale}`;
+
+                event.target.classList.replace('bg-gray-700', 'bg-red-700');
+                event.target.classList.replace('hover:bg-gray-600', 'hover:bg-red-700');
+                
+                // Marca a resposta correta
+                document.querySelectorAll('.option-button').forEach(button => {
+                    if (button.dataset.answer === q.answer) {
+                        button.classList.add('border-4', 'border-green-500');
+                    }
+                });
+                feedbackContainer.classList.remove('bg-green-600');
+                feedbackContainer.classList.add('bg-red-600');
+            }
+            
+            // Aplica as mudanças
+            score += scoreChange;
+            LIVES = Math.min(MAX_LIVES, Math.max(0, LIVES + lifeChange)); // Limita entre 0 e MAX_LIVES
+
+            feedbackContainer.innerHTML = feedbackText;
+            document.getElementById('lives-display').innerHTML = renderLives(); // Atualiza display
+
+            // Check for Game Over
+            if (LIVES <= 0) {
+                feedbackContainer.classList.remove('hidden');
+                setTimeout(displayGameOver, 1500); // Dá tempo para ver o feedback
+                return;
+            }
+
+            feedbackContainer.classList.remove('hidden');
+
+            // Desabilita botões de opção
+            document.querySelectorAll('.option-button').forEach(button => button.disabled = true);
+
+            // Adiciona botão Próxima Pergunta
+            const nextButton = document.createElement('button');
+            nextButton.textContent = 'Próxima Pergunta';
+            nextButton.className = 'w-full px-6 py-3 bg-blue-600 text-white font-semibold rounded-full shadow-md hover:bg-blue-700 transition-colors duration-300';
+            nextButton.addEventListener('click', () => {
+                currentQuestionIndex++;
+                quizState = 'active';
+                displayQuestion();
+            });
+            document.getElementById('next-button-wrapper').appendChild(nextButton);
+        }
+
+        // --- Tela de Game Over ---
+        function displayGameOver() {
+            quizState = 'gameover';
+            quizContent.innerHTML = `
+                <div class="text-center text-gray-100 p-4 space-y-6">
+                    <h2 class="text-4xl font-extrabold text-red-500">FIM DE JOGO! 😭</h2>
+                    <p class="text-xl text-gray-300">Você perdeu todas as suas vidas.</p>
+                    <div class="bg-gray-700 p-4 rounded-xl shadow-inner space-y-2">
+                        <p class="text-lg font-medium text-gray-300">Pontuação Final (até o Game Over):</p>
+                        <p class="text-5xl font-extrabold text-red-400">${score} / ${currentQuestions.length}</p>
+                    </div>
+                    <p class="text-yellow-400">Tente novamente, concentre-se nas explicações (Dicas)!</p>
+                    <button id="restart-button-gameover" class="w-full mt-4 px-6 py-3 bg-red-600 text-white font-semibold rounded-full shadow-lg hover:bg-red-700 transition-colors duration-300 transform hover:scale-[1.02]">
+                        Reiniciar (Voltar ao Setup)
+                    </button>
+                </div>
+            `;
+            document.getElementById('restart-button-gameover').addEventListener('click', resetSetup);
+            feedbackContainer.classList.add('hidden');
+        }
+
+
+        // --- Tela de Resultados Finais ---
+        function displayResults() {
+            quizState = 'results';
+            const total = currentQuestions.length;
+            const percentage = ((score / total) * 100).toFixed(0);
+            const isLastLevel = currentLevel >= Object.keys(ALL_QUIZ_DATA).length;
+            const nextLevel = currentLevel + 1;
+
+            quizContent.innerHTML = `
+                <div class="text-center text-gray-100 p-4 space-y-6">
+                    <h2 class="text-3xl font-extrabold text-blue-400">🏆 Desafio Concluído!</h2>
+                    
+                    <div class="bg-gray-700 p-6 rounded-xl shadow-inner space-y-2">
+                        <p class="text-lg font-medium text-gray-300">Seu Desempenho no Nível ${currentLevel}</p>
+                        <p class="text-5xl font-extrabold text-white">${score} / ${total}</p>
+                        <p class="text-xl font-bold text-green-400">${percentage}% de acertos</p>
+                        <p class="text-sm text-yellow-300 mt-2">Vidas restantes: ${LIVES} ${renderLives()}</p>
+                    </div>
+
+                    <p class="text-gray-300">${percentage >= 70 ? 'Parabéns! O seu desempenho foi excelente. Vamos aumentar o desafio?' : 'Você pode revisar os conceitos e tentar novamente antes de subir de nível.'}</p>
+
+                    <div class="flex flex-col space-y-4 pt-4">
+                        ${!isLastLevel ? `
+                            <button id="continue-button" class="w-full px-6 py-3 bg-green-600 text-white font-semibold rounded-full shadow-lg hover:bg-green-700 transition-colors duration-300 transform hover:scale-[1.02]">
+                                Continuar (Subir para o Nível ${nextLevel})
+                            </button>
+                        ` : `
+                            <p class="text-yellow-400 font-semibold">🥳 Parabéns! Você concluiu todos os níveis. Que tal reiniciar para dominar o conteúdo?</p>
+                        `}
+                        <button id="restart-button" class="w-full px-6 py-3 bg-red-600 text-white font-semibold rounded-full shadow-lg hover:bg-red-700 transition-colors duration-300 transform hover:scale-[1.02]">
+                            Reiniciar (Mudar Configurações)
+                        </button>
+                    </div>
+                </div>
+            `;
+            
+            if (!isLastLevel) {
+                document.getElementById('continue-button').addEventListener('click', startNextLevel);
+            }
+            document.getElementById('restart-button').addEventListener('click', resetSetup);
+
+            feedbackContainer.classList.add('hidden');
+        }
+
+        // --- Funções de Controle ---
+        function startNextLevel() {
+            if (currentLevel < Object.keys(ALL_QUIZ_DATA).length) {
+                currentLevel++;
+                // Inicia o próximo nível com a nova dificuldade
+                document.getElementById('level-select').value = currentLevel; 
+                startQuiz(); 
+            }
+        }
+        
+        function resetSetup() {
+            currentLevel = 1; // Volta ao nível 1
+            totalQuestions = 10; // Volta para 10 perguntas
+            displaySetup();
+        }
+
+        // Inicia a aplicação na tela de configuração
+        displaySetup();
+    </script>
+</body>
+</html>
