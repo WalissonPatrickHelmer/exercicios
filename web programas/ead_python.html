@@ -2,177 +2,219 @@
 <html lang="pt-br">
 <head>
 <meta charset="UTF-8">
-<title>Curso Python Interativo - Completo</title>
+<title>EAD Python - Portal</title>
 <style>
-body { font-family: Arial, sans-serif; margin:0; background:#f4f7fa; color:#333; }
-header { background:#1e88e5; color:white; padding:20px; text-align:center; position:fixed; top:0; width:100%; z-index:100; box-shadow:0 2px 5px rgba(0,0,0,0.2); }
-h1,h2,h3 { margin:0; }
-.container { padding-top:120px; max-width:1000px; margin:auto; }
-.card { background:white; padding:20px; margin:20px 0; border-radius:10px; box-shadow:0 2px 8px rgba(0,0,0,0.1); }
-#texto { max-height:300px; overflow-y:auto; padding:10px; background:#e3f2fd; border-radius:8px; }
-textarea { width:100%; height:180px; border-radius:5px; border:1px solid #ccc; padding:10px; font-family:monospace; background:#f5f5f5; resize:none; margin-bottom:10px; }
-button { padding:10px 18px; margin:5px; cursor:pointer; border:none; border-radius:5px; background:#1e88e5; color:white; font-weight:bold; transition: background 0.2s; }
-button:hover { background:#1565c0; }
-nav { margin-top:10px; text-align:center; }
-footer { position:fixed; bottom:0; left:0; width:100%; background:#1565c0; color:white; text-align:center; padding:10px; }
-.progress-bar { width:80%; background:#ddd; border-radius:10px; margin:0 auto; height:20px; }
-.progress { height:20px; background:#ffeb3b; border-radius:10px; width:0%; transition: width 0.3s; }
-#exercicio, #relatorio { display:none; }
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  margin: 0;
+  background: #f0f4f8;
+  color: #333;
+}
+header {
+  background: #1e88e5;
+  color: white;
+  padding: 20px;
+  text-align: center;
+}
+h1 { margin: 0; }
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 20px;
+  justify-content: center;
+}
+.card {
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0px 4px 8px rgba(0,0,0,0.1);
+  width: 250px;
+  margin: 15px;
+  padding: 20px;
+  text-align: center;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
+}
+button {
+  padding: 10px 20px;
+  margin-top: 10px;
+  cursor: pointer;
+  border: none;
+  border-radius: 5px;
+  background: #1e88e5;
+  color: white;
+  transition: background 0.2s;
+}
+button:hover { background: #1565c0; }
+#conteudo, #exercicio { display: none; padding: 20px; max-width: 800px; margin: auto; }
+#texto { background: #e3f2fd; padding: 15px; border-radius: 8px; }
+.progress-bar {
+  width: 100%;
+  background: #ddd;
+  border-radius: 10px;
+  margin: 10px 0;
+}
+.progress { height: 15px; background: #1e88e5; border-radius: 10px; width: 0%; transition: width 0.3s; }
+#feedback { font-weight: bold; margin-top: 10px; }
+input[type=text] { padding: 5px; width: 200px; border-radius: 5px; border:1px solid #ccc; }
 </style>
 </head>
 <body>
 
 <header>
-<h1>Curso Python Interativo</h1>
-<p>Aprenda Python do básico ao avançado</p>
+<h1>Portal EAD Python</h1>
+<p>Aprenda Python do Básico ao Avançado</p>
 </header>
 
-<div class="container">
+<div id="menu" class="container"></div>
 
-<div id="conteudo" class="card">
+<div id="conteudo">
 <h2 id="titulo"></h2>
 <div id="texto"></div>
 <button onclick="lerTexto()">Ouvir Conteúdo</button>
-<nav>
-<button onclick="anteriorPagina()">Anterior</button>
-<button onclick="proximoPagina()">Próximo</button>
-<button onclick="home()">Home</button>
+<br><br>
 <button onclick="iniciarExercicio()">Fazer Exercício</button>
-<button onclick="verRelatorio()">Relatório</button>
-</nav>
+<button onclick="voltarMenu()">Voltar ao Menu</button>
+<div class="progress-bar"><div class="progress" id="progressNivel"></div></div>
 </div>
 
-<div id="exercicio" class="card">
+<div id="exercicio">
 <h2 id="tituloEx"></h2>
 <p id="pergunta"></p>
-<textarea id="codigo" placeholder="Digite seu código Python aqui..."></textarea>
-<button onclick="verificarExercicio()">Executar</button>
-<button onclick="subirDificuldade()">Subir Dificuldade</button>
-<p id="feedback" style="font-weight:bold;"></p>
-<nav>
-<button onclick="anteriorPagina()">Anterior</button>
-<button onclick="proximoPagina()">Próximo</button>
-<button onclick="home()">Home</button>
-</nav>
+<input type="text" id="resposta" placeholder="Digite sua resposta">
+<button onclick="verificar()">Enviar</button>
+<p id="feedback"></p>
+<button onclick="novoExercicio()">Novo Exercício</button>
+<br><br>
+<button onclick="voltarMenu()">Voltar ao Menu</button>
+<div class="progress-bar"><div class="progress" id="progressEx"></div></div>
 </div>
-
-<div id="relatorio" class="card">
-<h2>Relatório de Progresso</h2>
-<div id="relatorioTexto"></div>
-<button onclick="home()">Voltar ao Início</button>
-</div>
-
-</div>
-
-<footer>
-<div class="progress-bar"><div class="progress" id="barraProgresso"></div></div>
-<p id="percentualProgresso">Progresso: 0%</p>
-</footer>
 
 <script>
-// ===== Dados do Curso (Níveis 1 a 10) =====
-const paginas = [
-  // --- Nível 1
-  {nivel:1, titulo:"O que é Python e como executar um código", conteudo:`Python é uma linguagem de programação fácil de aprender. Você pode escrever programas para automação, jogos, sites e muito mais.<br><br>Para executar um código Python:<br>- No terminal: python nome_do_arquivo.py<br>- Usando IDEs: Thonny, VSCode, PyCharm<br>- Notebooks online: Google Colab, Replit<br><pre>print("Olá, mundo!")</pre>`},
-  {nivel:1, titulo:"print() e input()", conteudo:`print() mostra mensagens na tela.<br>input() permite digitar dados no programa.<br><br>Exemplo:<pre>nome = input("Digite seu nome: ")\nprint("Olá,", nome)</pre>`},
-  {nivel:1, titulo:"Tipos de dados: int, float, str, bool", conteudo:`Tipos de dados:<br>- int → números inteiros<br>- float → números decimais<br>- str → textos<br>- bool → verdadeiro ou falso<br><br>Exemplo:<pre>idade = 20\naltura = 1.75\nnome = "Patrick"\nestudando = True</pre>`},
-  {nivel:1, titulo:"Variáveis e comentários", conteudo:`Variáveis guardam informações. Comentários começam com #.<br><br>Exemplo:<pre># Variável nome\nnome = "Patrick"\n# Variável idade\nidade = 20\nprint(nome, idade)</pre>`},
-  {nivel:1, titulo:"Operações matemáticas básicas", conteudo:`Operações básicas:<br>+ soma<br>- subtração<br>* multiplicação<br>/ divisão<br>% resto da divisão<br><br>Exemplo:<pre>a = 10\nb = 3\nprint(a+b)\nprint(a-b)\nprint(a*b)\nprint(a/b)\nprint(a%b)</pre>`},
-
-  // --- Nível 2
-  {nivel:2, titulo:"Estruturas condicionais: if, elif, else", conteudo:`Permite decisões no código.<br><br>Exemplo:<pre>idade = int(input("Digite sua idade: "))\nif idade >= 18:\n    print("Maior de idade")\nelse:\n    print("Menor de idade")</pre>`},
-  {nivel:2, titulo:"Operadores relacionais e lógicos", conteudo:`==, !=, >, <, >=, <= operadores relacionais<br>and, or, not operadores lógicos<br><br>Exemplo:<pre>a = 10\nb = 5\nif a>b and b>0:\n    print("Condição verdadeira")</pre>`},
-  {nivel:2, titulo:"Estruturas de repetição: for e while", conteudo:`for e while repetem blocos de código.<br><br>Exemplo for:<pre>for i in range(5):\n    print(i)</pre><br>Exemplo while:<pre>i=0\nwhile i<5:\n    print(i)\n    i+=1</pre>`},
-  {nivel:2, titulo:"break, continue e range()", conteudo:`break interrompe, continue pula, range() cria sequências.<br><br>Exemplo:<pre>for i in range(5):\n    if i==3:\n        break\n    print(i)</pre>`},
-
-  // --- Níveis 3 a 10 continuam na mesma estrutura ---
-  // Para brevidade, adicionei apenas Nível 1 e 2 completo aqui
+// Dados do curso
+const niveis = [
+  "Fundamentos",
+  "Controle de fluxo",
+  "Estruturas de dados",
+  "Funções",
+  "Módulos e arquivos",
+  "Programação estruturada",
+  "Programação orientada a objetos",
+  "Módulos externos",
+  "Projetos práticos",
+  "Avançado"
 ];
 
-// ===== Exercícios =====
-let exercicios = [];
-paginas.forEach((p,i)=>{ exercicios[i]={pergunta:`Exercício sobre: ${p.titulo}`, dificuldade:1}; });
+const conteudos = [
+  "Aprenda os fundamentos do Python: variáveis, tipos de dados e operações básicas.",
+  "Controle de fluxo: if, elif, else, operadores lógicos e loops.",
+  "Estruturas de dados: listas, tuplas, dicionários, conjuntos, manipulação de dados.",
+  "Funções: criar, chamar, parâmetros, retorno e boas práticas.",
+  "Módulos e arquivos: importar módulos, ler e escrever arquivos.",
+  "Programação estruturada: tratamento de erros, funções complexas e organização.",
+  "POO: classes, objetos, atributos, métodos e encapsulamento.",
+  "Módulos externos: pip, bibliotecas úteis para Python.",
+  "Projetos práticos: mini-projetos como calculadora, relógio e jogos simples.",
+  "Avançado: APIs, frameworks, banco de dados e automação."
+];
 
-// ===== Variáveis =====
-let paginaAtual = 0;
-let progressoModulo = Array(10).fill(0);
+const exercicios = {
+  0: [
+    {pergunta:"Qual comando imprime algo na tela em Python?", resposta:"print"},
+    {pergunta:"Como criar uma variável x com valor 10?", resposta:"x=10"}
+  ],
+  1: [
+    {pergunta:"Qual operador usa-se para 'maior que'?", resposta:">"},
+    {pergunta:"Como verificar se x é igual a y?", resposta:"=="}
+  ]
+};
 
-// ===== Funções =====
-function mostrarPagina(){
+let progresso = Array(niveis.length).fill(0);
+let nivelAtual = 0;
+let questaoAtual = 0;
+
+// Criar cards do menu
+const menuEl = document.getElementById("menu");
+niveis.forEach((nome,i)=>{
+  const card = document.createElement("div");
+  card.className="card";
+  card.innerHTML=`<h3>${i+1}. ${nome}</h3><p>Progresso: ${progresso[i]}%</p>`;
+  card.onclick = ()=>abrirNivel(i);
+  menuEl.appendChild(card);
+});
+
+function abrirNivel(id){
+  nivelAtual=id;
+  document.getElementById("menu").style.display="none";
   document.getElementById("conteudo").style.display="block";
   document.getElementById("exercicio").style.display="none";
-  document.getElementById("relatorio").style.display="none";
-  document.getElementById("titulo").innerText = paginas[paginaAtual].titulo;
-  document.getElementById("texto").innerHTML = paginas[paginaAtual].conteudo;
+  document.getElementById("titulo").innerText=niveis[id];
+  document.getElementById("texto").innerText=conteudos[id];
+  atualizarProgressBar("progressNivel",progresso[id]);
 }
 
-function proximoPagina(){
-  if(paginaAtual < paginas.length-1){ paginaAtual++; mostrarPagina(); }
-  else { alert("Última página do curso."); }
+function voltarMenu(){
+  document.getElementById("menu").style.display="flex";
+  document.getElementById("conteudo").style.display="none";
+  document.getElementById("exercicio").style.display="none";
+  atualizarMenu();
 }
 
-function anteriorPagina(){
-  if(paginaAtual>0){ paginaAtual--; mostrarPagina(); }
-}
-
-function home(){ paginaAtual=0; progressoModulo = Array(10).fill(0); atualizarProgresso(); mostrarPagina(); }
-
-function lerTexto(){ 
-  let msg = new SpeechSynthesisUtterance(); 
-  msg.text = paginas[paginaAtual].conteudo.replace(/<[^>]*>/g,''); 
-  msg.lang="pt-BR"; 
+function lerTexto(){
+  let texto=document.getElementById("texto").innerText;
+  let msg=new SpeechSynthesisUtterance();
+  msg.text=texto; msg.lang="pt-BR";
   window.speechSynthesis.speak(msg);
 }
 
-function iniciarExercicio(){ 
-  document.getElementById("conteudo").style.display="none"; 
-  document.getElementById("exercicio").style.display="block"; 
-  mostrarExercicio();
+function iniciarExercicio(){
+  if(!exercicios[nivelAtual]) {
+    alert("Nenhum exercício disponível!");
+    return;
+  }
+  document.getElementById("menu").style.display="none";
+  document.getElementById("conteudo").style.display="none";
+  document.getElementById("exercicio").style.display="block";
+  novoExercicio();
 }
 
-function mostrarExercicio(){ 
-  document.getElementById("tituloEx").innerText = `Exercício (Dificuldade ${exercicios[paginaAtual].dificuldade})`; 
-  document.getElementById("pergunta").innerText = exercicios[paginaAtual].pergunta; 
-  document.getElementById("codigo").value = ""; 
-  document.getElementById("feedback").innerText = ""; 
+function novoExercicio(){
+  let lista=exercicios[nivelAtual];
+  questaoAtual=Math.floor(Math.random()*lista.length);
+  document.getElementById("tituloEx").innerText=niveis[nivelAtual]+" - Exercício";
+  document.getElementById("pergunta").innerText=lista[questaoAtual].pergunta;
+  document.getElementById("resposta").value="";
+  document.getElementById("feedback").innerText="";
+  atualizarProgressBar("progressEx",progresso[nivelAtual]);
 }
 
-function verificarExercicio(){ 
-  let codigo = document.getElementById("codigo").value.trim(); 
-  if(codigo){ 
-    document.getElementById("feedback").innerText="Exercício concluído!"; 
-    progressoModulo[paginas[paginaAtual].nivel-1] = Math.min(100, progressoModulo[paginas[paginaAtual].nivel-1]+10); 
-    atualizarProgresso(); 
-  } else { document.getElementBy
-Id("feedback").innerText="Digite algum código para concluir."; }
+function verificar(){
+  let resposta=document.getElementById("resposta").value.trim().toLowerCase();
+  let correta=exercicios[nivelAtual][questaoAtual].resposta.toLowerCase();
+  if(resposta===correta){
+    document.getElementById("feedback").innerText="Correto!";
+    progresso[nivelAtual]+=10;
+    if(progresso[nivelAtual]>100) progresso[nivelAtual]=100;
+  } else {
+    document.getElementById("feedback").innerText="Errado! Resposta correta: "+correta;
+  }
+  atualizarProgressBar("progressEx",progresso[nivelAtual]);
 }
 
-function subirDificuldade(){
-exercicios[paginaAtual].dificuldade++;
-exercicios[paginaAtual].pergunta += " (nível mais difícil)";
-mostrarExercicio();
+function atualizarProgressBar(id,valor){
+  document.getElementById(id).style.width=valor+"%";
 }
 
-function verRelatorio(){
-document.getElementById("relatorio").style.display="block";
-document.getElementById("conteudo").style.display="none";
-document.getElementById("exercicio").style.display="none";
-let texto = "<h3>Progresso por nível:</h3>";
-for(let i=0;i<10;i++){ texto += <p>Nível ${i+1}: ${progressoModulo[i]}%</p>; }
-let total = Math.round(progressoModulo.reduce((a,b)=>a+b,0)/10);
-texto += <h3>Progresso geral: ${total}%</h3>;
-document.getElementById("relatorioTexto").innerHTML = texto;
+function atualizarMenu(){
+  const cards = document.querySelectorAll(".card");
+  cards.forEach((card,i)=>{
+    card.querySelector("p").innerText="Progresso: "+progresso[i]+"%";
+  });
 }
-
-function atualizarProgresso(){
-let total = Math.round(progressoModulo.reduce((a,b)=>a+b,0)/10);
-document.getElementById("barraProgresso").style.width = total+"%";
-document.getElementById("percentualProgresso").innerText = "Progresso: "+total+"%";
-}
-
-// ===== Inicialização =====
-mostrarPagina();
-atualizarProgresso();
 </script>
 
-</body> </html> ```
+</body>
+</html>
