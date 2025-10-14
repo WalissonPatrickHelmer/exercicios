@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python - Exercícios Nível 6 (Arquivos e Exceções)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Inter', 'sans-serif'], },
+                    colors: { 'py-dark': '#1F2937', 'py-blue': '#3B82F6', 'py-accent': '#FDE047', 'py-light': '#F9FAFB', 'py-card': '#FFFFFF', }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+        .code-block { background-color: #e2e8f0; color: #1e40af; padding: 0.75rem; border-radius: 0.5rem; margin-top: 0.75rem; overflow-x: auto; font-family: monospace; font-size: 0.9rem; }
+        .accordion-content { max-height: 0; overflow: hidden; transition: max-height 0.3s ease-out, padding 0.3s ease-out; padding: 0 1.5rem; }
+        .accordion-item[open] .accordion-content { max-height: 1000px; padding: 1rem 1.5rem 1.5rem 1.5rem; }
+        .accordion-header { cursor: pointer; }
+        .solution-box { background-color: #ecfdf5; border-left: 4px solid #059669; padding: 1rem; margin-top: 1rem; color: #065f46; font-weight: 500; display: none; }
+    </style>
+</head>
+<body class="bg-py-light font-sans">
+    <div class="max-w-4xl mx-auto p-4 sm:p-6 lg:p-8">
+        <header class="text-center py-8 bg-py-dark text-py-light rounded-2xl shadow-xl mb-8">
+            <h1 class="text-4xl font-extrabold tracking-tight sm:text-5xl">
+                🧠 Exercícios: NÍVEL 6 – Arquivos e Exceções
+            </h1>
+            <p class="mt-2 text-xl text-py-accent">Pratique Leitura/Escrita de Arquivos e Tratamento de Erros!</p>
+        </header>
+        <section class="space-y-4">
+            
+            <!-- EXERCÍCIO 1: Escrita de Arquivos (Modo 'w') -->
+            <details class="accordion-item bg-py-card shadow-lg rounded-xl overflow-hidden ring-1 ring-py-blue/10" open>
+                <summary class="accordion-header flex justify-between items-center p-6 bg-py-blue text-py-light font-semibold text-xl rounded-t-xl hover:bg-py-blue/90 transition duration-150">
+                    <span class="flex items-center"><span class="text-py-accent mr-3">1.</span> Criando um Log</span>
+                </summary>
+                <div class="accordion-content">
+                    <p class="text-gray-700 mb-4">
+                        **Desafio:** Use o bloco `with open()` no modo de escrita ('w') para criar um arquivo chamado `log.txt` e escreva o texto "Início do processamento" dentro dele.
+                    </p>
+                    <button onclick="document.getElementById('solucao-1').style.display='block'" class="mt-4 px-4 py-2 bg-green-500 text-white font-bold rounded-lg hover:bg-green-600 transition">
+                        Ver Solução
+                    </button>
+                    <div id="solucao-1" class="solution-box">
+                        **Código de Solução:**
+                        <div class="code-block" style="background-color: #f0fdf4;">
+                            with open('log.txt', 'w') as arquivo:<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;arquivo.write("Início do processamento")
+                        </div>
+                        <p class="text-gray-700 mt-2">
+                        **Resultado:** O arquivo `log.txt` será criado ou sobrescrito com o conteúdo "Início do processamento".
+                        </p>
+                    </div>
+                </div>
+            </details>
+
+            <!-- EXERCÍCIO 2: Leitura de Arquivos (Modo 'r') -->
+            <details class="accordion-item bg-py-card shadow-lg rounded-xl overflow-hidden ring-1 ring-py-blue/10">
+                <summary class="accordion-header flex justify-between items-center p-6 bg-py-blue text-py-light font-semibold text-xl rounded-t-xl hover:bg-py-blue/90 transition duration-150">
+                    <span class="flex items-center"><span class="text-py-accent mr-3">2.</span> Lendo Todo o Conteúdo</span>
+                </summary>
+                <div class="accordion-content">
+                    <p class="text-gray-700 mb-4">
+                        **Desafio:** Suponha que o arquivo `dados.txt` existe. Use o modo de leitura ('r') para ler **todo** o conteúdo e armazená-lo em uma variável `conteudo`.
+                    </p>
+                    <button onclick="document.getElementById('solucao-2').style.display='block'" class="mt-4 px-4 py-2 bg-green-500 text-white font-bold rounded-lg hover:bg-green-600 transition">
+                        Ver Solução
+                    </button>
+                    <div id="solucao-2" class="solution-box">
+                        **Código de Solução:**
+                        <div class="code-block" style="background-color: #f0fdf4;">
+                            conteudo = ""<br>
+                            try:<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;with open('dados.txt', 'r') as arquivo:<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;conteudo = arquivo.read()<br>
+                            except FileNotFoundError:<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;print("Erro: Arquivo dados.txt não encontrado.")
+                        </div>
+                    </div>
+                </div>
+            </details>
+
+            <!-- EXERCÍCIO 3: Tratamento de Exceções (ZeroDivisionError) -->
+            <details class="accordion-item bg-py-card shadow-lg rounded-xl overflow-hidden ring-1 ring-py-blue/10">
+                <summary class="accordion-header flex justify-between items-center p-6 bg-py-blue text-py-light font-semibold text-xl rounded-t-xl hover:bg-py-blue/90 transition duration-150">
+                    <span class="flex items-center"><span class="text-py-accent mr-3">3.</span> Divisão Segura</span>
+                </summary>
+                <div class="accordion-content">
+                    <p class="text-gray-700 mb-4">
+                        **Desafio:** Use um bloco `try-except` para tentar calcular `10 / 0`. Se ocorrer um erro de divisão por zero (`ZeroDivisionError`), imprima a mensagem "Não é possível dividir por zero!".
+                    </p>
+                    <button onclick="document.getElementById('solucao-3').style.display='block'" class="mt-4 px-4 py-2 bg-green-500 text-white font-bold rounded-lg hover:bg-green-600 transition">
+                        Ver Solução
+                    </button>
+                    <div id="solucao-3" class="solution-box">
+                        **Código de Solução:**
+                        <div class="code-block" style="background-color: #f0fdf4;">
+                            try:<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;resultado = 10 / 0<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;print(resultado)<br>
+                            except ZeroDivisionError:<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;print("Não é possível dividir por zero!")
+                        </div>
+                    </div>
+                </div>
+            </details>
+
+            <!-- EXERCÍCIO 4: Modo Append ('a') -->
+            <details class="accordion-item bg-py-card shadow-lg rounded-xl overflow-hidden ring-1 ring-py-blue/10">
+                <summary class="accordion-header flex justify-between items-center p-6 bg-py-blue text-py-light font-semibold text-xl rounded-t-xl hover:bg-py-blue/90 transition duration-150">
+                    <span class="flex items-center"><span class="text-py-accent mr-3">4.</span> Adicionando Linha</span>
+                </summary>
+                <div class="accordion-content">
+                    <p class="text-gray-700 mb-4">
+                        **Desafio:** Escreva um código que adicione a linha "Nova entrada de log" no final do arquivo `log.txt` (sem apagar o conteúdo existente). Lembre-se de adicionar a quebra de linha.
+                    </p>
+                    <button onclick="document.getElementById('solucao-4').style.display='block'" class="mt-4 px-4 py-2 bg-green-500 text-white font-bold rounded-lg hover:bg-green-600 transition">
+                        Ver Solução
+                    </button>
+                    <div id="solucao-4" class="solution-box">
+                        **Código de Solução:**
+                        <div class="code-block" style="background-color: #f0fdf4;">
+                            with open('log.txt', 'a') as arquivo:<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;arquivo.write("\nNova entrada de log")
+                        </div>
+                    </div>
+                </div>
+            </details>
+
+            <!-- EXERCÍCIO 5: Bloco Finally -->
+            <details class="accordion-item bg-py-card shadow-lg rounded-xl overflow-hidden ring-1 ring-py-blue/10">
+                <summary class="accordion-header flex justify-between items-center p-6 bg-py-blue text-py-light font-semibold text-xl rounded-t-xl hover:bg-py-blue/90 transition duration-150">
+                    <span class="flex items-center"><span class="text-py-accent mr-3">5.</span> Execução Garantida</span>
+                </summary>
+                <div class="accordion-content">
+                    <p class="text-gray-700 mb-4">
+                        **Desafio:** Crie um bloco `try-finally`. No `try`, tente converter a string `"abc"` para inteiro (o que falhará). No `finally`, imprima "Processo de limpeza concluído.".
+                    </p>
+                    <button onclick="document.getElementById('solucao-5').style.display='block'" class="mt-4 px-4 py-2 bg-green-500 text-white font-bold rounded-lg hover:bg-green-600 transition">
+                        Ver Solução
+                    </button>
+                    <div id="solucao-5" class="solution-box">
+                        **Código de Solução:**
+                        <div class="code-block" style="background-color: #f0fdf4;">
+                            try:<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;# Isto irá gerar um ValueError<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;numero = int("abc")<br>
+                            except ValueError:<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;print("Erro tratado: Conversão falhou.")<br>
+                            finally:<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;# Este bloco sempre executa<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;print("Processo de limpeza concluído.")
+                        </div>
+                    </div>
+                </div>
+            </details>
+            
+        </section>
+        <footer class="text-center mt-10 py-4 text-gray-500 text-sm border-t border-gray-200">
+            Fim dos Exercícios do Nível 6 – Clique em "Ver Solução" para conferir suas respostas!
+        </footer>
+    </div>
+</body>
+</html>

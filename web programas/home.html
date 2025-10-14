@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python - Roteiro Completo de 10 Níveis</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        // Configurações Tailwind para cores consistentes
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Inter', 'sans-serif'], },
+                    colors: { 'py-dark': '#1F2937', 'py-blue': '#3B82F6', 'py-accent': '#FDE047', 'py-light': '#F9FAFB', 'py-card': '#FFFFFF', }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+        /* O estilo 'hover:-translate-y-1' foi removido dos cards para se adequar ao uso de DIVs sem links wrappers */
+    </style>
+</head>
+<body class="bg-py-light font-sans min-h-screen p-4 sm:p-8">
+    <div class="max-w-4xl mx-auto">
+        <header class="text-center py-10 bg-py-dark text-py-light rounded-2xl shadow-2xl mb-12">
+            <h1 class="text-4xl font-extrabold tracking-tight sm:text-5xl">
+                🗺️ Roteiro Completo Python
+            </h1>
+            <p class="mt-2 text-xl text-py-accent font-medium">10 Níveis – Do Zero à Assincronicidade</p>
+        </header>
+
+        <section class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            
+            <!-- Nível 1: Fundamentos e Variáveis -->
+            <div class="bg-py-card p-6 rounded-xl shadow-lg ring-2 ring-py-blue/10">
+                <p class="text-sm font-semibold text-py-blue">Nível 1</p>
+                <h2 class="text-2xl font-bold text-py-dark mt-1">Fundamentos e Variáveis</h2>
+                <p class="text-gray-500 mt-2">Introdução, print(), input(), Tipos de Dados.</p>
+                <div class="flex space-x-4 mt-4">
+                    <a href="pagina1.html" class="flex-1 text-center bg-py-blue text-white font-semibold py-2 rounded-lg hover:bg-py-blue/80 transition duration-300">
+                        Abrir Conteúdo
+                    </a>
+                    <a href="pagina1_exercicios.html" class="flex-1 text-center bg-green-500 text-white font-semibold py-2 rounded-lg hover:bg-green-600 transition duration-300">
+                        Praticar (Exercícios)
+                    </a>
+                </div>
+            </div>
+
+            <!-- Nível 2: Estruturas de Controle e Iteração -->
+            <div class="bg-py-card p-6 rounded-xl shadow-lg ring-2 ring-py-blue/10">
+                <p class="text-sm font-semibold text-py-blue">Nível 2</p>
+                <h2 class="text-2xl font-bold text-py-dark mt-1">Estruturas de Controle e Iteração</h2>
+                <p class="text-gray-500 mt-2">If/Else, For Loops, While Loops.</p>
+                <div class="flex space-x-4 mt-4">
+                    <a href="pagina2.html" class="flex-1 text-center bg-py-blue text-white font-semibold py-2 rounded-lg hover:bg-py-blue/80 transition duration-300">
+                        Abrir Conteúdo
+                    </a>
+                    <a href="pagina2_exercicios.html" class="flex-1 text-center bg-green-500 text-white font-semibold py-2 rounded-lg hover:bg-green-600 transition duration-300">
+                        Praticar (Exercícios)
+                    </a>
+                </div>
+            </div>
+
+            <!-- Nível 3: Funções e Estruturas Simples -->
+            <div class="bg-py-card p-6 rounded-xl shadow-lg ring-2 ring-py-blue/10">
+                <p class="text-sm font-semibold text-py-blue">Nível 3</p>
+                <h2 class="text-2xl font-bold text-py-dark mt-1">Funções e Estruturas Simples</h2>
+                <p class="text-gray-500 mt-2">Definindo funções, Listas e Tuplas.</p>
+                <div class="flex space-x-4 mt-4">
+                    <a href="pagina3.html" class="flex-1 text-center bg-py-blue text-white font-semibold py-2 rounded-lg hover:bg-py-blue/80 transition duration-300">
+                        Abrir Conteúdo
+                    </a>
+                    <a href="pagina3_exercicios.html" class="flex-1 text-center bg-green-500 text-white font-semibold py-2 rounded-lg hover:bg-green-600 transition duration-300">
+                        Praticar (Exercícios)
+                    </a>
+                </div>
+            </div>
+
+            <!-- Nível 4: Estruturas de Dados Avançadas -->
+            <div class="bg-py-card p-6 rounded-xl shadow-lg ring-2 ring-py-blue/10">
+                <p class="text-sm font-semibold text-py-blue">Nível 4</p>
+                <h2 class="text-2xl font-bold text-py-dark mt-1">Estruturas de Dados Avançadas</h2>
+                <p class="text-gray-500 mt-2">Dicionários, Sets, Comprehensions.</p>
+                <div class="flex space-x-4 mt-4">
+                    <a href="pagina4.html" class="flex-1 text-center bg-py-blue text-white font-semibold py-2 rounded-lg hover:bg-py-blue/80 transition duration-300">
+                        Abrir Conteúdo
+                    </a>
+                    <a href="pagina4_exercicios.html" class="flex-1 text-center bg-green-500 text-white font-semibold py-2 rounded-lg hover:bg-green-600 transition duration-300">
+                        Praticar (Exercícios)
+                    </a>
+                </div>
+            </div>
+
+            <!-- Nível 5: Modularização e Pacotes -->
+            <div class="bg-py-card p-6 rounded-xl shadow-lg ring-2 ring-py-blue/10">
+                <p class="text-sm font-semibold text-py-blue">Nível 5</p>
+                <h2 class="text-2xl font-bold text-py-dark mt-1">Modularização e Pacotes</h2>
+                <p class="text-gray-500 mt-2">Import, Módulos built-in, Pip e Ambientes Virtuais.</p>
+                <div class="flex space-x-4 mt-4">
+                    <a href="pagina5.html" class="flex-1 text-center bg-py-blue text-white font-semibold py-2 rounded-lg hover:bg-py-blue/80 transition duration-300">
+                        Abrir Conteúdo
+                    </a>
+                    <a href="pagina5_exercicios.html" class="flex-1 text-center bg-green-500 text-white font-semibold py-2 rounded-lg hover:bg-green-600 transition duration-300">
+                        Praticar (Exercícios)
+                    </a>
+                </div>
+            </div>
+
+            <!-- Nível 6: Manipulação de Arquivos e Exceções -->
+            <div class="bg-py-card p-6 rounded-xl shadow-lg ring-2 ring-py-blue/10">
+                <p class="text-sm font-semibold text-py-blue">Nível 6</p>
+                <h2 class="text-2xl font-bold text-py-dark mt-1">Manipulação de Arquivos e Exceções</h2>
+                <p class="text-gray-500 mt-2">Leitura/Escrita de arquivos, Try/Except.</p>
+                <div class="flex space-x-4 mt-4">
+                    <a href="pagina6.html" class="flex-1 text-center bg-py-blue text-white font-semibold py-2 rounded-lg hover:bg-py-blue/80 transition duration-300">
+                        Abrir Conteúdo
+                    </a>
+                    <a href="pagina6_exercicios.html" class="flex-1 text-center bg-green-500 text-white font-semibold py-2 rounded-lg hover:bg-green-600 transition duration-300">
+                        Praticar (Exercícios)
+                    </a>
+                </div>
+            </div>
+
+            <!-- Nível 7: Programação Orientada a Objetos I -->
+            <div class="bg-py-card p-6 rounded-xl shadow-lg ring-2 ring-py-blue/10">
+                <p class="text-sm font-semibold text-py-blue">Nível 7</p>
+                <h2 class="text-2xl font-bold text-py-dark mt-1">Programação Orientada a Objetos I</h2>
+                <p class="text-gray-500 mt-2">Classes, Objetos, Construtores (__init__).</p>
+                <div class="flex space-x-4 mt-4">
+                    <a href="pagina7.html" class="flex-1 text-center bg-py-blue text-white font-semibold py-2 rounded-lg hover:bg-py-blue/80 transition duration-300">
+                        Abrir Conteúdo
+                    </a>
+                    <a href="pagina7_exercicios.html" class="flex-1 text-center bg-green-500 text-white font-semibold py-2 rounded-lg hover:bg-green-600 transition duration-300">
+                        Praticar (Exercícios)
+                    </a>
+                </div>
+            </div>
+
+            <!-- Nível 8: Programação Orientada a Objetos II -->
+            <div class="bg-py-card p-6 rounded-xl shadow-lg ring-2 ring-py-blue/10">
+                <p class="text-sm font-semibold text-py-blue">Nível 8</p>
+                <h2 class="text-2xl font-bold text-py-dark mt-1">Programação Orientada a Objetos II</h2>
+                <p class="text-gray-500 mt-2">Herança, Polimorfismo e Encapsulamento.</p>
+                <div class="flex space-x-4 mt-4">
+                    <a href="pagina8.html" class="flex-1 text-center bg-py-blue text-white font-semibold py-2 rounded-lg hover:bg-py-blue/80 transition duration-300">
+                        Abrir Conteúdo
+                    </a>
+                    <a href="pagina8_exercicios.html" class="flex-1 text-center bg-green-500 text-white font-semibold py-2 rounded-lg hover:bg-green-600 transition duration-300">
+                        Praticar (Exercícios)
+                    </a>
+                </div>
+            </div>
+
+            <!-- Nível 9: Desenvolvimento Web Básico -->
+            <div class="bg-py-card p-6 rounded-xl shadow-lg ring-2 ring-py-blue/10">
+                <p class="text-sm font-semibold text-py-blue">Nível 9</p>
+                <h2 class="text-2xl font-bold text-py-dark mt-1">Desenvolvimento Web Básico</h2>
+                <p class="text-gray-500 mt-2">Introdução a requisições, Flask/Django (conceitos).</p>
+                <div class="flex space-x-4 mt-4">
+                    <a href="pagina9.html" class="flex-1 text-center bg-py-blue text-white font-semibold py-2 rounded-lg hover:bg-py-blue/80 transition duration-300">
+                        Abrir Conteúdo
+                    </a>
+                    <a href="pagina9_exercicios.html" class="flex-1 text-center bg-green-500 text-white font-semibold py-2 rounded-lg hover:bg-green-600 transition duration-300">
+                        Praticar (Exercícios)
+                    </a>
+                </div>
+            </div>
+
+            <!-- Nível 10: Assincronicidade e Concorrência -->
+            <div class="bg-py-card p-6 rounded-xl shadow-lg ring-2 ring-py-blue/10">
+                <p class="text-sm font-semibold text-py-blue">Nível 10</p>
+                <h2 class="text-2xl font-bold text-py-dark mt-1">Assincronicidade e Concorrência</h2>
+                <p class="text-gray-500 mt-2">Asyncio, Threads e Multiprocessing.</p>
+                <div class="flex space-x-4 mt-4">
+                    <a href="pagina10.html" class="flex-1 text-center bg-py-blue text-white font-semibold py-2 rounded-lg hover:bg-py-blue/80 transition duration-300">
+                        Abrir Conteúdo
+                    </a>
+                    <a href="pagina10_exercicios.html" class="flex-1 text-center bg-green-500 text-white font-semibold py-2 rounded-lg hover:bg-green-600 transition duration-300">
+                        Praticar (Exercícios)
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <footer class="text-center mt-12 py-4 text-gray-500 text-sm border-t border-gray-300">
+            Comece sua jornada em Python pelo Nível 1!
+        </footer>
+    </div>
+</body>
+</html>

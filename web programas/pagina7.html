@@ -1,0 +1,163 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python Nível 7 - POO I</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Inter', 'sans-serif'], },
+                    colors: { 'py-dark': '#1F2937', 'py-blue': '#3B82F6', 'py-accent': '#FDE047', 'py-light': '#F9FAFB', 'py-card': '#FFFFFF', }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+        .code-block { background-color: #f1f5f9; color: #1e40af; padding: 0.75rem; border-radius: 0.5rem; margin-top: 0.75rem; overflow-x: auto; font-family: monospace; }
+        .accordion-content { max-height: 0; overflow: hidden; transition: max-height 0.3s ease-out, padding 0.3s ease-out; padding: 0 1.5rem; }
+        .accordion-item[open] .accordion-content { max-height: 1000px; padding: 1rem 1.5rem 1.5rem 1.5rem; }
+        .accordion-header { cursor: pointer; }
+    </style>
+</head>
+<body class="bg-py-light font-sans">
+    <div class="max-w-4xl mx-auto p-4 sm:p-6 lg:p-8">
+        <header class="text-center py-8 bg-py-dark text-py-light rounded-2xl shadow-xl mb-8">
+            <h1 class="text-4xl font-extrabold tracking-tight sm:text-5xl">
+                🏗️ NÍVEL 7 – Programação Orientada a Objetos (POO) I
+            </h1>
+        </header>
+        <section class="space-y-4">
+            
+            <!-- Tópico 1: Conceitos de Classes e Objetos -->
+            <details class="accordion-item bg-py-card shadow-lg rounded-xl overflow-hidden ring-1 ring-py-blue/10" open>
+                <summary class="accordion-header flex justify-between items-center p-6 bg-py-blue text-py-light font-semibold text-xl rounded-t-xl hover:bg-py-blue/90 transition duration-150">
+                    <span class="flex items-center"><span class="text-py-accent mr-3">1.</span> Conceitos de Classes e Objetos</span>
+                </summary>
+                <div class="accordion-content">
+                    <h3 class="font-bold text-py-dark mb-2 text-lg">Classe</h3>
+                    <p class="text-gray-700 mb-2">
+                        Uma **classe** é um *molde* ou *planta* para criar objetos. Ela define atributos (dados) e métodos (funções) que os objetos daquela classe terão.
+                    </p>
+                    <h3 class="font-bold text-py-dark mb-2 text-lg">Objeto (Instância)</h3>
+                    <p class="text-gray-700 mb-4">
+                        Um **objeto** é uma ocorrência real de uma classe. É a variável que você cria a partir do molde.
+                    </p>
+                    <div class="code-block">
+                        class Carro:<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;pass # O molde está vazio<br>
+                        <br>
+                        # Criação de objetos (instâncias)<br>
+                        meu_carro = Carro()<br>
+                        seu_carro = Carro()
+                    </div>
+                </div>
+            </details>
+
+            <!-- Tópico 2: O Construtor (__init__) e Atributos -->
+            <details class="accordion-item bg-py-card shadow-lg rounded-xl overflow-hidden ring-1 ring-py-blue/10">
+                <summary class="accordion-header flex justify-between items-center p-6 bg-py-blue text-py-light font-semibold text-xl rounded-t-xl hover:bg-py-blue/90 transition duration-150">
+                    <span class="flex items-center"><span class="text-py-accent mr-3">2.</span> O Construtor (__init__) e Atributos</span>
+                </summary>
+                <div class="accordion-content">
+                    <p class="text-gray-700 mb-4">
+                        O método **`__init__`** (dunder init) é o **construtor** da classe. Ele é chamado automaticamente ao criar um novo objeto e é usado para inicializar os **atributos** (variáveis) da instância.
+                    </p>
+                    <p class="text-gray-700 mb-2 font-medium">O Parâmetro `self`:</p>
+                    <p class="text-gray-700 mb-4 ml-4">
+                        É uma referência à instância atual do objeto, e deve ser o primeiro parâmetro de qualquer método de instância.
+                    </p>
+                    <div class="code-block">
+                        class Livro:<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;def __init__(self, titulo, autor):<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.titulo = titulo  # Atributo de instância<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.autor = autor<br>
+                        <br>
+                        livro1 = Livro("1984", "Orwell")<br>
+                        print(livro1.autor) # Orwell
+                    </div>
+                </div>
+            </details>
+
+            <!-- Tópico 3: Métodos de Instância -->
+            <details class="accordion-item bg-py-card shadow-lg rounded-xl overflow-hidden ring-1 ring-py-blue/10">
+                <summary class="accordion-header flex justify-between items-center p-6 bg-py-blue text-py-light font-semibold text-xl rounded-t-xl hover:bg-py-blue/90 transition duration-150">
+                    <span class="flex items-center"><span class="text-py-accent mr-3">3.</span> Métodos de Instância</span>
+                </summary>
+                <div class="accordion-content">
+                    <p class="text-gray-700 mb-4">
+                        Métodos de instância são funções definidas dentro da classe que operam nos atributos de um objeto específico. Eles sempre aceitam `self` como primeiro argumento.
+                    </p>
+                    <div class="code-block">
+                        class ContaBancaria:<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;def __init__(self, saldo):<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.saldo = saldo<br>
+                        <br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;def depositar(self, valor):  # Método de instância<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.saldo += valor<br>
+                        <br>
+                        minha_conta = ContaBancaria(100)<br>
+                        minha_conta.depositar(50)<br>
+                        print(minha_conta.saldo) # 150
+                    </div>
+                </div>
+            </details>
+
+            <!-- Tópico 4: Herança Simples -->
+            <details class="accordion-item bg-py-card shadow-lg rounded-xl overflow-hidden ring-1 ring-py-blue/10">
+                <summary class="accordion-header flex justify-between items-center p-6 bg-py-blue text-py-light font-semibold text-xl rounded-t-xl hover:bg-py-blue/90 transition duration-150">
+                    <span class="flex items-center"><span class="text-py-accent mr-3">4.</span> Herança Simples</span>
+                </summary>
+                <div class="accordion-content">
+                    <p class="text-gray-700 mb-4">
+                        Herança é o mecanismo onde uma classe **filha** (subclasse) herda atributos e métodos de uma classe **mãe** (superclasse). Isso promove a reutilização de código.
+                    </p>
+                    <p class="text-gray-700 mb-2 font-medium">Função `super()`:</p>
+                    <p class="text-gray-700 mb-4 ml-4">
+                        É usada para chamar métodos da classe pai, geralmente dentro do construtor.
+                    </p>
+                    <div class="code-block">
+                        class Animal:<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;def __init__(self, nome):<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.nome = nome<br>
+                        <br>
+                        class Cachorro(Animal):<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;def __init__(self, nome, raca):<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;super().__init__(nome)  # Chama o construtor do Animal<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.raca = raca
+                    </div>
+                </div>
+            </details>
+
+            <!-- Tópico 5: Encapsulamento Básico (Atributos Privados) -->
+            <details class="accordion-item bg-py-card shadow-lg rounded-xl overflow-hidden ring-1 ring-py-blue/10">
+                <summary class="accordion-header flex justify-between items-center p-6 bg-py-blue text-py-light font-semibold text-xl rounded-t-xl hover:bg-py-blue/90 transition duration-150">
+                    <span class="flex items-center"><span class="text-py-accent mr-3">5.</span> Encapsulamento Básico (Atributos Privados)</span>
+                </summary>
+                <div class="accordion-content">
+                    <p class="text-gray-700 mb-4">
+                        Encapsulamento é a prática de restringir o acesso direto a alguns dos componentes de um objeto. Em Python, não existe um encapsulamento estrito, mas usamos convenções:
+                    </p>
+                    <ul class="list-disc list-inside text-gray-700 space-y-1 ml-4 mb-4">
+                        <li>**`_variavel` (Convenção Protegida):** Sugere que a variável é para uso interno da classe ou de suas subclasses (uso mais comum).</li>
+                        <li>**`__variavel` (Mangling de Nome Privado):** Python renomeia o atributo internamente, dificultando o acesso direto de fora.</li>
+                    </ul>
+                    <div class="code-block">
+                        class Pessoa:<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;def __init__(self):<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.__cpf = "123.456.789-00" # Acesso dificultado
+                    </div>
+                </div>
+            </details>
+            
+        </section>
+        <footer class="text-center mt-10 py-4 text-gray-500 text-sm border-t border-gray-200">
+            Fim do Nível 7 – Próximo: Programação Orientada a Objetos (POO) II.
+        </footer>
+    </div>
+</body>
+</html>

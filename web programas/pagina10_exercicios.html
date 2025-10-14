@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python - Exercícios Nível 10 (Assincronicidade)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Inter', 'sans-serif'], },
+                    colors: { 'py-dark': '#1F2937', 'py-blue': '#3B82F6', 'py-accent': '#FDE047', 'py-light': '#F9FAFB', 'py-card': '#FFFFFF', }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+        .code-block { background-color: #e2e8f0; color: #1e40af; padding: 0.75rem; border-radius: 0.5rem; margin-top: 0.75rem; overflow-x: auto; font-family: monospace; font-size: 0.9rem; }
+        .accordion-content { max-height: 0; overflow: hidden; transition: max-height 0.3s ease-out, padding 0.3s ease-out; padding: 0 1.5rem; }
+        .accordion-item[open] .accordion-content { max-height: 1000px; padding: 1rem 1.5rem 1.5rem 1.5rem; }
+        .accordion-header { cursor: pointer; }
+        .solution-box { background-color: #ecfdf5; border-left: 4px solid #059669; padding: 1rem; margin-top: 1rem; color: #065f46; font-weight: 500; display: none; }
+    </style>
+</head>
+<body class="bg-py-light font-sans">
+    <div class="max-w-4xl mx-auto p-4 sm:p-6 lg:p-8">
+        <header class="text-center py-8 bg-py-dark text-py-light rounded-2xl shadow-xl mb-8">
+            <h1 class="text-4xl font-extrabold tracking-tight sm:text-5xl">
+                🧠 Exercícios: NÍVEL 10 – Assincronicidade
+            </h1>
+            <p class="mt-2 text-xl text-py-accent">Pratique Asyncio, Threads e Concorrência!</p>
+        </header>
+        <section class="space-y-4">
+            
+            <!-- EXERCÍCIO 1: Conceitos de Concorrência -->
+            <details class="accordion-item bg-py-card shadow-lg rounded-xl overflow-hidden ring-1 ring-py-blue/10" open>
+                <summary class="accordion-header flex justify-between items-center p-6 bg-py-blue text-py-light font-semibold text-xl rounded-t-xl hover:bg-py-blue/90 transition duration-150">
+                    <span class="flex items-center"><span class="text-py-accent mr-3">1.</span> Threads vs. Multiprocessing</span>
+                </summary>
+                <div class="accordion-content">
+                    <p class="text-gray-700 mb-4">
+                        **Desafio:** No Python, qual técnica (Threads ou Multiprocessing) é mais eficaz para lidar com tarefas intensivas em **CPU** (como cálculos matemáticos pesados), e por quê?
+                    </p>
+                    <button onclick="document.getElementById('solucao-1').style.display='block'" class="mt-4 px-4 py-2 bg-green-500 text-white font-bold rounded-lg hover:bg-green-600 transition">
+                        Ver Solução
+                    </button>
+                    <div id="solucao-1" class="solution-box">
+                        **Resposta:**
+                        <p class="text-gray-700 mt-2">
+                        **Multiprocessing** é mais eficaz para tarefas intensivas em CPU. Isso ocorre porque o Multiprocessing usa **processos** separados, contornando o **GIL (Global Interpreter Lock)** do Python, o que permite a execução paralela em vários núcleos da CPU. Threads, devido ao GIL, são mais adequadas para tarefas limitadas por I/O (Input/Output).
+                        </p>
+                    </div>
+                </div>
+            </details>
+
+            <!-- EXERCÍCIO 2: Async/Await (Estrutura) -->
+            <details class="accordion-item bg-py-card shadow-lg rounded-xl overflow-hidden ring-1 ring-py-blue/10">
+                <summary class="accordion-header flex justify-between items-center p-6 bg-py-blue text-py-light font-semibold text-xl rounded-t-xl hover:bg-py-blue/90 transition duration-150">
+                    <span class="flex items-center"><span class="text-py-accent mr-3">2.</span> Função Assíncrona Simples</span>
+                </summary>
+                <div class="accordion-content">
+                    <p class="text-gray-700 mb-4">
+                        **Desafio:** Escreva o esqueleto de uma função assíncrona chamada `esperar_algo()` que simula uma pausa de $1$ segundo usando `asyncio.sleep()`.
+                    </p>
+                    <button onclick="document.getElementById('solucao-2').style.display='block'" class="mt-4 px-4 py-2 bg-green-500 text-white font-bold rounded-lg hover:bg-green-600 transition">
+                        Ver Solução
+                    </button>
+                    <div id="solucao-2" class="solution-box">
+                        **Código de Solução:**
+                        <div class="code-block" style="background-color: #f0fdf4;">
+                            import asyncio<br>
+                            <br>
+                            # O 'async' define a função como uma corrotina<br>
+                            async def esperar_algo():<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;# O 'await' pausa a corrotina e cede o controle ao loop de eventos<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;await asyncio.sleep(1)<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;print("Esperei 1 segundo.")<br>
+                            <br>
+                            # Para executar:<br>
+                            # asyncio.run(esperar_algo())
+                        </div>
+                    </div>
+                </div>
+            </details>
+
+            <!-- EXERCÍCIO 3: Threading (Uso Básico) -->
+            <details class="accordion-item bg-py-card shadow-lg rounded-xl overflow-hidden ring-1 ring-py-blue/10">
+                <summary class="accordion-header flex justify-between items-center p-6 bg-py-blue text-py-light font-semibold text-xl rounded-t-xl hover:bg-py-blue/90 transition duration-150">
+                    <span class="flex items-center"><span class="text-py-accent mr-3">3.</span> Execução em Segundo Plano</span>
+                </summary>
+                <div class="accordion-content">
+                    <p class="text-gray-700 mb-4">
+                        **Desafio:** Escreva um código que usa o módulo `threading` para iniciar uma função simples `fazer_tarefa` em uma thread separada e, em seguida, espere que ela termine usando `join()`.
+                    </p>
+                    <button onclick="document.getElementById('solucao-3').style.display='block'" class="mt-4 px-4 py-2 bg-green-500 text-white font-bold rounded-lg hover:bg-green-600 transition">
+                        Ver Solução
+                    </button>
+                    <div id="solucao-3" class="solution-box">
+                        **Código de Solução:**
+                        <div class="code-block" style="background-color: #f0fdf4;">
+                            import threading<br>
+                            import time<br>
+                            <br>
+                            def fazer_tarefa():<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;time.sleep(1)<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;print("Tarefa concluída!")<br>
+                            <br>
+                            t = threading.Thread(target=fazer_tarefa)<br>
+                            t.start()  # Inicia a thread<br>
+                            t.join()   # Espera a thread terminar<br>
+                            print("Programa principal terminou.")
+                        </div>
+                    </div>
+                </div>
+            </details>
+
+            <!-- EXERCÍCIO 4: Bloqueio vs. Não-Bloqueio (Conceito) -->
+            <details class="accordion-item bg-py-card shadow-lg rounded-xl overflow-hidden ring-1 ring-py-blue/10">
+                <summary class="accordion-header flex justify-between items-center p-6 bg-py-blue text-py-light font-semibold text-xl rounded-t-xl hover:bg-py-blue/90 transition duration-150">
+                    <span class="flex items-center"><span class="text-py-accent mr-3">4.</span> Definição de Bloqueio</span>
+                </summary>
+                <div class="accordion-content">
+                    <p class="text-gray-700 mb-4">
+                        **Desafio:** Em um código síncrono, o que acontece com a execução do programa principal quando ele encontra uma função de **bloqueio** (ex: uma chamada de rede demorada)?
+                    </p>
+                    <button onclick="document.getElementById('solucao-4').style.display='block'" class="mt-4 px-4 py-2 bg-green-500 text-white font-bold rounded-lg hover:bg-green-600 transition">
+                        Ver Solução
+                    </button>
+                    <div id="solucao-4" class="solution-box">
+                        **Resposta:**
+                        <p class="text-gray-700 mt-2">
+                        O programa principal **para** a sua execução e espera (bloqueia) até que a função de bloqueio seja totalmente concluída e retorne, antes de prosseguir para a próxima linha de código.
+                        </p>
+                    </div>
+                </div>
+            </details>
+
+            <!-- EXERCÍCIO 5: Execução de Corrotinas -->
+            <details class="accordion-item bg-py-card shadow-lg rounded-xl overflow-hidden ring-1 ring-py-blue/10">
+                <summary class="accordion-header flex justify-between items-center p-6 bg-py-blue text-py-light font-semibold text-xl rounded-t-xl hover:bg-py-blue/90 transition duration-150">
+                    <span class="flex items-center"><span class="text-py-accent mr-3">5.</span> O Ponto de Entrada Asyncio</span>
+                </summary>
+                <div class="accordion-content">
+                    <p class="text-gray-700 mb-4">
+                        **Desafio:** Qual é a função principal do módulo `asyncio` que deve ser usada para iniciar e executar a primeira corrotina (função `async def`) a partir de um código síncrono (o ponto de entrada do seu programa)?
+                    </p>
+                    <button onclick="document.getElementById('solucao-5').style.display='block'" class="mt-4 px-4 py-2 bg-green-500 text-white font-bold rounded-lg hover:bg-green-600 transition">
+                        Ver Solução
+                    </button>
+                    <div id="solucao-5" class="solution-box">
+                        **Função de Solução:**
+                        <div class="code-block" style="background-color: #f0fdf4;">
+                            asyncio.run(sua_corrotina())
+                        </div>
+                        <p class="text-gray-700 mt-2">
+                        **Resposta:** A função `asyncio.run()`.
+                        </p>
+                    </div>
+                </div>
+            </details>
+            
+        </section>
+        <footer class="text-center mt-10 py-4 text-gray-500 text-sm border-t border-gray-200">
+            Fim dos Exercícios do Nível 10 – Clique em "Ver Solução" para conferir suas respostas!
+        </footer>
+    </div>
+</body>
+</html>

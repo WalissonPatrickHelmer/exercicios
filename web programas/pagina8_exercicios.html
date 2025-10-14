@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python - Exercícios Nível 8 (POO II)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Inter', 'sans-serif'], },
+                    colors: { 'py-dark': '#1F2937', 'py-blue': '#3B82F6', 'py-accent': '#FDE047', 'py-light': '#F9FAFB', 'py-card': '#FFFFFF', }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+        .code-block { background-color: #e2e8f0; color: #1e40af; padding: 0.75rem; border-radius: 0.5rem; margin-top: 0.75rem; overflow-x: auto; font-family: monospace; font-size: 0.9rem; }
+        .accordion-content { max-height: 0; overflow: hidden; transition: max-height 0.3s ease-out, padding 0.3s ease-out; padding: 0 1.5rem; }
+        .accordion-item[open] .accordion-content { max-height: 1000px; padding: 1rem 1.5rem 1.5rem 1.5rem; }
+        .accordion-header { cursor: pointer; }
+        .solution-box { background-color: #ecfdf5; border-left: 4px solid #059669; padding: 1rem; margin-top: 1rem; color: #065f46; font-weight: 500; display: none; }
+    </style>
+</head>
+<body class="bg-py-light font-sans">
+    <div class="max-w-4xl mx-auto p-4 sm:p-6 lg:p-8">
+        <header class="text-center py-8 bg-py-dark text-py-light rounded-2xl shadow-xl mb-8">
+            <h1 class="text-4xl font-extrabold tracking-tight sm:text-5xl">
+                🧠 Exercícios: NÍVEL 8 – POO II
+            </h1>
+            <p class="mt-2 text-xl text-py-accent">Pratique Herança, Polimorfismo e Encapsulamento!</p>
+        </header>
+        <section class="space-y-4">
+            
+            <!-- EXERCÍCIO 1: Herança Simples -->
+            <details class="accordion-item bg-py-card shadow-lg rounded-xl overflow-hidden ring-1 ring-py-blue/10" open>
+                <summary class="accordion-header flex justify-between items-center p-6 bg-py-blue text-py-light font-semibold text-xl rounded-t-xl hover:bg-py-blue/90 transition duration-150">
+                    <span class="flex items-center"><span class="text-py-accent mr-3">1.</span> Classe Filha</span>
+                </summary>
+                <div class="accordion-content">
+                    <p class="text-gray-700 mb-4">
+                        **Desafio:** Crie a classe `Animal` (com `__init__` para `nome`) e a classe `Cachorro` que **herda** de `Animal`. Crie um método `latir()` apenas em `Cachorro`. Crie uma instância de `Cachorro` e chame `latir()`.
+                    </p>
+                    <button onclick="document.getElementById('solucao-1').style.display='block'" class="mt-4 px-4 py-2 bg-green-500 text-white font-bold rounded-lg hover:bg-green-600 transition">
+                        Ver Solução
+                    </button>
+                    <div id="solucao-1" class="solution-box">
+                        **Código de Solução:**
+                        <div class="code-block" style="background-color: #f0fdf4;">
+                            class Animal:<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;def __init__(self, nome):<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.nome = nome<br>
+                            <br>
+                            class Cachorro(Animal):<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;def latir(self):<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print(f"{self.nome} está latindo: Au Au!")<br>
+                            <br>
+                            cao = Cachorro("Rex")<br>
+                            cao.latir() # Output: Rex está latindo: Au Au!
+                        </div>
+                    </div>
+                </div>
+            </details>
+
+            <!-- EXERCÍCIO 2: Sobrescrita de Métodos (Override) e Super() -->
+            <details class="accordion-item bg-py-card shadow-lg rounded-xl overflow-hidden ring-1 ring-py-blue/10">
+                <summary class="accordion-header flex justify-between items-center p-6 bg-py-blue text-py-light font-semibold text-xl rounded-t-xl hover:bg-py-blue/90 transition duration-150">
+                    <span class="flex items-center"><span class="text-py-accent mr-3">2.</span> Estendendo o Construtor</span>
+                </summary>
+                <div class="accordion-content">
+                    <p class="text-gray-700 mb-4">
+                        **Desafio:** Crie a classe `Funcionario` que herda de `Pessoa` (nome, idade) e adiciona o atributo `cargo`. Use `super()` para chamar o construtor da classe pai.
+                    </p>
+                    <button onclick="document.getElementById('solucao-2').style.display='block'" class="mt-4 px-4 py-2 bg-green-500 text-white font-bold rounded-lg hover:bg-green-600 transition">
+                        Ver Solução
+                    </button>
+                    <div id="solucao-2" class="solution-box">
+                        **Código de Solução:**
+                        <div class="code-block" style="background-color: #f0fdf4;">
+                            class Pessoa:<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;def __init__(self, nome, idade):<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.nome = nome<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.idade = idade<br>
+                            <br>
+                            class Funcionario(Pessoa):<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;def __init__(self, nome, idade, cargo):<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# Chamada ao construtor da classe pai<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;super().__init__(nome, idade)<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.cargo = cargo<br>
+                            <br>
+                            f = Funcionario("João", 35, "Desenvolvedor")<br>
+                            print(f"{f.nome} é {f.cargo}.") # Output: João é Desenvolvedor.
+                        </div>
+                    </div>
+                </div>
+            </details>
+
+            <!-- EXERCÍCIO 3: Encapsulamento (Atributo Privado - _) -->
+            <details class="accordion-item bg-py-card shadow-lg rounded-xl overflow-hidden ring-1 ring-py-blue/10">
+                <summary class="accordion-header flex justify-between items-center p-6 bg-py-blue text-py-light font-semibold text-xl rounded-t-xl hover:bg-py-blue/90 transition duration-150">
+                    <span class="flex items-center"><span class="text-py-accent mr-3">3.</span> Atributo Semi-Privado</span>
+                </summary>
+                <div class="accordion-content">
+                    <p class="text-gray-700 mb-4">
+                        **Desafio:** Crie a classe `Registro` com o atributo semi-privado `_senha_log` no construtor. Adicione um método `verificar_senha` que aceite uma senha e a compare com `_senha_log`.
+                    </p>
+                    <button onclick="document.getElementById('solucao-3').style.display='block'" class="mt-4 px-4 py-2 bg-green-500 text-white font-bold rounded-lg hover:bg-green-600 transition">
+                        Ver Solução
+                    </button>
+                    <div id="solucao-3" class="solution-box">
+                        **Código de Solução:**
+                        <div class="code-block" style="background-color: #f0fdf4;">
+                            class Registro:<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;def __init__(self, senha):<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# Convenção para indicar que não deve ser acessado diretamente<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self._senha_log = senha<br>
+                            <br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;def verificar_senha(self, tentativa):<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return tentativa == self._senha_log<br>
+                            <br>
+                            r = Registro("12345")<br>
+                            print(r.verificar_senha("12345")) # Output: True
+                        </div>
+                    </div>
+                </div>
+            </details>
+
+            <!-- EXERCÍCIO 4: Polimorfismo e Duck Typing -->
+            <details class="accordion-item bg-py-card shadow-lg rounded-xl overflow-hidden ring-1 ring-py-blue/10">
+                <summary class="accordion-header flex justify-between items-center p-6 bg-py-blue text-py-light font-semibold text-xl rounded-t-xl hover:bg-py-blue/90 transition duration-150">
+                    <span class="flex items-center"><span class="text-py-accent mr-3">4.</span> Ação Comum</span>
+                </summary>
+                <div class="accordion-content">
+                    <p class="text-gray-700 mb-4">
+                        **Desafio:** Crie as classes `Gato` e `Pato`, ambas com um método chamado `fazer_som()`. Defina uma função externa `executar_som(animal)` que chama o método `fazer_som()` do objeto passado.
+                    </p>
+                    <button onclick="document.getElementById('solucao-4').style.display='block'" class="mt-4 px-4 py-2 bg-green-500 text-white font-bold rounded-lg hover:bg-green-600 transition">
+                        Ver Solução
+                    </button>
+                    <div id="solucao-4" class="solution-box">
+                        **Código de Solução:**
+                        <div class="code-block" style="background-color: #f0fdf4;">
+                            class Gato:<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;def fazer_som(self):<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print("Miau")<br>
+                            <br>
+                            class Pato:<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;def fazer_som(self):<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print("Quack")<br>
+                            <br>
+                            def executar_som(animal):<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;animal.fazer_som()<br>
+                            <br>
+                            executar_som(Gato())  # Output: Miau<br>
+                            executar_som(Pato())  # Output: Quack
+                        </div>
+                    </div>
+                </div>
+            </details>
+
+            <!-- EXERCÍCIO 5: Property Decorator (Getter Conceitual) -->
+            <details class="accordion-item bg-py-card shadow-lg rounded-xl overflow-hidden ring-1 ring-py-blue/10">
+                <summary class="accordion-header flex justify-between items-center p-6 bg-py-blue text-py-light font-semibold text-xl rounded-t-xl hover:bg-py-blue/90 transition duration-150">
+                    <span class="flex items-center"><span class="text-py-accent mr-3">5.</span> Atributo Calculado</span>
+                </summary>
+                <div class="accordion-content">
+                    <p class="text-gray-700 mb-4">
+                        **Desafio:** Na classe `Retangulo` (com atributos `largura` e `altura`), use o decorator `@property` em um método `area` para que ele possa ser acessado como um atributo (sem parênteses), calculando a largura * altura.
+                    </p>
+                    <button onclick="document.getElementById('solucao-5').style.display='block'" class="mt-4 px-4 py-2 bg-green-500 text-white font-bold rounded-lg hover:bg-green-600 transition">
+                        Ver Solução
+                    </button>
+                    <div id="solucao-5" class="solution-box">
+                        **Código de Solução:**
+                        <div class="code-block" style="background-color: #f0fdf4;">
+                            class Retangulo:<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;def __init__(self, largura, altura):<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.largura = largura<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.altura = altura<br>
+                            <br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;@property<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;def area(self):<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return self.largura * self.altura<br>
+                            <br>
+                            r = Retangulo(5, 10)<br>
+                            # Acessado como atributo, não como método!<br>
+                            print(r.area) # Output: 50
+                        </div>
+                    </div>
+                </div>
+            </details>
+            
+        </section>
+        <footer class="text-center mt-10 py-4 text-gray-500 text-sm border-t border-gray-200">
+            Fim dos Exercícios do Nível 8 – Clique em "Ver Solução" para conferir suas respostas!
+        </footer>
+    </div>
+</body>
+</html>

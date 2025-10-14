@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python Nível 2 - Estruturas de Controle</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Inter', 'sans-serif'], },
+                    colors: { 'py-dark': '#1F2937', 'py-blue': '#3B82F6', 'py-accent': '#FDE047', 'py-light': '#F9FAFB', 'py-card': '#FFFFFF', }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+        .code-block { background-color: #f1f5f9; color: #1e40af; padding: 0.75rem; border-radius: 0.5rem; margin-top: 0.75rem; overflow-x: auto; font-family: monospace; }
+        .accordion-content { max-height: 0; overflow: hidden; transition: max-height 0.3s ease-out, padding 0.3s ease-out; padding: 0 1.5rem; }
+        .accordion-item[open] .accordion-content { max-height: 1000px; padding: 1rem 1.5rem 1.5rem 1.5rem; }
+        .accordion-header { cursor: pointer; }
+    </style>
+</head>
+<body class="bg-py-light font-sans">
+    <div class="max-w-4xl mx-auto p-4 sm:p-6 lg:p-8">
+        <header class="text-center py-8 bg-py-dark text-py-light rounded-2xl shadow-xl mb-8">
+            <h1 class="text-4xl font-extrabold tracking-tight sm:text-5xl">
+                🔄 NÍVEL 2 – Estruturas de Controle e Iteração
+            </h1>
+        </header>
+        <section class="space-y-4">
+
+            <!-- Tópico 1: Condicionais: if, elif, else -->
+            <details class="accordion-item bg-py-card shadow-lg rounded-xl overflow-hidden ring-1 ring-py-blue/10" open>
+                <summary class="accordion-header flex justify-between items-center p-6 bg-py-blue text-py-light font-semibold text-xl rounded-t-xl hover:bg-py-blue/90 transition duration-150">
+                    <span class="flex items-center"><span class="text-py-accent mr-3">1.</span> Condicionais: if, elif, else</span>
+                </summary>
+                <div class="accordion-content">
+                    <p class="text-gray-700 mb-4">
+                        Estruturas condicionais permitem que o programa tome decisões e execute blocos de código diferentes com base em uma condição.
+                        Lembre-se: a **indentação** (espaçamento) define o bloco de código de cada condição em Python.
+                    </p>
+                    <div class="code-block">
+                        idade = 18<br>
+                        if idade >= 18:<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;print("Você é maior de idade.")<br>
+                        elif idade >= 12:<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;print("Você é um adolescente.")<br>
+                        else:<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;print("Você é uma criança.")
+                    </div>
+                </div>
+            </details>
+
+            <!-- Tópico 2: Operadores Lógicos e de Comparação -->
+            <details class="accordion-item bg-py-card shadow-lg rounded-xl overflow-hidden ring-1 ring-py-blue/10">
+                <summary class="accordion-header flex justify-between items-center p-6 bg-py-blue text-py-light font-semibold text-xl rounded-t-xl hover:bg-py-blue/90 transition duration-150">
+                    <span class="flex items-center"><span class="text-py-accent mr-3">2.</span> Operadores Lógicos e de Comparação</span>
+                </summary>
+                <div class="accordion-content">
+                    <h3 class="font-bold text-py-dark mb-2 text-lg">Operadores de Comparação</h3>
+                    <ul class="list-disc list-inside text-gray-700 space-y-1 ml-4 mb-4">
+                        <li>Igualdade: `==`</li>
+                        <li>Diferente: `!=`</li>
+                        <li>Maior que: `>`</li>
+                        <li>Menor que: `<`</li>
+                        <li>Maior ou igual: `>=`</li>
+                        <li>Menor ou igual: `<=`</li>
+                    </ul>
+                    <h3 class="font-bold text-py-dark mb-2 text-lg">Operadores Lógicos</h3>
+                    <ul class="list-disc list-inside text-gray-700 space-y-1 ml-4 mb-4">
+                        <li>**and**: Ambas as condições devem ser verdadeiras.</li>
+                        <li>**or**: Pelo menos uma das condições deve ser verdadeira.</li>
+                        <li>**not**: Inverte o valor lógico.</li>
+                    </ul>
+                    <div class="code-block">
+                        chuva = True<br>
+                        sol = False<br>
+                        if not chuva and sol:<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;print("Dia perfeito!")
+                    </div>
+                </div>
+            </details>
+
+            <!-- Tópico 3: Laços de Repetição: for (iteração) -->
+            <details class="accordion-item bg-py-card shadow-lg rounded-xl overflow-hidden ring-1 ring-py-blue/10">
+                <summary class="accordion-header flex justify-between items-center p-6 bg-py-blue text-py-light font-semibold text-xl rounded-t-xl hover:bg-py-blue/90 transition duration-150">
+                    <span class="flex items-center"><span class="text-py-accent mr-3">3.</span> Laços de Repetição: for (iteração)</span>
+                </summary>
+                <div class="accordion-content">
+                    <p class="text-gray-700 mb-4">
+                        O laço **`for`** é usado para iterar (percorrer) sequências (como listas, strings) ou outros objetos iteráveis, como o `range()`.
+                    </p>
+                    <div class="code-block">
+                        frutas = ["maçã", "banana", "laranja"]<br>
+                        <br>
+                        # Iterando sobre uma lista<br>
+                        for fruta in frutas:<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;print(fruta)<br>
+                        <br>
+                        # Iterando com range (0 a 4)<br>
+                        for i in range(5):<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;print(i)
+                    </div>
+                </div>
+            </details>
+
+            <!-- Tópico 4: Laços de Repetição: while (condição) -->
+            <details class="accordion-item bg-py-card shadow-lg rounded-xl overflow-hidden ring-1 ring-py-blue/10">
+                <summary class="accordion-header flex justify-between items-center p-6 bg-py-blue text-py-light font-semibold text-xl rounded-t-xl hover:bg-py-blue/90 transition duration-150">
+                    <span class="flex items-center"><span class="text-py-accent mr-3">4.</span> Laços de Repetição: while (condição)</span>
+                </summary>
+                <div class="accordion-content">
+                    <p class="text-gray-700 mb-4">
+                        O laço **`while`** executa um bloco de código repetidamente enquanto uma condição for verdadeira. É crucial ter um mecanismo para a condição se tornar falsa e evitar *loops* infinitos.
+                    </p>
+                    <div class="code-block">
+                        contador = 0<br>
+                        while contador < 3:<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;print(f"Contando: {contador}")<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;contador += 1  # Incremento para evitar loop infinito
+                    </div>
+                </div>
+            </details>
+
+            <!-- Tópico 5: Break e Continue -->
+            <details class="accordion-item bg-py-card shadow-lg rounded-xl overflow-hidden ring-1 ring-py-blue/10">
+                <summary class="accordion-header flex justify-between items-center p-6 bg-py-blue text-py-light font-semibold text-xl rounded-t-xl hover:bg-py-blue/90 transition duration-150">
+                    <span class="flex items-center"><span class="text-py-accent mr-3">5.</span> Break e Continue</span>
+                </summary>
+                <div class="accordion-content">
+                    <h3 class="font-bold text-py-dark mb-2 text-lg">O comando <code class="text-py-blue">break</code></h3>
+                    <p class="text-gray-700 mb-4">
+                        Interrompe **imediatamente** o laço de repetição (`for` ou `while`) mais interno em que está e salta para a linha seguinte ao laço.
+                    </p>
+                    <h3 class="font-bold text-py-dark mb-2 text-lg">O comando <code class="text-py-blue">continue</code></h3>
+                    <p class="text-gray-700 mb-4">
+                        Pula o restante do código dentro do laço para a iteração atual e avança para a próxima iteração.
+                    </p>
+                    <div class="code-block">
+                        for i in range(10):<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;if i == 3:<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;continue # Pula o 3<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;if i == 7:<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;break # Para no 7<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;print(i)
+                    </div>
+                </div>
+            </details>
+            
+        </section>
+        <footer class="text-center mt-10 py-4 text-gray-500 text-sm border-t border-gray-200">
+            Fim do Nível 2 – Próximo: Funções e Estruturas de Dados Simples.
+        </footer>
+    </div>
+</body>
+</html>
+

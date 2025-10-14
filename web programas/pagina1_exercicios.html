@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python - Exercícios Nível 1 (Fundamentos)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Inter', 'sans-serif'], },
+                    colors: { 'py-dark': '#1F2937', 'py-blue': '#3B82F6', 'py-accent': '#FDE047', 'py-light': '#F9FAFB', 'py-card': '#FFFFFF', }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+        .code-block { background-color: #e2e8f0; color: #1e40af; padding: 0.75rem; border-radius: 0.5rem; margin-top: 0.75rem; overflow-x: auto; font-family: monospace; font-size: 0.9rem; }
+        .accordion-content { max-height: 0; overflow: hidden; transition: max-height 0.3s ease-out, padding 0.3s ease-out; padding: 0 1.5rem; }
+        .accordion-item[open] .accordion-content { max-height: 1000px; padding: 1rem 1.5rem 1.5rem 1.5rem; }
+        .accordion-header { cursor: pointer; }
+        .solution-box { background-color: #ecfdf5; border-left: 4px solid #059669; padding: 1rem; margin-top: 1rem; color: #065f46; font-weight: 500; display: none; }
+    </style>
+</head>
+<body class="bg-py-light font-sans">
+    <div class="max-w-4xl mx-auto p-4 sm:p-6 lg:p-8">
+        <header class="text-center py-8 bg-py-dark text-py-light rounded-2xl shadow-xl mb-8">
+            <h1 class="text-4xl font-extrabold tracking-tight sm:text-5xl">
+                🧠 Exercícios: NÍVEL 1 – Fundamentos
+            </h1>
+            <p class="mt-2 text-xl text-py-accent">Pratique os primeiros passos do Python!</p>
+        </header>
+        <section class="space-y-4">
+            
+            <!-- EXERCÍCIO 1: O que é Python e como executar um código -->
+            <details class="accordion-item bg-py-card shadow-lg rounded-xl overflow-hidden ring-1 ring-py-blue/10" open>
+                <summary class="accordion-header flex justify-between items-center p-6 bg-py-blue text-py-light font-semibold text-xl rounded-t-xl hover:bg-py-blue/90 transition duration-150">
+                    <span class="flex items-center"><span class="text-py-accent mr-3">1.</span> Teste de Saída de Código</span>
+                </summary>
+                <div class="accordion-content">
+                    <p class="text-gray-700 mb-4">
+                        **Pergunta:** Qual será o resultado (output) da execução desta sequência de comandos em Python?
+                    </p>
+                    <div class="code-block">
+                        print('Bem-vindo ao Python!')<br>
+                        print(2025 - 2000)
+                    </div>
+                    
+                    <button onclick="document.getElementById('solucao-1').style.display='block'" class="mt-4 px-4 py-2 bg-green-500 text-white font-bold rounded-lg hover:bg-green-600 transition">
+                        Ver Solução
+                    </button>
+                    <div id="solucao-1" class="solution-box">
+                        **Solução Esperada:**<br>
+                        Bem-vindo ao Python!<br>
+                        25
+                    </div>
+                </div>
+            </details>
+
+            <!-- EXERCÍCIO 2: print() e input() -->
+            <details class="accordion-item bg-py-card shadow-lg rounded-xl overflow-hidden ring-1 ring-py-blue/10">
+                <summary class="accordion-header flex justify-between items-center p-6 bg-py-blue text-py-light font-semibold text-xl rounded-t-xl hover:bg-py-blue/90 transition duration-150">
+                    <span class="flex items-center"><span class="text-py-accent mr-3">2.</span> Interagindo com o Usuário</span>
+                </summary>
+                <div class="accordion-content">
+                    <p class="text-gray-700 mb-4">
+                        **Desafio:** Escreva o código Python que solicita ao usuário seu animal favorito e, em seguida, exibe a mensagem: "Seu animal favorito é o [nome do animal]."
+                    </p>
+                    <button onclick="document.getElementById('solucao-2').style.display='block'" class="mt-4 px-4 py-2 bg-green-500 text-white font-bold rounded-lg hover:bg-green-600 transition">
+                        Ver Solução
+                    </button>
+                    <div id="solucao-2" class="solution-box">
+                        **Código de Solução:**
+                        <div class="code-block" style="background-color: #f0fdf4;">
+                            animal = input('Qual o seu animal favorito? ')<br>
+                            print(f"Seu animal favorito é o {animal}.")
+                        </div>
+                    </div>
+                </div>
+            </details>
+
+            <!-- EXERCÍCIO 3: Tipos de dados: int, float, str, bool -->
+            <details class="accordion-item bg-py-card shadow-lg rounded-xl overflow-hidden ring-1 ring-py-blue/10">
+                <summary class="accordion-header flex justify-between items-center p-6 bg-py-blue text-py-light font-semibold text-xl rounded-t-xl hover:bg-py-blue/90 transition duration-150">
+                    <span class="flex items-center"><span class="text-py-accent mr-3">3.</span> Classificando Tipos</span>
+                </summary>
+                <div class="accordion-content">
+                    <p class="text-gray-700 mb-4">
+                        **Desafio:** Para cada valor abaixo, indique o tipo de dado correto em Python (`int`, `float`, `str` ou `bool`):
+                        <ol class="list-decimal list-inside ml-4 space-y-2 mt-2">
+                            <li>`"True"` (com aspas)</li>
+                            <li>`42`</li>
+                            <li>`15.5`</li>
+                            <li>`False` (sem aspas)</li>
+                        </ol>
+                    </p>
+                    <button onclick="document.getElementById('solucao-3').style.display='block'" class="mt-4 px-4 py-2 bg-green-500 text-white font-bold rounded-lg hover:bg-green-600 transition">
+                        Ver Solução
+                    </button>
+                    <div id="solucao-3" class="solution-box">
+                        **Respostas:**
+                        <ol class="list-decimal list-inside ml-4 space-y-1">
+                            <li>`"True"` é **str** (String, pois está entre aspas).</li>
+                            <li>`42` é **int** (Inteiro).</li>
+                            <li>`15.5` é **float** (Decimal).</li>
+                            <li>`False` é **bool** (Booleano).</li>
+                        </ol>
+                    </div>
+                </div>
+            </details>
+
+            <!-- EXERCÍCIO 4: Variáveis e comentários -->
+            <details class="accordion-item bg-py-card shadow-lg rounded-xl overflow-hidden ring-1 ring-py-blue/10">
+                <summary class="accordion-header flex justify-between items-center p-6 bg-py-blue text-py-light font-semibold text-xl rounded-t-xl hover:bg-py-blue/90 transition duration-150">
+                    <span class="flex items-center"><span class="text-py-accent mr-3">4.</span> Organizando o Código</span>
+                </summary>
+                <div class="accordion-content">
+                    <p class="text-gray-700 mb-4">
+                        **Desafio:** Crie duas variáveis, `nome_cidade` (com um nome de cidade) e `populacao` (com um valor numérico), e adicione um comentário no início do seu código explicando o que ele faz.
+                    </p>
+                    <button onclick="document.getElementById('solucao-4').style.display='block'" class="mt-4 px-4 py-2 bg-green-500 text-white font-bold rounded-lg hover:bg-green-600 transition">
+                        Ver Solução
+                    </button>
+                    <div id="solucao-4" class="solution-box">
+                        **Código de Solução:**
+                        <div class="code-block" style="background-color: #f0fdf4;">
+                            # Este código armazena dados demográficos de uma cidade<br>
+                            nome_cidade = "Salvador"<br>
+                            populacao = 2900000
+                        </div>
+                    </div>
+                </div>
+            </details>
+
+            <!-- EXERCÍCIO 5: Operações matemáticas básicas -->
+            <details class="accordion-item bg-py-card shadow-lg rounded-xl overflow-hidden ring-1 ring-py-blue/10">
+                <summary class="accordion-header flex justify-between items-center p-6 bg-py-blue text-py-light font-semibold text-xl rounded-t-xl hover:bg-py-blue/90 transition duration-150">
+                    <span class="flex items-center"><span class="text-py-accent mr-3">5.</span> Calculadora de Média</span>
+                </summary>
+                <div class="accordion-content">
+                    <p class="text-gray-700 mb-4">
+                        **Desafio:** Crie as variáveis `nota1 = 8.0`, `nota2 = 9.0` e `nota3 = 7.5`. Em seguida, calcule a média dessas três notas e imprima o resultado.
+                    </p>
+                    <button onclick="document.getElementById('solucao-5').style.display='block'" class="mt-4 px-4 py-2 bg-green-500 text-white font-bold rounded-lg hover:bg-green-600 transition">
+                        Ver Solução
+                    </button>
+                    <div id="solucao-5" class="solution-box">
+                        **Código de Solução:**
+                        <div class="code-block" style="background-color: #f0fdf4;">
+                            nota1 = 8.0<br>
+                            nota2 = 9.0<br>
+                            nota3 = 7.5<br>
+                            <br>
+                            # O cálculo da média é a soma dividida pela quantidade de notas (3)<br>
+                            media = (nota1 + nota2 + nota3) / 3<br>
+                            print(media) # O output será 8.16666...
+                        </div>
+                    </div>
+                </div>
+            </details>
+            
+        </section>
+        <footer class="text-center mt-10 py-4 text-gray-500 text-sm border-t border-gray-200">
+            Fim dos Exercícios do Nível 1 – Clique em "Ver Solução" para conferir suas respostas!
+        </footer>
+    </div>
+</body>
+</html>

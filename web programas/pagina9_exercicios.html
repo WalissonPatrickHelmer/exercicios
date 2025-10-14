@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python - Exercícios Nível 9 (Web Básico)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Inter', 'sans-serif'], },
+                    colors: { 'py-dark': '#1F2937', 'py-blue': '#3B82F6', 'py-accent': '#FDE047', 'py-light': '#F9FAFB', 'py-card': '#FFFFFF', }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+        .code-block { background-color: #e2e8f0; color: #1e40af; padding: 0.75rem; border-radius: 0.5rem; margin-top: 0.75rem; overflow-x: auto; font-family: monospace; font-size: 0.9rem; }
+        .accordion-content { max-height: 0; overflow: hidden; transition: max-height 0.3s ease-out, padding 0.3s ease-out; padding: 0 1.5rem; }
+        .accordion-item[open] .accordion-content { max-height: 1000px; padding: 1rem 1.5rem 1.5rem 1.5rem; }
+        .accordion-header { cursor: pointer; }
+        .solution-box { background-color: #ecfdf5; border-left: 4px solid #059669; padding: 1rem; margin-top: 1rem; color: #065f46; font-weight: 500; display: none; }
+    </style>
+</head>
+<body class="bg-py-light font-sans">
+    <div class="max-w-4xl mx-auto p-4 sm:p-6 lg:p-8">
+        <header class="text-center py-8 bg-py-dark text-py-light rounded-2xl shadow-xl mb-8">
+            <h1 class="text-4xl font-extrabold tracking-tight sm:text-5xl">
+                🧠 Exercícios: NÍVEL 9 – Desenvolvimento Web Básico
+            </h1>
+            <p class="mt-2 text-xl text-py-accent">Pratique Requisições, JSON e Conceitos Web!</p>
+        </header>
+        <section class="space-y-4">
+            
+            <!-- EXERCÍCIO 1: Requisições HTTP (Conceito) -->
+            <details class="accordion-item bg-py-card shadow-lg rounded-xl overflow-hidden ring-1 ring-py-blue/10" open>
+                <summary class="accordion-header flex justify-between items-center p-6 bg-py-blue text-py-light font-semibold text-xl rounded-t-xl hover:bg-py-blue/90 transition duration-150">
+                    <span class="flex items-center"><span class="text-py-accent mr-3">1.</span> Métodos HTTP</span>
+                </summary>
+                <div class="accordion-content">
+                    <p class="text-gray-700 mb-4">
+                        **Desafio:** Qual método HTTP é comumente usado para **recuperar/obter** dados de um servidor (ex: buscar uma lista de produtos) e qual é usado para **enviar** dados novos (ex: criar um novo usuário)?
+                    </p>
+                    <button onclick="document.getElementById('solucao-1').style.display='block'" class="mt-4 px-4 py-2 bg-green-500 text-white font-bold rounded-lg hover:bg-green-600 transition">
+                        Ver Solução
+                    </button>
+                    <div id="solucao-1" class="solution-box">
+                        **Respostas:**<br>
+                        - Para **obter/recuperar** dados: Método **GET**.<br>
+                        - Para **enviar/criar** dados: Método **POST**.
+                    </div>
+                </div>
+            </details>
+
+            <!-- EXERCÍCIO 2: Módulo Requests (Estrutura) -->
+            <details class="accordion-item bg-py-card shadow-lg rounded-xl overflow-hidden ring-1 ring-py-blue/10">
+                <summary class="accordion-header flex justify-between items-center p-6 bg-py-blue text-py-light font-semibold text-xl rounded-t-xl hover:bg-py-blue/90 transition duration-150">
+                    <span class="flex items-center"><span class="text-py-accent mr-3">2.</span> Fazendo um GET Simples</span>
+                </summary>
+                <div class="accordion-content">
+                    <p class="text-gray-700 mb-4">
+                        **Desafio:** Supondo que o módulo `requests` esteja instalado, escreva o código para fazer uma requisição GET para o URL `"https://api.exemplo.com/data"` e armazene a resposta na variável `response`.
+                    </p>
+                    <button onclick="document.getElementById('solucao-2').style.display='block'" class="mt-4 px-4 py-2 bg-green-500 text-white font-bold rounded-lg hover:bg-green-600 transition">
+                        Ver Solução
+                    </button>
+                    <div id="solucao-2" class="solution-box">
+                        **Código de Solução:**
+                        <div class="code-block" style="background-color: #f0fdf4;">
+                            import requests<br>
+                            <br>
+                            url = "https://api.exemplo.com/data"<br>
+                            response = requests.get(url)<br>
+                            # print(response.status_code)  # Exemplo de uso
+                        </div>
+                    </div>
+                </div>
+            </details>
+
+            <!-- EXERCÍCIO 3: JSON (Desserialização) -->
+            <details class="accordion-item bg-py-card shadow-lg rounded-xl overflow-hidden ring-1 ring-py-blue/10">
+                <summary class="accordion-header flex justify-between items-center p-6 bg-py-blue text-py-light font-semibold text-xl rounded-t-xl hover:bg-py-blue/90 transition duration-150">
+                    <span class="flex items-center"><span class="text-py-accent mr-3">3.</span> Convertendo JSON</span>
+                </summary>
+                <div class="accordion-content">
+                    <p class="text-gray-700 mb-4">
+                        **Desafio:** Dada a string JSON `json_string = '{"produto": "Mouse", "preco": 50.0}'`, use o módulo `json` para convertê-la em um dicionário Python e imprima o valor do produto.
+                    </p>
+                    <button onclick="document.getElementById('solucao-3').style.display='block'" class="mt-4 px-4 py-2 bg-green-500 text-white font-bold rounded-lg hover:bg-green-600 transition">
+                        Ver Solução
+                    </button>
+                    <div id="solucao-3" class="solution-box">
+                        **Código de Solução:**
+                        <div class="code-block" style="background-color: #f0fdf4;">
+                            import json<br>
+                            <br>
+                            json_string = '{"produto": "Mouse", "preco": 50.0}'<br>
+                            <br>
+                            # json.loads() converte string JSON para objeto Python (dict)<br>
+                            dados = json.loads(json_string)<br>
+                            print(dados['produto']) # Output: Mouse
+                        </div>
+                    </div>
+                </div>
+            </details>
+
+            <!-- EXERCÍCIO 4: Status HTTP (Conceito) -->
+            <details class="accordion-item bg-py-card shadow-lg rounded-xl overflow-hidden ring-1 ring-py-blue/10">
+                <summary class="accordion-header flex justify-between items-center p-6 bg-py-blue text-py-light font-semibold text-xl rounded-t-xl hover:bg-py-blue/90 transition duration-150">
+                    <span class="flex items-center"><span class="text-py-accent mr-3">4.</span> Códigos de Resposta</span>
+                </summary>
+                <div class="accordion-content">
+                    <p class="text-gray-700 mb-4">
+                        **Desafio:** Associe os seguintes códigos de status HTTP ao seu significado correto: 
+                        <ol class="list-decimal list-inside ml-4 space-y-2 mt-2">
+                            <li>$200$</li>
+                            <li>$404$</li>
+                            <li>$500$</li>
+                        </ol>
+                    </p>
+                    <button onclick="document.getElementById('solucao-4').style.display='block'" class="mt-4 px-4 py-2 bg-green-500 text-white font-bold rounded-lg hover:bg-green-600 transition">
+                        Ver Solução
+                    </button>
+                    <div id="solucao-4" class="solution-box">
+                        **Significado dos Códigos:**
+                        <ol class="list-decimal list-inside ml-4 space-y-1">
+                            <li>$200$: **OK** (Sucesso na requisição).</li>
+                            <li>$404$: **Not Found** (Recurso não encontrado no servidor).</li>
+                            <li>$500$: **Internal Server Error** (Erro interno no servidor).</li>
+                        </ol>
+                    </div>
+                </div>
+            </details>
+
+            <!-- EXERCÍCIO 5: Frameworks Web (Conceito) -->
+            <details class="accordion-item bg-py-card shadow-lg rounded-xl overflow-hidden ring-1 ring-py-blue/10">
+                <summary class="accordion-header flex justify-between items-center p-6 bg-py-blue text-py-light font-semibold text-xl rounded-t-xl hover:bg-py-blue/90 transition duration-150">
+                    <span class="flex items-center"><span class="text-py-accent mr-3">5.</span> Roteamento Flask (Conceito)</span>
+                </summary>
+                <div class="accordion-content">
+                    <p class="text-gray-700 mb-4">
+                        **Desafio:** No contexto do framework Flask, qual decorator é usado logo acima de uma função para mapear essa função para o URL raiz ("/") de um servidor web?
+                    </p>
+                    <button onclick="document.getElementById('solucao-5').style.display='block'" class="mt-4 px-4 py-2 bg-green-500 text-white font-bold rounded-lg hover:bg-green-600 transition">
+                        Ver Solução
+                    </button>
+                    <div id="solucao-5" class="solution-box">
+                        **Código de Solução (Conceitual):**
+                        <div class="code-block" style="background-color: #f0fdf4;">
+                            # Exemplo no Flask:<br>
+                            @app.route('/')<br>
+                            def home():<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;return "Hello World"
+                        </div>
+                        <p class="text-gray-700 mt-2">
+                        **Resposta:** O decorator `@app.route('/')`.
+                        </p>
+                    </div>
+                </div>
+            </details>
+            
+        </section>
+        <footer class="text-center mt-10 py-4 text-gray-500 text-sm border-t border-gray-200">
+            Fim dos Exercícios do Nível 9 – Clique em "Ver Solução" para conferir suas respostas!
+        </footer>
+    </div>
+</body>
+</html>
+

@@ -1,0 +1,147 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python Nível 5 - Modularização e Pacotes</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Inter', 'sans-serif'], },
+                    colors: { 'py-dark': '#1F2937', 'py-blue': '#3B82F6', 'py-accent': '#FDE047', 'py-light': '#F9FAFB', 'py-card': '#FFFFFF', }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+        .code-block { background-color: #f1f5f9; color: #1e40af; padding: 0.75rem; border-radius: 0.5rem; margin-top: 0.75rem; overflow-x: auto; font-family: monospace; }
+        .accordion-content { max-height: 0; overflow: hidden; transition: max-height 0.3s ease-out, padding 0.3s ease-out; padding: 0 1.5rem; }
+        .accordion-item[open] .accordion-content { max-height: 1000px; padding: 1rem 1.5rem 1.5rem 1.5rem; }
+        .accordion-header { cursor: pointer; }
+    </style>
+</head>
+<body class="bg-py-light font-sans">
+    <div class="max-w-4xl mx-auto p-4 sm:p-6 lg:p-8">
+        <header class="text-center py-8 bg-py-dark text-py-light rounded-2xl shadow-xl mb-8">
+            <h1 class="text-4xl font-extrabold tracking-tight sm:text-5xl">
+                📦 NÍVEL 5 – Modularização e Pacotes
+            </h1>
+        </header>
+        <section class="space-y-4">
+            
+            <!-- Tópico 1: Criação e Importação de Módulos -->
+            <details class="accordion-item bg-py-card shadow-lg rounded-xl overflow-hidden ring-1 ring-py-blue/10" open>
+                <summary class="accordion-header flex justify-between items-center p-6 bg-py-blue text-py-light font-semibold text-xl rounded-t-xl hover:bg-py-blue/90 transition duration-150">
+                    <span class="flex items-center"><span class="text-py-accent mr-3">1.</span> Criação e Importação de Módulos</span>
+                </summary>
+                <div class="accordion-content">
+                    <p class="text-gray-700 mb-4">
+                        Um **módulo** é simplesmente um arquivo `.py` contendo funções, classes e variáveis que você pode reutilizar em outros programas. Isso mantém o código organizado.
+                    </p>
+                    <p class="text-gray-700 mb-2 font-medium">Formas de Importar:</p>
+                    <ul class="list-disc list-inside text-gray-700 space-y-1 ml-4 mb-4">
+                        <li>`import modulo`: Importa o módulo inteiro. Você acessa com `modulo.funcao()`.</li>
+                        <li>`from modulo import funcao`: Importa apenas o item desejado. Você acessa diretamente com `funcao()`.</li>
+                        <li>`import modulo as alias`: Importa com um nome abreviado.</li>
+                    </ul>
+                    <div class="code-block">
+                        # Se você tem um arquivo 'calculadora.py' com a função 'somar'<br>
+                        import calculadora<br>
+                        print(calculadora.somar(5, 3))
+                    </div>
+                </div>
+            </details>
+
+            <!-- Tópico 2: Uso de __name__ == '__main__' -->
+            <details class="accordion-item bg-py-card shadow-lg rounded-xl overflow-hidden ring-1 ring-py-blue/10">
+                <summary class="accordion-header flex justify-between items-center p-6 bg-py-blue text-py-light font-semibold text-xl rounded-t-xl hover:bg-py-blue/90 transition duration-150">
+                    <span class="flex items-center"><span class="text-py-accent mr-3">2.</span> Uso de __name__ == '__main__'</span>
+                </summary>
+                <div class="accordion-content">
+                    <p class="text-gray-700 mb-4">
+                        A variável especial `__name__` contém o nome do módulo. Se o módulo for executado diretamente (como script principal), `__name__` será igual a `"__main__"`. Se for importado, `__name__` será o nome do arquivo.
+                    </p>
+                    <p class="text-gray-700 mb-4">
+                        Isso é usado para definir qual código deve ser executado **somente** quando o arquivo é o ponto de entrada principal do programa.
+                    </p>
+                    <div class="code-block">
+                        def executar():<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;print("Executando como script principal.")<br>
+                        <br>
+                        if __name__ == '__main__':<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;executar()
+                    </div>
+                </div>
+            </details>
+
+            <!-- Tópico 3: Criação de Pacotes Python -->
+            <details class="accordion-item bg-py-card shadow-lg rounded-xl overflow-hidden ring-1 ring-py-blue/10">
+                <summary class="accordion-header flex justify-between items-center p-6 bg-py-blue text-py-light font-semibold text-xl rounded-t-xl hover:bg-py-blue/90 transition duration-150">
+                    <span class="flex items-center"><span class="text-py-accent mr-3">3.</span> Criação de Pacotes Python</span>
+                </summary>
+                <div class="accordion-content">
+                    <p class="text-gray-700 mb-4">
+                        Um **pacote** é uma coleção de módulos organizados em pastas (diretórios). Isso facilita a organização de projetos grandes. Um diretório é reconhecido como um pacote se contiver um arquivo especial chamado `__init__.py` (que pode estar vazio).
+                    </p>
+                    <p class="text-gray-700 mb-2 font-medium">Estrutura:</p>
+                    <div class="code-block">
+                        MeuProjeto/<br>
+                        ├── pacote_principal/<br>
+                        │&nbsp;&nbsp;&nbsp;&nbsp;├── __init__.py<br>
+                        │&nbsp;&nbsp;&nbsp;&nbsp;└── modulo_a.py<br>
+                        └── main.py
+                    </div>
+                    <p class="text-gray-700 mt-4">
+                        Para importar: `from pacote_principal import modulo_a`
+                    </p>
+                </div>
+            </details>
+
+            <!-- Tópico 4: Gerenciamento de Ambientes Virtuais (venv/conda) -->
+            <details class="accordion-item bg-py-card shadow-lg rounded-xl overflow-hidden ring-1 ring-py-blue/10">
+                <summary class="accordion-header flex justify-between items-center p-6 bg-py-blue text-py-light font-semibold text-xl rounded-t-xl hover:bg-py-blue/90 transition duration-150">
+                    <span class="flex items-center"><span class="text-py-accent mr-3">4.</span> Gerenciamento de Ambientes Virtuais (venv/conda)</span>
+                </summary>
+                <div class="accordion-content">
+                    <p class="text-gray-700 mb-4">
+                        Ambientes virtuais são essenciais para isolar as dependências de diferentes projetos.
+                        Eles garantem que as bibliotecas instaladas em um projeto não interfiram em outro.
+                    </p>
+                    <p class="text-gray-700 mb-2 font-medium">Comandos Básicos com `venv`:</p>
+                    <ul class="list-disc list-inside text-gray-700 space-y-1 ml-4 mb-4">
+                        <li>**Criar:** `python -m venv meu_ambiente`</li>
+                        <li>**Ativar (Windows):** `.\meu_ambiente\Scripts\activate`</li>
+                        <li>**Ativar (Linux/macOS):** `source meu_ambiente/bin/activate`</li>
+                    </ul>
+                </div>
+            </details>
+
+            <!-- Tópico 5: Instalação e Uso de Bibliotecas Externas (pip) -->
+            <details class="accordion-item bg-py-card shadow-lg rounded-xl overflow-hidden ring-1 ring-py-blue/10">
+                <summary class="accordion-header flex justify-between items-center p-6 bg-py-blue text-py-light font-semibold text-xl rounded-t-xl hover:bg-py-blue/90 transition duration-150">
+                    <span class="flex items-center"><span class="text-py-accent mr-3">5.</span> Instalação e Uso de Bibliotecas Externas (pip)</span>
+                </summary>
+                <div class="accordion-content">
+                    <p class="text-gray-700 mb-4">
+                        **`pip`** é o gerenciador de pacotes padrão do Python, usado para instalar, atualizar e remover bibliotecas do PyPI (Python Package Index).
+                    </p>
+                    <p class="text-gray-700 mb-2 font-medium">Comandos Essenciais:</p>
+                    <ul class="list-disc list-inside text-gray-700 space-y-1 ml-4 mb-4">
+                        <li>**Instalar:** `pip install nome_do_pacote` (Ex: `pip install requests`)</li>
+                        <li>**Gerar lista de dependências:** `pip freeze > requirements.txt`</li>
+                        <li>**Instalar a partir de lista:** `pip install -r requirements.txt`</li>
+                    </ul>
+                </div>
+            </details>
+            
+        </section>
+        <footer class="text-center mt-10 py-4 text-gray-500 text-sm border-t border-gray-200">
+            Fim do Nível 5 – Próximo: Manipulação de Arquivos e Exceções.
+        </footer>
+    </div>
+</body>
+</html>

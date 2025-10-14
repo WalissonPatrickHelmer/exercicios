@@ -1,0 +1,159 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python Nível 8 - POO II</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Inter', 'sans-serif'], },
+                    colors: { 'py-dark': '#1F2937', 'py-blue': '#3B82F6', 'py-accent': '#FDE047', 'py-light': '#F9FAFB', 'py-card': '#FFFFFF', }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+        .code-block { background-color: #f1f5f9; color: #1e40af; padding: 0.75rem; border-radius: 0.5rem; margin-top: 0.75rem; overflow-x: auto; font-family: monospace; }
+        .accordion-content { max-height: 0; overflow: hidden; transition: max-height 0.3s ease-out, padding 0.3s ease-out; padding: 0 1.5rem; }
+        .accordion-item[open] .accordion-content { max-height: 1000px; padding: 1rem 1.5rem 1.5rem 1.5rem; }
+        .accordion-header { cursor: pointer; }
+    </style>
+</head>
+<body class="bg-py-light font-sans">
+    <div class="max-w-4xl mx-auto p-4 sm:p-6 lg:p-8">
+        <header class="text-center py-8 bg-py-dark text-py-light rounded-2xl shadow-xl mb-8">
+            <h1 class="text-4xl font-extrabold tracking-tight sm:text-5xl">
+                ✨ NÍVEL 8 – Programação Orientada a Objetos (POO) II
+            </h1>
+        </header>
+        <section class="space-y-4">
+            
+            <!-- Tópico 1: Polimorfismo e Duck Typing -->
+            <details class="accordion-item bg-py-card shadow-lg rounded-xl overflow-hidden ring-1 ring-py-blue/10" open>
+                <summary class="accordion-header flex justify-between items-center p-6 bg-py-blue text-py-light font-semibold text-xl rounded-t-xl hover:bg-py-blue/90 transition duration-150">
+                    <span class="flex items-center"><span class="text-py-accent mr-3">1.</span> Polimorfismo e Duck Typing</span>
+                </summary>
+                <div class="accordion-content">
+                    <h3 class="font-bold text-py-dark mb-2 text-lg">Polimorfismo (Muitas Formas)</h3>
+                    <p class="text-gray-700 mb-2">
+                        Permite que objetos de diferentes classes sejam tratados de forma uniforme. Em Python, isso geralmente significa que classes diferentes podem ter métodos com o mesmo nome.
+                    </p>
+                    <h3 class="font-bold text-py-dark mb-2 text-lg">Duck Typing (Tipagem Pato)</h3>
+                    <p class="text-gray-700 mb-4">
+                        Filosofia de Python: "Se parece com um pato e grasna como um pato, então é um pato." O tipo de um objeto é definido pelo que ele PODE fazer (seus métodos e atributos), e não pelo tipo de classe que ele é.
+                    </p>
+                    <div class="code-block">
+                        class Pato: def fazer_som(self): return "Quack"<br>
+                        class Cachorro: def fazer_som(self): return "Au-au"<br>
+                        <br>
+                        def ouvir_som(animal):<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;print(animal.fazer_som())<br>
+                        <br>
+                        ouvir_som(Pato()) # Funciona, pois Pato tem o método fazer_som()
+                    </div>
+                </div>
+            </details>
+
+            <!-- Tópico 2: Métodos de Classe (@classmethod) e Estáticos (@staticmethod) -->
+            <details class="accordion-item bg-py-card shadow-lg rounded-xl overflow-hidden ring-1 ring-py-blue/10">
+                <summary class="accordion-header flex justify-between items-center p-6 bg-py-blue text-py-light font-semibold text-xl rounded-t-xl hover:bg-py-blue/90 transition duration-150">
+                    <span class="flex items-center"><span class="text-py-accent mr-3">2.</span> Métodos de Classe (@classmethod) e Estáticos (@staticmethod)</span>
+                </summary>
+                <div class="accordion-content">
+                    <h3 class="font-bold text-py-dark mb-2 text-lg">Método de Classe (`@classmethod`)</h3>
+                    <p class="text-gray-700 mb-2 ml-4">
+                        Recebe a própria classe (`cls`) como primeiro argumento. É usado principalmente como construtores alternativos (factories).
+                    </p>
+                    <h3 class="font-bold text-py-dark mb-2 text-lg">Método Estático (`@staticmethod`)</h3>
+                    <p class="text-gray-700 mb-4 ml-4">
+                        Não recebe `self` nem `cls`. É uma função associada à classe, mas que não depende do estado da instância ou da classe (como uma função auxiliar).
+                    </p>
+                    <div class="code-block">
+                        class Usuario:<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;@staticmethod<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;def validar_idade(idade):<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return idade >= 18
+                    </div>
+                </div>
+            </details>
+
+            <!-- Tópico 3: Propriedades (@property) e Getters/Setters -->
+            <details class="accordion-item bg-py-card shadow-lg rounded-xl overflow-hidden ring-1 ring-py-blue/10">
+                <summary class="accordion-header flex justify-between items-center p-6 bg-py-blue text-py-light font-semibold text-xl rounded-t-xl hover:bg-py-blue/90 transition duration-150">
+                    <span class="flex items-center"><span class="text-py-accent mr-3">3.</span> Propriedades (@property) e Getters/Setters</span>
+                </summary>
+                <div class="accordion-content">
+                    <p class="text-gray-700 mb-4">
+                        O decorador **`@property`** permite que um método seja acessado como um atributo. Isso é ideal para criar **getters** (métodos de leitura) e **setters** (métodos de escrita/validação) de forma pythonica.
+                    </p>
+                    <div class="code-block">
+                        class Retangulo:<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;def __init__(self, largura):<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self._largura = largura # Atributo privado<br>
+                        <br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;@property<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;def largura(self):<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return self._largura # Getter<br>
+                        <br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;@largura.setter<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;def largura(self, nova_largura):<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if nova_largura > 0: self._largura = nova_largura # Setter com validação
+                    </div>
+                </div>
+            </details>
+
+            <!-- Tópico 4: Métodos Mágicos (Dunder Methods) I -->
+            <details class="accordion-item bg-py-card shadow-lg rounded-xl overflow-hidden ring-1 ring-py-blue/10">
+                <summary class="accordion-header flex justify-between items-center p-6 bg-py-blue text-py-light font-semibold text-xl rounded-t-xl hover:bg-py-blue/90 transition duration-150">
+                    <span class="flex items-center"><span class="text-py-accent mr-3">4.</span> Métodos Mágicos (Dunder Methods) I</span>
+                </summary>
+                <div class="accordion-content">
+                    <p class="text-gray-700 mb-4">
+                        Métodos Mágicos (ou Dunder Methods) são métodos especiais em Python que têm sublinhados duplos no início e no final (ex: `__init__`, `__str__`). Eles permitem que suas classes interajam com funções e operadores embutidos.
+                    </p>
+                    <ul class="list-disc list-inside text-gray-700 space-y-1 ml-4 mb-4">
+                        <li>**`__str__`**: Define o que será exibido quando você usar `print(objeto)`.</li>
+                        <li>**`__repr__`**: Define a representação oficial do objeto (útil para debug).</li>
+                        <li>**`__len__`**: Define o que é retornado por `len(objeto)`.</li>
+                    </ul>
+                    <div class="code-block">
+                        class Ponto: <br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;def __init__(self, x, y):<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.x, self.y = x, y<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;def __str__(self):<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return f"Ponto({self.x}, {self.y})"
+                    </div>
+                </div>
+            </details>
+
+            <!-- Tópico 5: Herança Múltipla e MRO -->
+            <details class="accordion-item bg-py-card shadow-lg rounded-xl overflow-hidden ring-1 ring-py-blue/10">
+                <summary class="accordion-header flex justify-between items-center p-6 bg-py-blue text-py-light font-semibold text-xl rounded-t-xl hover:bg-py-blue/90 transition duration-150">
+                    <span class="flex items-center"><span class="text-py-accent mr-3">5.</span> Herança Múltipla e MRO</span>
+                </summary>
+                <div class="accordion-content">
+                    <p class="text-gray-700 mb-4">
+                        Python permite que uma classe herde de múltiplas classes pais (Herança Múltipla). Quando métodos ou atributos com o mesmo nome existem em classes diferentes, Python usa a **MRO (Method Resolution Order)** para decidir qual método chamar.
+                    </p>
+                    <p class="text-gray-700 mb-2 font-medium">Como verificar o MRO:</p>
+                    <ul class="list-disc list-inside text-gray-700 space-y-1 ml-4 mb-4">
+                        <li>`MinhaClasse.mro()` ou `MinhaClasse.__mro__`</li>
+                    </ul>
+                    <p class="text-gray-700 mt-2">
+                        A MRO segue o algoritmo C3, que garante uma ordem de busca consistente. Use `super()` para garantir que você chame os métodos na ordem correta da MRO.
+                    </p>
+                </div>
+            </details>
+            
+        </section>
+        <footer class="text-center mt-10 py-4 text-gray-500 text-sm border-t border-gray-200">
+            Fim do Nível 8 – Próximo: Desenvolvimento Web Básico.
+        </footer>
+    </div>
+</body>
+</html>

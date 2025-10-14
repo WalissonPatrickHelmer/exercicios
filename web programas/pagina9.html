@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python Nível 9 - Desenvolvimento Web Básico</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Inter', 'sans-serif'], },
+                    colors: { 'py-dark': '#1F2937', 'py-blue': '#3B82F6', 'py-accent': '#FDE047', 'py-light': '#F9FAFB', 'py-card': '#FFFFFF', }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+        .code-block { background-color: #f1f5f9; color: #1e40af; padding: 0.75rem; border-radius: 0.5rem; margin-top: 0.75rem; overflow-x: auto; font-family: monospace; }
+        .accordion-content { max-height: 0; overflow: hidden; transition: max-height 0.3s ease-out, padding 0.3s ease-out; padding: 0 1.5rem; }
+        .accordion-item[open] .accordion-content { max-height: 1000px; padding: 1rem 1.5rem 1.5rem 1.5rem; }
+        .accordion-header { cursor: pointer; }
+    </style>
+</head>
+<body class="bg-py-light font-sans">
+    <div class="max-w-4xl mx-auto p-4 sm:p-6 lg:p-8">
+        <header class="text-center py-8 bg-py-dark text-py-light rounded-2xl shadow-xl mb-8">
+            <h1 class="text-4xl font-extrabold tracking-tight sm:text-5xl">
+                🌐 NÍVEL 9 – Desenvolvimento Web Básico
+            </h1>
+        </header>
+        <section class="space-y-4">
+            
+            <!-- Tópico 1: Introdução a Frameworks Web (Flask/Django) -->
+            <details class="accordion-item bg-py-card shadow-lg rounded-xl overflow-hidden ring-1 ring-py-blue/10" open>
+                <summary class="accordion-header flex justify-between items-center p-6 bg-py-blue text-py-light font-semibold text-xl rounded-t-xl hover:bg-py-blue/90 transition duration-150">
+                    <span class="flex items-center"><span class="text-py-accent mr-3">1.</span> Introdução a Frameworks Web (Flask/Django)</span>
+                </summary>
+                <div class="accordion-content">
+                    <p class="text-gray-700 mb-4">
+                        Frameworks Web facilitam a criação de aplicações. Eles fornecem ferramentas, bibliotecas e padrões para automatizar tarefas comuns como roteamento e manipulação de requisições.
+                    </p>
+                    <ul class="list-disc list-inside text-gray-700 space-y-1 ml-4 mb-4">
+                        <li>**Flask:** Micro-framework, leve e ideal para projetos pequenos e APIs simples.</li>
+                        <li>**Django:** Full-stack framework, robusto e ideal para projetos grandes, com ORM e administração nativos.</li>
+                    </ul>
+                    <div class="code-block">
+                        # Exemplo Básico (Flask)<br>
+                        from flask import Flask<br>
+                        app = Flask(__name__)<br>
+                        <br>
+                        @app.route('/')<br>
+                        def index():<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;return 'Olá Mundo com Flask!'
+                    </div>
+                </div>
+            </details>
+
+            <!-- Tópico 2: Criação de Rotas (Routing) -->
+            <details class="accordion-item bg-py-card shadow-lg rounded-xl overflow-hidden ring-1 ring-py-blue/10">
+                <summary class="accordion-header flex justify-between items-center p-6 bg-py-blue text-py-light font-semibold text-xl rounded-t-xl hover:bg-py-blue/90 transition duration-150">
+                    <span class="flex items-center"><span class="text-py-accent mr-3">2.</span> Criação de Rotas (Routing)</span>
+                </summary>
+                <div class="accordion-content">
+                    <p class="text-gray-700 mb-4">
+                        Roteamento (Routing) é o mapeamento de URLs (endereços da web) para funções Python que geram a resposta. Em Flask, usamos o decorador `@app.route()`.
+                    </p>
+                    <div class="code-block">
+                        # Rota dinâmica que aceita um nome na URL<br>
+                        @app.route('/perfil/<nome>')<br>
+                        def perfil(nome):<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;return f"Bem-vindo, {nome.capitalize()}"
+                    </div>
+                </div>
+            </details>
+
+            <!-- Tópico 3: Manipulação de Requisições HTTP (GET/POST) -->
+            <details class="accordion-item bg-py-card shadow-lg rounded-xl overflow-hidden ring-1 ring-py-blue/10">
+                <summary class="accordion-header flex justify-between items-center p-6 bg-py-blue text-py-light font-semibold text-xl rounded-t-xl hover:bg-py-blue/90 transition duration-150">
+                    <span class="flex items-center"><span class="text-py-accent mr-3">3.</span> Manipulação de Requisições HTTP (GET/POST)</span>
+                </summary>
+                <div class="accordion-content">
+                    <p class="text-gray-700 mb-4">
+                        Requisições HTTP são como o navegador e o servidor se comunicam.
+                    </p>
+                    <ul class="list-disc list-inside text-gray-700 space-y-1 ml-4 mb-4">
+                        <li>**GET:** Usado para buscar ou ler dados (o método padrão).</li>
+                        <li>**POST:** Usado para enviar dados ao servidor (como enviar um formulário).</li>
+                    </ul>
+                    <div class="code-block">
+                        from flask import request<br>
+                        <br>
+                        @app.route('/login', methods=['GET', 'POST'])<br>
+                        def login():<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;if request.method == 'POST':<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;nome = request.form['nome']<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return f"Usuário {nome} logado!"
+                    </div>
+                </div>
+            </details>
+
+            <!-- Tópico 4: Criação de Templates (HTML Rendering) -->
+            <details class="accordion-item bg-py-card shadow-lg rounded-xl overflow-hidden ring-1 ring-py-blue/10">
+                <summary class="accordion-header flex justify-between items-center p-6 bg-py-blue text-py-light font-semibold text-xl rounded-t-xl hover:bg-py-blue/90 transition duration-150">
+                    <span class="flex items-center"><span class="text-py-accent mr-3">4.</span> Criação de Templates (HTML Rendering)</span>
+                </summary>
+                <div class="accordion-content">
+                    <p class="text-gray-700 mb-4">
+                        Templates são arquivos (geralmente HTML) que contêm código de *placeholder* que o Python preenche dinamicamente antes de enviar a resposta ao navegador. O Flask usa o motor de templates **Jinja2**.
+                    </p>
+                    <ul class="list-disc list-inside text-gray-700 space-y-1 ml-4 mb-4">
+                        <li>Usamos `{{ variavel }}` para exibir dados.</li>
+                        <li>Usamos `{% if ... %} / {% for ... %}` para lógica.</li>
+                    </ul>
+                    <div class="code-block">
+                        from flask import render_template<br>
+                        <br>
+                        @app.route('/')<br>
+                        def index():<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;# Renderiza 'index.html' passando o nome 'Visitante'<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;return render_template('index.html', nome='Visitante')
+                    </div>
+                </div>
+            </details>
+
+            <!-- Tópico 5: Integração com Banco de Dados Simples -->
+            <details class="accordion-item bg-py-card shadow-lg rounded-xl overflow-hidden ring-1 ring-py-blue/10">
+                <summary class="accordion-header flex justify-between items-center p-6 bg-py-blue text-py-light font-semibold text-xl rounded-t-xl hover:bg-py-blue/90 transition duration-150">
+                    <span class="flex items-center"><span class="text-py-accent mr-3">5.</span> Integração com Banco de Dados Simples</span>
+                </summary>
+                <div class="accordion-content">
+                    <p class="text-gray-700 mb-4">
+                        Para projetos básicos em Python, o **SQLite** é um banco de dados embutido leve e sem servidor. Muitos frameworks, como Flask, se integram bem com SQLite via bibliotecas como **SQLAlchemy** (um ORM).
+                    </p>
+                    <p class="text-gray-700 mb-2 font-medium">Conceitos chave:</p>
+                    <ul class="list-disc list-inside text-gray-700 space-y-1 ml-4 mb-4">
+                        <li>**ORM (Object-Relational Mapper):** Permite interagir com o banco de dados usando objetos Python em vez de código SQL puro.</li>
+                        <li>**CRUD:** As quatro operações básicas: Create, Read, Update, Delete.</li>
+                    </ul>
+                </div>
+            </details>
+            
+        </section>
+        <footer class="text-center mt-10 py-4 text-gray-500 text-sm border-t border-gray-200">
+            Fim do Nível 9 – Próximo: Assincronicidade e Concorrência.
+        </footer>
+    </div>
+</body>
+</html>
+
