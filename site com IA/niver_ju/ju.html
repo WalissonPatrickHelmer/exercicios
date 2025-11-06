@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feliz Aniversário, Ju!</title>
+    <!-- Carrega Tailwind CSS para estilização moderna e responsiva -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Configuração do Google Font 'Inter' -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+    <style>
+        /* Define a fonte Inter para toda a página */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #fce7f3; /* Rosa muito claro */
+            /* Adiciona um padrão sutil para um toque festivo */
+            background-image: radial-gradient(#fecaca 10%, transparent 10%), radial-gradient(#fca5a5 10%, transparent 10%);
+            background-size: 60px 60px;
+            background-position: 0 0, 30px 30px;
+            min-height: 100vh;
+        }
+
+        /* Classe para o efeito de Confete/Brilho (apenas CSS) */
+        .confetti-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: hidden;
+            z-index: 10;
+        }
+
+        /* Estilo base para os confetes */
+        .confetti {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background-color: transparent;
+            border-radius: 50%;
+            opacity: 0;
+            transform: translateY(-100vh) rotate(0deg);
+            animation: fall 5s linear infinite;
+        }
+
+        /* Cores variadas para os confetes */
+        .confetti:nth-child(3n) { background-color: #facc15; /* Amarelo (Ouro) */ animation-delay: 0.5s; }
+        .confetti:nth-child(3n+1) { background-color: #ec4899; /* Pink */ animation-delay: 1s; }
+        .confetti:nth-child(3n+2) { background-color: #8b5cf6; /* Roxo */ animation-delay: 1.5s; }
+
+        /* Posicionamento e tamanho aleatórios */
+        .confetti:nth-child(1) { left: 10%; animation-duration: 4s; }
+        .confetti:nth-child(2) { left: 25%; animation-duration: 6s; }
+        .confetti:nth-child(3) { left: 40%; animation-duration: 3s; }
+        .confetti:nth-child(4) { left: 55%; animation-duration: 5s; }
+        .confetti:nth-child(5) { left: 70%; animation-duration: 7s; }
+        .confetti:nth-child(6) { left: 85%; animation-duration: 4.5s; }
+        .confetti:nth-child(7) { left: 5%; animation-duration: 5.5s; }
+        .confetti:nth-child(8) { left: 95%; animation-duration: 3.5s; }
+        .confetti:nth-child(9) { left: 30%; animation-duration: 6.5s; }
+        .confetti:nth-child(10) { left: 60%; animation-duration: 4.2s; }
+
+        /* Animação de queda */
+        @keyframes fall {
+            0% { transform: translateY(-10vh) rotate(0deg); opacity: 0; }
+            5% { opacity: 1; }
+            95% { opacity: 1; }
+            100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
+        }
+
+        /* Classe para o slide do carrossel */
+        .carousel-slide {
+            transition: opacity 0.5s ease-in-out;
+        }
+        .h-96-fixed {
+            height: 24rem; /* Altura fixa para o carrossel, equivalente a h-96 */
+        }
+    </style>
+</head>
+<body class="flex items-center justify-center p-4">
+
+    <!-- Confetti Overlay (Efeito de Brilho) -->
+    <div class="confetti-overlay">
+        <!-- 10 Confetes para um efeito sutil e festivo -->
+        <div class="confetti"></div>
+        <div class="confetti"></div>
+        <div class="confetti"></div>
+        <div class="confetti"></div>
+        <div class="confetti"></div>
+        <div class="confetti"></div>
+        <div class="confetti"></div>
+        <div class="confetti"></div>
+        <div class="confetti"></div>
+        <div class="confetti"></div>
+    </div>
+
+    <!-- Container Principal do Cartão -->
+    <div class="w-full max-w-lg bg-white shadow-2xl rounded-xl p-6 md:p-10 text-center relative z-20 transform transition-all duration-500 hover:scale-[1.01]">
+        
+        <!-- Emoji de Destaque -->
+        <div id="emoji-display" class="text-7xl mb-4 animate-bounce">
+            🎂
+        </div>
+
+        <!-- Título Principal -->
+        <h1 class="text-5xl md:text-6xl font-extrabold text-purple-600 mb-2 leading-tight">
+            Feliz Aniversário, Juliana!
+        </h1>
+        <p class="text-xl md:text-2xl font-medium text-pink-500 mb-8">
+            Que a sua jornada seja repleta de luz e alegria!
+        </p>
+
+        <!-- IMAGEM 1: ju.jpeg (Visível por Padrão) -->
+        <img 
+            src="ju.jpeg" 
+            alt="Foto Especial da Ju" 
+            class="w-full h-auto rounded-lg shadow-lg mb-8 object-cover border-4 border-purple-300"
+            onerror="this.src='https://placehold.co/400x300/f0abfc/111827?text=Imagem+principal+não+encontrada'"
+        >
+
+        <!-- Botão Interativo -->
+        <button id="surpriseButton" class="w-full py-3 px-6 bg-pink-500 text-white font-bold text-lg rounded-full shadow-lg hover:bg-pink-600 transition duration-300 transform hover:scale-105 active:scale-95 focus:outline-none focus:ring-4 focus:ring-pink-300">
+            Clique para Revelar a Mensagem e as Fotos Especiais! 🎁
+        </button>
+
+        <!-- Área da Mensagem Surpresa (Inicialmente Escondida) -->
+        <div id="surpriseMessage" class="hidden mt-8 p-6 bg-purple-100 border-l-4 border-purple-500 rounded-lg text-left transition-all duration-500">
+            <h3 class="text-2xl font-semibold text-purple-800 mb-3">
+                É Dia de Celebrar!
+            </h3>
+            <p class="text-gray-700 leading-relaxed italic">
+                Minha Deusa, que dia especial! Não só te desejo muita saúde e felicidade, mas também **muita festa, risadas incontroláveis, danças desastradas e brindes com os amigos** até o sol nascer. Que a vida continue te dando motivos para brilhar e que a gente celebre muitos e muitos anos juntos!
+            </p>
+            <p class="text-lg font-bold text-pink-600 mt-4">
+                Com todo o meu carinho (e desejo de te ver na pista!), <span id="signature">[Seu Amor Secreto]</span>
+            </p>
+        </div>
+        
+        <!-- NOVO CONTAINER PARA CARROSSEL E LINK (Inicialmente Escondido) -->
+        <div id="carouselContainer" class="hidden mt-6">
+            
+            <h3 class="text-xl font-bold text-purple-600 mb-4">Nossos Melhores Momentos:</h3>
+            
+            <!-- CARROSSEL DE IMAGENS -->
+            <div id="imageCarousel" class="relative w-full overflow-hidden rounded-lg shadow-xl border-4 border-pink-300 h-96-fixed">
+                <!-- Slides e Botões são injetados pelo JavaScript -->
+            </div>
+
+            <!-- LINK INSTAGRAM -->
+            <a id="instagramLink" href="https://www.instagram.com/p/DQsyqHCjUOr/?img_index=1" target="_blank" class="block mt-6 p-3 bg-indigo-500 text-white font-semibold rounded-lg hover:bg-indigo-600 transition duration-300 transform hover:scale-[1.02] shadow-md">
+                <p class="text-base font-bold">Lembre sempre de momentos especiais!</p>
+                <p class="text-sm opacity-90 mt-1">@juuhabreeu no Instagram</p>
+            </a>
+        </div>
+
+    </div>
+
+    <script>
+        const surpriseButton = document.getElementById('surpriseButton');
+        const surpriseMessage = document.getElementById('surpriseMessage');
+        const emojiDisplay = document.getElementById('emoji-display');
+        const carouselContainer = document.getElementById('carouselContainer');
+        const imageCarousel = document.getElementById('imageCarousel');
+
+        // Lista das 11 imagens para o carrossel.
+        const carouselImages = [
+            '01 (1).jpeg', '01 (2).jpeg', '01 (3).jpeg', '01 (4).jpeg', 
+            '01 (5).jpeg', '01 (6).jpeg', '01 (7).jpeg', '01 (8).jpeg', 
+            '01 (9).jpeg', '01 (10).jpeg', '01 (11).jpeg'
+        ];
+        let currentSlide = 0;
+
+        // Função para gerar e inicializar os slides do carrossel
+        function initCarousel() {
+            imageCarousel.innerHTML = ''; // Limpa conteúdo
+
+            carouselImages.forEach((src, index) => {
+                const imgDiv = document.createElement('div');
+                // Adiciona classes para posicionamento absoluto, transição e controle de visibilidade
+                imgDiv.className = `carousel-slide absolute top-0 left-0 w-full h-full ${index === 0 ? 'opacity-100' : 'opacity-0'}`;
+                imgDiv.innerHTML = `
+                    <img src="${src}" alt="Momento Especial ${index + 1}" 
+                         class="w-full h-full object-cover rounded-lg" 
+                         onerror="this.src='https://placehold.co/400x384/8b5cf6/ffffff?text=Imagem+${index + 1}+Não+Encontrada';" />
+                `;
+                imgDiv.style.zIndex = index === 0 ? 10 : 1;
+                imgDiv.dataset.index = index;
+                imageCarousel.appendChild(imgDiv);
+            });
+
+            // Adiciona botões de navegação
+            imageCarousel.innerHTML += `
+                <!-- Botão Anterior -->
+                <button id="prevBtn" class="absolute top-1/2 left-3 transform -translate-y-1/2 bg-black bg-opacity-50 text-white p-2 rounded-full hover:bg-opacity-75 transition z-20 text-2xl" onclick="changeSlide(-1)">&#10094;</button>
+                <!-- Botão Próximo -->
+                <button id="nextBtn" class="absolute top-1/2 right-3 transform -translate-y-1/2 bg-black bg-opacity-50 text-white p-2 rounded-full hover:bg-opacity-75 transition z-20 text-2xl" onclick="changeSlide(1)">&#10095;</button>
+            `;
+        }
+
+        // Função para manipular a mudança de slide
+        function changeSlide(direction) {
+            const slides = document.querySelectorAll('.carousel-slide');
+            if (slides.length === 0) return;
+
+            // Esconde slide atual
+            slides[currentSlide].classList.remove('opacity-100');
+            slides[currentSlide].classList.add('opacity-0');
+            slides[currentSlide].style.zIndex = 1;
+
+            // Calcula novo índice do slide
+            currentSlide = (currentSlide + direction + slides.length) % slides.length;
+
+            // Mostra novo slide
+            slides[currentSlide].classList.remove('opacity-0');
+            slides[currentSlide].classList.add('opacity-100');
+            slides[currentSlide].style.zIndex = 10;
+        }
+
+
+        // Função para mostrar a mensagem e o carrossel surpresa
+        surpriseButton.addEventListener('click', () => {
+            // Se a mensagem estiver escondida, revele-a
+            if (surpriseMessage.classList.contains('hidden')) {
+                // 1. Mostrar Mensagem
+                surpriseMessage.classList.remove('hidden');
+                surpriseMessage.classList.add('animate-fadeInUp');
+                
+                // 2. Mostrar Carrossel e Link
+                carouselContainer.classList.remove('hidden');
+                initCarousel(); // Inicializa o carrossel
+                
+                // 3. Atualizar Botão e Emoji
+                surpriseButton.textContent = 'Obrigado por ler! 🎂';
+                surpriseButton.disabled = true;
+                emojiDisplay.innerHTML = '🎂'; // Mantém o emoji do bolo
+
+                // Pequeno ajuste visual para a animação
+                setTimeout(() => {
+                    surpriseMessage.style.opacity = '1';
+                    surpriseMessage.style.transform = 'translateY(0)';
+                }, 10);
+            }
+        });
+        
+        // Adiciona a assinatura sugestiva
+        document.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('signature').textContent = 'Seu Amor Secreto';
+        });
+
+        // Torna a função changeSlide global para ser usada nos botões onclick
+        window.changeSlide = changeSlide;
+
+    </script>
+</body>
+</html>
