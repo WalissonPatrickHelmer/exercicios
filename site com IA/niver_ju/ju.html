@@ -4,10 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Feliz Aniversário, Ju!</title>
-    <!-- Carrega Tailwind CSS para estilização moderna e responsiva -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Configuração do Google Font 'Inter' -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+    <!-- Carrega Tailwind CSS para estilização moderna e responsiva --><script src="https://cdn.tailwindcss.com"></script>
+    <!-- Configuração do Google Font 'Inter' --><link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
     <style>
         /* Define a fonte Inter para toda a página */
         body {
@@ -80,10 +78,8 @@
 </head>
 <body class="flex items-center justify-center p-4">
 
-    <!-- Confetti Overlay (Efeito de Brilho) -->
-    <div class="confetti-overlay">
-        <!-- 10 Confetes para um efeito sutil e festivo -->
-        <div class="confetti"></div>
+    <!-- Confetti Overlay (Efeito de Brilho) --><div class="confetti-overlay">
+        <!-- 10 Confetes para um efeito sutil e festivo --><div class="confetti"></div>
         <div class="confetti"></div>
         <div class="confetti"></div>
         <div class="confetti"></div>
@@ -95,37 +91,31 @@
         <div class="confetti"></div>
     </div>
 
-    <!-- Container Principal do Cartão -->
-    <div class="w-full max-w-lg bg-white shadow-2xl rounded-xl p-6 md:p-10 text-center relative z-20 transform transition-all duration-500 hover:scale-[1.01]">
+    <!-- Container Principal do Cartão --><div class="w-full max-w-lg bg-white shadow-2xl rounded-xl p-6 md:p-10 text-center relative z-20 transform transition-all duration-500 hover:scale-[1.01]">
         
-        <!-- Emoji de Destaque -->
-        <div id="emoji-display" class="text-7xl mb-4 animate-bounce">
+        <!-- Emoji de Destaque --><div id="emoji-display" class="text-7xl mb-4 animate-bounce">
             🎂
         </div>
 
-        <!-- Título Principal -->
-        <h1 class="text-5xl md:text-6xl font-extrabold text-purple-600 mb-2 leading-tight">
+        <!-- Título Principal --><h1 class="text-5xl md:text-6xl font-extrabold text-purple-600 mb-2 leading-tight">
             Feliz Aniversário, Juliana!
         </h1>
         <p class="text-xl md:text-2xl font-medium text-pink-500 mb-8">
             Que a sua jornada seja repleta de luz e alegria!
         </p>
 
-        <!-- IMAGEM 1: ju.jpeg (Visível por Padrão) -->
-        <img 
+        <!-- IMAGEM 1: ju.jpeg (Visível por Padrão) --><img 
             src="ju.jpeg" 
             alt="Foto Especial da Ju" 
             class="w-full h-auto rounded-lg shadow-lg mb-8 object-cover border-4 border-purple-300"
             onerror="this.src='https://placehold.co/400x300/f0abfc/111827?text=Imagem+principal+não+encontrada'"
         >
 
-        <!-- Botão Interativo -->
-        <button id="surpriseButton" class="w-full py-3 px-6 bg-pink-500 text-white font-bold text-lg rounded-full shadow-lg hover:bg-pink-600 transition duration-300 transform hover:scale-105 active:scale-95 focus:outline-none focus:ring-4 focus:ring-pink-300">
+        <!-- Botão Interativo --><button id="surpriseButton" class="w-full py-3 px-6 bg-pink-500 text-white font-bold text-lg rounded-full shadow-lg hover:bg-pink-600 transition duration-300 transform hover:scale-105 active:scale-95 focus:outline-none focus:ring-4 focus:ring-pink-300">
             Clique para Revelar a Mensagem e as Fotos Especiais! 🎁
         </button>
 
-        <!-- Área da Mensagem Surpresa (Inicialmente Escondida) -->
-        <div id="surpriseMessage" class="hidden mt-8 p-6 bg-purple-100 border-l-4 border-purple-500 rounded-lg text-left transition-all duration-500">
+        <!-- Área da Mensagem Surpresa (Inicialmente Escondida) --><div id="surpriseMessage" class="hidden mt-8 p-6 bg-purple-100 border-l-4 border-purple-500 rounded-lg text-left transition-all duration-500">
             <h3 class="text-2xl font-semibold text-purple-800 mb-3">
                 É Dia de Celebrar!
             </h3>
@@ -137,20 +127,16 @@
             </p>
         </div>
         
-        <!-- NOVO CONTAINER PARA CARROSSEL E LINK (Inicialmente Escondido) -->
-        <div id="carouselContainer" class="hidden mt-6">
+        <!-- NOVO CONTAINER PARA CARROSSEL E LINK (Inicialmente Escondido) --><div id="carouselContainer" class="hidden mt-6">
             
             <h3 class="text-xl font-bold text-purple-600 mb-4">Nossos Melhores Momentos:</h3>
             
-            <!-- CARROSSEL DE IMAGENS -->
-            <div id="imageCarousel" class="relative w-full overflow-hidden rounded-lg shadow-xl border-4 border-pink-300 h-96-fixed">
-                <!-- Slides e Botões são injetados pelo JavaScript -->
-            </div>
+            <!-- CARROSSEL DE IMAGENS --><div id="imageCarousel" class="relative w-full overflow-hidden rounded-lg shadow-xl border-4 border-pink-300 h-96-fixed">
+                <!-- Slides e Botões são injetados pelo JavaScript --></div>
 
-            <!-- LINK INSTAGRAM -->
-            <a id="instagramLink" href="https://www.instagram.com/p/DQsyqHCjUOr/?img_index=1" target="_blank" class="block mt-6 p-3 bg-indigo-500 text-white font-semibold rounded-lg hover:bg-indigo-600 transition duration-300 transform hover:scale-[1.02] shadow-md">
+            <!-- LINK INSTAGRAM --><!-- Endereço do Instagram atualizado para o link específico fornecido --><a id="instagramLink" href="https://www.instagram.com/p/DQsyqHCjUOr/?img_index=1" target="_blank" class="block mt-6 p-3 bg-indigo-500 text-white font-semibold rounded-lg hover:bg-indigo-600 transition duration-300 transform hover:scale-[1.02] shadow-md">
                 <p class="text-base font-bold">Lembre sempre de momentos especiais!</p>
-                <p class="text-sm opacity-90 mt-1">@juuhabreeu no Instagram</p>
+                <!-- Removendo o @ do perfil, já que o link é para uma postagem específica --><p class="text-sm opacity-90 mt-1">Ver postagem no Instagram</p>
             </a>
         </div>
 
@@ -163,13 +149,32 @@
         const carouselContainer = document.getElementById('carouselContainer');
         const imageCarousel = document.getElementById('imageCarousel');
 
-        // Lista das 11 imagens para o carrossel.
+        // LISTA ATUALIZADA com 16 imagens para o carrossel.
         const carouselImages = [
             '01 (1).jpeg', '01 (2).jpeg', '01 (3).jpeg', '01 (4).jpeg', 
             '01 (5).jpeg', '01 (6).jpeg', '01 (7).jpeg', '01 (8).jpeg', 
-            '01 (9).jpeg', '01 (10).jpeg', '01 (11).jpeg'
+            '01 (9).jpeg', '01 (10).jpeg', '01 (11).jpeg', '01 (12).jpeg',
+            '01 (13).jpeg', '01 (14).jpeg', '01 (15).jpeg', '01 (16).jpeg' // Nova imagem adicionada
         ];
         let currentSlide = 0;
+
+        /**
+         * Carrega a imagem real de um slide específico se ela ainda estiver usando o placeholder (otimização).
+         * @param {number} index O índice do slide a ser carregado.
+         */
+        function loadSlideImage(index) {
+            const slide = document.querySelector(`.carousel-slide[data-index="${index}"]`);
+            if (slide) {
+                const img = slide.querySelector('img');
+                const dataSrc = img.getAttribute('data-src');
+                // Verifica se a imagem ainda é o placeholder base64 (indicando que não foi carregada)
+                if (dataSrc && img.src.includes('data:image/gif')) {
+                    img.src = dataSrc; // Força o carregamento da imagem real
+                    img.classList.remove('bg-gray-200'); // Remove o fundo placeholder
+                }
+            }
+        }
+
 
         // Função para gerar e inicializar os slides do carrossel
         function initCarousel() {
@@ -179,23 +184,40 @@
                 const imgDiv = document.createElement('div');
                 // Adiciona classes para posicionamento absoluto, transição e controle de visibilidade
                 imgDiv.className = `carousel-slide absolute top-0 left-0 w-full h-full ${index === 0 ? 'opacity-100' : 'opacity-0'}`;
-                imgDiv.innerHTML = `
-                    <img src="${src}" alt="Momento Especial ${index + 1}" 
-                         class="w-full h-full object-cover rounded-lg" 
-                         onerror="this.src='https://placehold.co/400x384/8b5cf6/ffffff?text=Imagem+${index + 1}+Não+Encontrada';" />
-                `;
                 imgDiv.style.zIndex = index === 0 ? 10 : 1;
                 imgDiv.dataset.index = index;
+
+                const imageElement = document.createElement('img');
+                imageElement.alt = `Momento Especial ${index + 1}`;
+                // Adiciona a classe bg-gray-200 para dar um feedback visual enquanto carrega
+                imageElement.className = 'w-full h-full object-cover rounded-lg bg-gray-200';
+                
+                // Armazena o caminho da imagem real em data-src
+                imageElement.setAttribute('data-src', src);
+                // Fallback caso a imagem não seja encontrada
+                imageElement.setAttribute('onerror', `this.src='https://placehold.co/400x384/8b5cf6/ffffff?text=Imagem+${index + 1}+Não+Encontrada';`);
+                
+                // LAZY LOADING: Apenas o primeiro slide tem o src carregado imediatamente
+                if (index === 0) {
+                    imageElement.src = src; // Carrega a primeira imagem imediatamente
+                    imageElement.classList.remove('bg-gray-200');
+                } else {
+                    // Placeholder minúsculo e transparente para evitar o carregamento dos outros 14 arquivos
+                    imageElement.src = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7';
+                }
+
+                imgDiv.appendChild(imageElement);
                 imageCarousel.appendChild(imgDiv);
             });
 
             // Adiciona botões de navegação
             imageCarousel.innerHTML += `
-                <!-- Botão Anterior -->
-                <button id="prevBtn" class="absolute top-1/2 left-3 transform -translate-y-1/2 bg-black bg-opacity-50 text-white p-2 rounded-full hover:bg-opacity-75 transition z-20 text-2xl" onclick="changeSlide(-1)">&#10094;</button>
-                <!-- Botão Próximo -->
-                <button id="nextBtn" class="absolute top-1/2 right-3 transform -translate-y-1/2 bg-black bg-opacity-50 text-white p-2 rounded-full hover:bg-opacity-75 transition z-20 text-2xl" onclick="changeSlide(1)">&#10095;</button>
+                <!-- Botão Anterior --><button id="prevBtn" class="absolute top-1/2 left-3 transform -translate-y-1/2 bg-black bg-opacity-50 text-white p-2 rounded-full hover:bg-opacity-75 transition z-20 text-2xl" onclick="changeSlide(-1)">&#10094;</button>
+                <!-- Botão Próximo --><button id="nextBtn" class="absolute top-1/2 right-3 transform -translate-y-1/2 bg-black bg-opacity-50 text-white p-2 rounded-full hover:bg-opacity-75 transition z-20 text-2xl" onclick="changeSlide(1)">&#10095;</button>
             `;
+            
+            // Pré-carrega a próxima imagem para melhorar a experiência do usuário
+            loadSlideImage((currentSlide + 1) % carouselImages.length);
         }
 
         // Função para manipular a mudança de slide
@@ -215,6 +237,11 @@
             slides[currentSlide].classList.remove('opacity-0');
             slides[currentSlide].classList.add('opacity-100');
             slides[currentSlide].style.zIndex = 10;
+            
+            // LAZY LOADING: Carrega a imagem do slide atual e do próximo
+            loadSlideImage(currentSlide);
+            const nextSlideIndex = (currentSlide + 1) % slides.length;
+            loadSlideImage(nextSlideIndex);
         }
 
 
@@ -228,7 +255,7 @@
                 
                 // 2. Mostrar Carrossel e Link
                 carouselContainer.classList.remove('hidden');
-                initCarousel(); // Inicializa o carrossel
+                initCarousel(); // Inicializa o carrossel (com lazy loading)
                 
                 // 3. Atualizar Botão e Emoji
                 surpriseButton.textContent = 'Obrigado por ler! 🎂';
@@ -250,7 +277,6 @@
 
         // Torna a função changeSlide global para ser usada nos botões onclick
         window.changeSlide = changeSlide;
-
     </script>
 </body>
 </html>
